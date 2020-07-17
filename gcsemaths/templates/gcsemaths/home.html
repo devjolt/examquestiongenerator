@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">GCSE Maths</li>
+    </ol>
+</nav>
+
+
+
+<div class="jumbotron text-left bg-light">
+    <div class="container">
+      <h1>Welcome to the GCSE Maths page!</h1>
+      <p>There'll also be a map of the entire GCSE syllabus underneath eventually.</p>
+      <hr>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Number</h5>
+              <div class="alert alert-warning" role="alert">
+                Under construction
+              </div>
+              <p>
+              <a href="number/" class="btn btn-primary">Let me choose</a>
+              <a href="number_rand/" class="btn btn-primary" target ="_blank">Give me a random question</a>
+              
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Algebra</h5>
+              <div class="alert alert-warning" role="alert">
+                Under construction
+              </div>
+              <p>
+                <a href="algebra/" class="btn btn-primary">Let me choose</a>
+                <a href="algebra_rand/" class="btn btn-primary" target ="_blank">Give me a random question</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Ratio, proportion and rates of change</h5>
+              <div class="alert alert-danger" role="alert">
+                Not built yet
+              </div>
+              <a href="#" class="btn btn-primary.disabled">Check back later</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Geometry and measures</h5>
+              <div class="alert alert-warning" role="alert">
+                Under construction
+              </div>
+              <a href="geometry/" class="btn btn-primary">Let me choose</a>
+              <a href="geometry/eselect_random/" class="btn btn-primary" target ="_blank">Give me a random question</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Statistics and proabability</h5>
+              <div class="alert alert-danger" role="alert">
+                Not built yet
+              </div>
+              <a href="#" class="btn btn-primary.disabled">Check back later</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <details>
+        <summary>Map of the entire GCSE</summary>
+        <div class="card">
+            <div class="card-body">
+                <ul>
+                    <li>Number</li>
+                      <ul>
+                          <li>Matter and radiation</li>
+                          <li>Quarks and leptons</li>
+                          <li>Quantum phenomena</li>
+                      </ul>
+                    <li>Algebra</li>
+                      <ul>
+                          <li>Waves</li>
+                          <li>Optics</li>
+                          <li>Quantum phenomena</li>
+                      </ul>
+                    <li>Ratio, proportion and rates of change</li>
+                      <ul>
+                          <li>Forces in equilibrium</li>
+                          <li>On the move</li>
+                          <li>Newton's laws of motion</li>
+                          <li>Force and momentum</li>
+                          <li>Work, energy and power</li>
+                          <li>Materials</li>
+                        </ul>
+                    <li>Geometry and measures</li>
+                      <ul>
+                          <li>Electric current</li>
+                          <li>DC circuits</li>
+                      </ul>
+                    <li>Statistics and probability</li>
+                        <ul>
+                            <li>Motion in a circle</li>
+                            <li>Simple harmonic motion</li>
+                            <li>Thermal physics</li>
+                            <li>Gases</li>
+                        </ul>
+                </ul>
+            </div>
+          </div>
+
+
+        </details>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

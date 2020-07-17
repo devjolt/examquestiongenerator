@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/..">Home</a></li>
+      <li class="breadcrumb-item"><a href="/gcsemaths">GCSE Maths</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Algebra</li>
+    </ol>
+</nav>
+
+<div class="jumbotron">
+    <h1 class="display-4">Not sure where to start?</h1>
+    <p>Try these to see what you need to work on...</p>
+    <hr class="my-4">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="random-algebra-basics" data-toggle="tab" href="#nav-random-algebra-basics" role="tab" aria-controls="nav-home" aria-selected="true">Algebraic manipulation</a>
+          <a class="nav-item nav-link" id="findingx" data-toggle="tab" href="#nav-findingx" role="tab" aria-controls="nav-findingx" aria-selected="false">solving an equaltion to find x</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tab">
+        <div class="tab-pane fade show active" id="nav-random-algebra-basics" role="tabpanel" aria-labelledby="nav-random-algebra-basics">
+            <a class="dropdown-item" href="algebra_basics_random/" target="_blank">Random basic algebra</a>
+            <a class="dropdown-item" href="algebra_brackets_random/" target="_blank">Random question on expanding brackets</a>
+            <a class="dropdown-item" href="algebra_factorising_random/" target="_blank">Random question on factorising into brackets</a>
+            <a class="dropdown-item" href="algebra_powers_random/" target="_blank">Random powers and indices question</a>
+            <a class="dropdown-item" href="algebra_surds_random/" target="_blank">Random surd goodness</a>
+        </div>
+        <div class="tab-pane fade" id="nav-findingx" role="tabpanel" aria-labelledby="nav-findingx">
+            <a class="dropdown-item" href="algebra_solve_random/" target="_blank">Random find x question</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="jumbotron">
+    <h1 class="display-4">Algebraic manipulation</h1>
+    <hr class="my-4">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="algebra_basics" data-toggle="tab" href="#nav-algebra-basics" role="tab" aria-controls="nav-home" aria-selected="true">Basics</a>
+            <a class="nav-item nav-link" id="expanding-brackets" data-toggle="tab" href="#nav-expanding-brackets" role="tab" aria-controls="nav-expanding-brackets" aria-selected="false">Dealing with brackets</a>
+            <a class="nav-item nav-link" id="algebra-powers-indices" data-toggle="tab" href="#nav-algebra-powers-indices" role="tab" aria-controls="nav-algebra-powers-indices" aria-selected="false">Powers and indices</a>
+            <a class="nav-item nav-link" id="algebra-advanced-powers-indices" data-toggle="tab" href="#nav-algebra-advanced-powers-indices" role="tab" aria-controls="nav-algebra-advanced-powers-indices" aria-selected="false">Advanced powers and indices</a>
+            <a class="nav-item nav-link" id="algebra-surds" data-toggle="tab" href="#nav-algebra-surds" role="tab" aria-controls="nav-algebra-surds" aria-selected="false">Surds</a>
+            <a class="nav-item nav-link" id="algebra-solve" data-toggle="tab" href="#nav-algebra-solve" role="tab" aria-controls="nav-algebra-solve" aria-selected="false">Soving equations</a>
+
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tab">
+        <div class="tab-pane fade show active" id="nav-algebra-basics" role="tabpanel" aria-labelledby="nav-algebra-basics">
+            <a class="dropdown-item" href="algebra_basics_random/" target="_blank">Give me a random basic algebra question</a>
+            <a class="dropdown-item" href="basics_negative_numbers/" target="_blank">Multiplying and dividing negative numbers</a>
+            <a class="dropdown-item" href="basics_multiplying_letters/" target="_blank">Multiplying letters</a>
+            <a class="dropdown-item" href="basics_collecting_like_terms/" target="_blank">Collecting like terms</a>
+        </div>
+        <div class="tab-pane fade" id="nav-expanding-brackets" role="tabpanel" aria-labelledby="nav-expanding-brackets">
+            <a class="dropdown-item" href="algebra_brackets_random/" target="_blank">Give me random expanding brackets questions</a>
+            <a class="dropdown-item" href="expand_brackets_three_letters/" target="_blank">Expanding single brackets with letters</a>
+            <a class="dropdown-item" href="expand_brackets_numbers_letters/" target="_blank">Expanding single brackets with mixed numbers and letters</a>
+            <a class="dropdown-item" href="expand_brackets_double/" target="_blank">Expanding double brackets</a>
+            <a class="dropdown-item" href="algebra_factorising_random/" target="_blank">Random factorising question</a>
+            <a class="dropdown-item" href="factorising_two_letters/" target="_blank">Factorising with two letters</a>
+            <a class="dropdown-item" href="factorising_more_letters/" target="_blank">Factorising more stuff</a>
+        </div>
+        <div class="tab-pane fade" id="nav-algebra-powers-indices" role="tabpanel" aria-labelledby="nav-algebra-powers-indices">
+            <a class="dropdown-item" href="algebra_powers_random/" target="_blank">Give me random powers and indices questions</a>
+            <a class="dropdown-item" href="power_of_zero/" target="_blank">Power of zero</a>
+            <a class="dropdown-item" href="power_of_one/" target="_blank">Power of one</a>
+            <a class="dropdown-item" href="power_one_to_the_power_of/" target="_blank">One to the power of...</a>
+            <a class="dropdown-item" href="power_multiplying_powers/" target="_blank">Multiplying powers</a>
+            <a class="dropdown-item" href="power_dividing/" target="_blank">Dividing powers</a>
+        </div>    
+        <div class="tab-pane fade" id="nav-algebra-advanced-powers-indices" role="tabpanel" aria-labelledby="nav-algebra-advanced-powers-indices">
+            <a class="dropdown-item" href="algebra_powers_random/" target="_blank">Give me random powers and indices questions</a>
+            <a class="dropdown-item" href="power_raising_to/" target="_blank">Raising one power to another power</a>
+            <a class="dropdown-item" href="power_raising_two_powers_to/" target="_blank">Raising two powers to a power</a>
+            <a class="dropdown-item" href="power_with_fractions/" target="_blank">Raising fractions by a power</a>
+            <a class="dropdown-item" href="power_with_fractions_letters/" target="_blank">Raising fractions including a letter by a power</a>
+            <a class="dropdown-item" href="power_negative/" target="_blank">Negative powers</a>
+            <a class="dropdown-item" href="power_negative_letters/" target="_blank">Negative powers with letters</a>
+            <a class="dropdown-item" href="power_fractional/" target="_blank">Fractional powers</a>
+        </div>
+        <div class="tab-pane fade" id="nav-algebra-surds" role="tabpanel" aria-labelledby="nav-algebra-surds">
+            <a class="dropdown-item" href="algebra_surds_random/" target="_blank">Random surds</a>
+            <a class="dropdown-item" href="surd_rule_17/" target="_blank">surd_rule_17</a>
+            <a class="dropdown-item" href="surd_rule_3a7/" target="_blank">surd_rule_3a7</a>
+            <a class="dropdown-item" href="surd_rule_3b7/" target="_blank">surd_rule_3b7</a>
+            <a class="dropdown-item" href="surd_rule_3c7/" target="_blank">surd_rule_3c7</a>
+            <a class="dropdown-item" href="surd_rule_4a7/" target="_blank">surd_rule_4a7</a>
+            <a class="dropdown-item" href="surd_rule_4b7/" target="_blank">surd_rule_4b7</a>
+            <a class="dropdown-item" href="surd_rule_5a7/" target="_blank">surd_rule_5a7</a>
+            <a class="dropdown-item" href="surd_rule_5b7/" target="_blank">surd_rule_5b7</a>
+            <a class="dropdown-item" href="surd_rule_6a7/" target="_blank">surd_rule_6a7</a>
+            <a class="dropdown-item" href="surd_rule_6b7/" target="_blank">surd_rule_6b7</a>
+            <a class="dropdown-item" href="surd_simplify_addition_a8/" target="_blank">surd_simplify_addition_a8</a>
+            <a class="dropdown-item" href="surd_simplify_addition_b8/" target="_blank">surd_simplify_addition_b8</a>
+            <a class="dropdown-item" href="surd_simplify_addition_c8/" target="_blank">surd_simplify_addition_c8</a>
+            <a class="dropdown-item" href="surd_simplify_area8/" target="_blank">surd_simplify_area8</a>
+            <a class="dropdown-item" href="surd_in_the_form9/" target="_blank">surd_in_the_form9</a>
+        
+        </div>
+        <div class="tab-pane fade" id="nav-algebra-solve" role="tabpanel" aria-labelledby="nav-algebra-solve">
+            <a class="dropdown-item" href="algebra_solve_random/" target="_blank">Random solving equations</a>
+            <a class="dropdown-item" href="solve_divide/" target="_blank">Find x by dividing</a>
+            <a class="dropdown-item" href="solve_collectint_divide/" target="_blank">Find x by collecting integer terms to one side</a>
+            <a class="dropdown-item" href="solve_collectx_collectint_divide/" target="_blank">Find x by collecting integer and x terms to seperate sides</a>
+            <a class="dropdown-item" href="solve_collectx_collectint_divide_brackets/" target="_blank">Find x by multiplying out brackets</a>
+            <a class="dropdown-item" href="solve_collectx_collectint_divide_brackets_double/" target="_blank">Find x by multiplying out two sets of brackets</a>
+            <a class="dropdown-item" href="solve_negative_collectx_collectint_divide_brackets/" target="_blank">This doesn't work properly yet, but trying to do things with negative numbers</a>
+            <a class="dropdown-item" href="solve_posneg_collectx_collectint_divide_brackets/" target="_blank">Same here</a>
+            <a class="dropdown-item" href="solve_posneg_collectx_collectint_divide_brackets_fractions/" target="_blank">And here</a>
+            <a class="dropdown-item" href="solve_posneg_collectx_collectint_divide_brackets_first_fraction/" target="_blank">Yep</a>
+            <a class="dropdown-item" href="solve_posneg_collectx_collectint_divide_brackets_second_fraction/" target="_blank">Really, I should just hide these till I've corrected them. It's that bad</a>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

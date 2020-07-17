@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/..">Home</a></li>
+      <li class="breadcrumb-item"><a href="/physics">GCSE Maths</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Number</li>
+    </ol>
+</nav>
+
+
+<div class="jumbotron">
+    <h1 class="display-4">Order positive and negative integers, decimals and fractions</h1>
+    <hr class="my-4">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="ordering_values" data-toggle="tab" href="#nav-ordering_values" role="tab" aria-controls="nav-home" aria-selected="true">Ordering values</a>
+          <a class="nav-item nav-link" id="comparative_operators" data-toggle="tab" href="#nav-comparative_operators" role="tab" aria-controls="nav-comparative_operators" aria-selected="false">Comparative operators</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tab">
+        <div class="tab-pane fade show active" id="nav-ordering_values" role="tabpanel" aria-labelledby="nav-ordering_values">
+            <a class="dropdown-item" href="ordering_numbers/" target="_blank">Ordering integers</a>
+            <a class="dropdown-item" href="ordering_decimals/" target="_blank">Ordering decimals</a>
+            <a class="dropdown-item" href="ordering_fractions/" target="_blank">Ordering fractions</a>
+            <a class="dropdown-item" href="ordering_fractions_and_decimals" target="_blank">Ordering decimals and fractions</a>
+        </div>
+        <div class="tab-pane fade" id="nav-comparative_operators" role="tabpanel" aria-labelledby="nav-comparative_operators">
+            <a class="dropdown-item" href="comparative_operators_with_integers/" target="_blank">Comparative operators with integers</a>
+            <a class="dropdown-item" href="comparative_operators_with_fractions/" target="_blank">Comparative operators with fractions</a>
+            <a class="dropdown-item" href="comparative_operators_with_fractions_and_decimals/" target="_blank">Comparative with fractions and decimals</a>
+        </div>
+
+    </div>
+</div>
+
+<div class="jumbotron">
+    <h1 class="display-4">Addition, subtraction, multiplication and division</h1>
+    <hr class="my-4">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="ops_whole_numbers" data-toggle="tab" href="#nav-ops_whole_numbers" role="tab" aria-controls="ops_whole_numbers" aria-selected="true">Basic operations with whole numbers</a>
+          <a class="nav-item nav-link" id="ops_decimals" data-toggle="tab" href="#nav-ops_decimals" role="tab" aria-controls="nav-ops_decimals" aria-selected="false">Basic operations with decimals</a>
+          <a class="nav-item nav-link" id="ops_fractions" data-toggle="tab" href="#nav-ops_fractions" role="tab" aria-controls="nav-ops_fractions" aria-selected="false">Basic operations with fractions</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tab">
+        <div class="tab-pane fade show active" id="nav-ops_whole_numbers" role="tabpanel" aria-labelledby="nav-ops_whole_numbers">
+            <a class="dropdown-item" href="addSub_integers/"target="_blank">Adding and subtracting integers</a>
+            <a class="dropdown-item" href="multiply_integers/"target="_blank">Multiplying integers</a>
+            <a class="dropdown-item" href="divide_integers/"target="_blank">Dividing integers</a>
+            <a class="dropdown-item" href="random_integers/"target="_blank">A random question from the above</a>
+        </div>
+        <div class="tab-pane fade" id="nav-ops_decimals" role="tabpanel" aria-labelledby="ops_decimals">
+            <a class="dropdown-item" href="addSub_decimals/"target="_blank">Adding and subtracting decimals</a>
+            <a class="dropdown-item" href="multiply_decimals/"target="_blank">Multiplying decimals</a>
+            <a class="dropdown-item" href="divide_decimals/"target="_blank">Dividing decimals</a>
+            <a class="dropdown-item" href="random_decimals/"target="_blank">A random question from the above</a>
+        </div>
+        <div class="tab-pane fade" id="nav-ops_fractions" role="tabpanel" aria-labelledby="ops_fractions">
+            <a class="dropdown-item" href="addSub_fractions/"target="_blank">Adding and subtracting fractions</a>
+            <a class="dropdown-item" href="multiply_fractions/"target="_blank">Multiplying fractions</a>
+            <a class="dropdown-item" href="divide_fractions/"target="_blank">Dividing fractions</a>
+            <a class="dropdown-item" href="random_fractions/"target="_blank">A random question from the above</a>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
