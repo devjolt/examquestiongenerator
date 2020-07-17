@@ -1,0 +1,4 @@
+Superscript numbers: u00BX eg squared = u00B2
+Division symbol: \u00F7
+Omega: \u03A9
+Degrees: \u00B0 

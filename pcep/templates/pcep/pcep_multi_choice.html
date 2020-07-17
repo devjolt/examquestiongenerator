@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/question.css" %}">
+
+<div>
+  <p class="centered">
+    {% if previousQ != None %}
+    <a href="{{previousQ}}" class="btn btn-secondary">Previous </a>
+    {% endif %}
+
+    <button class="btn btn-primary" onClick="history.go(0);">Generate another another one of these!</button>
+    
+    {% if nextQ != None %}
+    <a href="{{nextQ}}" class="btn btn-secondary">Next</a>
+    {% endif %}
+
+  </p>
+</div>
+
+<div class="row"> 
+  <div class="column left"></div>
+  <div class="column right">
+    {% if diagram != None %}
+    <div>
+      <p class="centered"><img  width="50%" height="auto" src= "{% static diagram %}" alt="things"></p>
+    </div>
+    {% endif %}
+
+    {% if piclink != None %}
+    <div><p class="centered"><img  width="30%" height="auto" src= "{{piclink}}" alt="things"></p></div>
+    {% endif %}
+    <h4>{{questionBase}}</h4>
+    {% if code != None%}<h4><code>{{code}}</code></h4>{% endif%}
+  </div>
+</div>
+
+<div class="column left"></div>
+<div class="column right">
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th scope="row"><h4>1.</h4></th>
+        <td><h4>{%if a1 != None%}{{a1}}{% endif %}<code>{%if a1code != None%}{{a1code}}{% endif %}</code></h4></td>
+      </tr>
+      <tr>
+        <th scope="row"><h4>2.</h4></th>
+        <td><h4>{%if a2 != None%}{{a2}}{% endif %}<code>{%if a2code != None%}{{a2code}}{% endif %}</code></h4></td>
+      </tr>
+      <tr>
+        <th scope="row"><h4>3.</h4></th>
+        <td><h4>{%if a3 != None%}{{a3}}{% endif %}<code>{%if a3code != None%}{{a3code}}{% endif %}</code></h4></td>
+      </tr>
+      <tr>
+        <th scope="row"><h4>4.</h4></th>
+        <td><h4>{%if a4 != None%}{{a4}}{% endif %}<code>{%if a4code != None%}{{a4code}}{% endif %}</code></h4></td>
+      </tr>
+    </tbody>
+  </table>
+  {% if hint != None %}
+    <details>
+      <summary>A little help?</summary>
+        <h5>{{hint}}</h5>
+        {% if video != None %}
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="{{video}}" allowfullscreen></iframe>
+        </div>
+        {% endif %}
+        {% if weblink != None %}
+        <a href="{{weblink}}" class="btn btn-secondary" target="_blank" data-toogle="tooltip" title="I didn't make this website, but it might help! (opens in a new tab!)">A little more help?</a>
+        {% endif %}
+    </details>
+  {% endif %}
+</div>
+
+{% if answer != None or answercode != None %}
+<div class="row"> 
+
+  <div class="column left">
+  </div>
+  
+  <div class="column right">
+    <p>
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse">
+        Answer
+      </a>
+    </p>
+    
+    <div class="collapse" id="collapse">
+      <div class="card card-body">        
+        <h4>{%if answer != None%}{{answer}}{% endif %}</h4>
+        <h4><code>{%if answercode != None%}{{answercode}}{% endif %}</code></h4>
+        
+        {% if hint != None %}
+        <details>
+        <summary>Not sure where you went wrong?</summary>
+        <h5>{{hint}}</h5>
+        {% if video != None %}
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="{{video}}" allowfullscreen></iframe>
+        </div>
+        {% endif %}
+        {% if weblink != None %}
+        <a href="{{weblink}}" class="btn btn-secondary" target="_blank" data-toogle="tooltip" title="I didn't make this website, but it might help! (opens in a new tab!)">A little more help?</a>
+        {% endif %}
+        </details>
+      {% endif %}
+
+      </div>
+    </div>
+    </p>
+  </div> 
+
+</div>
+{% endif %}
+
+{% endblock %}

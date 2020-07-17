@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">PCEP</li>
+    </ol>
+</nav>
+
+<div class="jumbotron text-left bg-light">
+    <div class="container">
+      <h1>Python Certified Entry-Level Programmer Exam practice questions. Let's do this!</h1>
+      <hr>
+
+      <div class="card text-center">
+        <div class="card-header">
+          Quick Random Questions
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Life is like a box of chocolates...</h5>
+          <p class="card-text">These questions can come from any module in the PCEP syllabus</p>
+          <a href="random_pcap/" class="btn btn-primary" target="_blank">Let's go!</a>
+        </div>
+        <div class="card-footer text-muted">
+          New archetypes added daily!
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Exam block#1: Basic concepts</h5>
+              <div class="alert alert-warning" role="alert">
+                Under construction
+              </div>
+              <a href="a_basics/" class="btn btn-primary">Take me there!</a>
+              <a href="a_basics/random/" class="btn btn-primary">Give me a random question</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Exam block#2: Data types, evaluations, and basic I/O operations</h5>
+              <div class="alert alert-danger" role="alert">
+                Still a wink in the developer's eye
+              </div>
+              <a href="#" class="btn btn-primary.disabled">Check back later</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Exam block#3: Flow contrtol - loops and conditional blocks</h5>
+              <div class="alert alert-danger" role="alert">
+                Articulating splines
+              </div>
+              <a href="#" class="btn btn-primary.disabled">Check back later</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Exam block#4: Data Collections – Lists, Tuples, and Dictionaries</h5>
+              <div class="alert alert-danger" role="alert">
+                Still searching for build-location
+              </div>
+              <a href="#" class="btn btn-primary.disabled">Check back later</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Exam block #5: Functions</h5>
+              <div class="alert alert-danger" role="alert">
+                Still evolving DNA...
+              </div>
+              <a href="#" class="btn btn-primary.disabled">Check back later</a>
+            </div>
+          </div>
+        </div>
+    
+      </div>
+
+      
+
+
+
+      <details>
+        <summary>PCEP Syllabus</summary>
+        <div class="card">
+            <div class="card-body">
+                <ul>
+                    <li>Exam block #1: Basic Concepts</li>
+                      <ul>
+                          <li>fundamental concepts: interpreting and the interpreter, compilation and the compiler, language elements, lexis, syntax and semantics, Python keywords, instructions, indenting</li>
+                          <li>literals: Boolean, integer, floating-point numbers, scientific notation, strings</li>
+                          <li>the print() function</li>
+                          <li>the print() function</li>
+                          <li>the input() function</li>
+                          <li>numeral systems (binary, octal, decimal, hexadecimal)</li>
+                          <li>numeric operators: ** * / % // + –</li>
+                          <li>string operators: * +</li>
+                          <li>assignments and shortcut operators</li>
+                      </ul>
+
+                    <li>Exam block #2: Data Types, Evaluations, and Basic I/O Operations</li>
+                      <ul>
+                          <li>operators: unary and binary, priorities and binding</li>
+                          <li>bitwise operators: ~ & ^ | << >></li>
+                          <li>Boolean operators: not and or</li>
+                          <li>Boolean expressions</li>
+                          <li>relational operators ( == != > >= < <= ), building complex Boolean expressions</li>
+                          <li>accuracy of floating-point numbers</li>
+                          <li>basic input and output operations using the input(), print(), int(), float(), str(), len() functions</li>
+                          <li>formatting print() output with end= and sep= arguments</li>
+                          <li>type casting</li>
+                          <li>basic calculations</li>
+                          <li>simple strings: constructing, assigning, indexing, immutability</li>
+                      </ul>
+
+                    <li>Exam block #3: Flow Control – loops and conditional blocks</li>
+                      <ul>
+                          <li>conditional statements: if, if-else, if-elif, if-elif-else</li>
+                          <li>multiple conditional statements</li>
+                          <li>the pass instruction</li>
+                          <li>building loops: while, for, range(), in</li>
+                          <li>iterating through sequences</li>
+                          <li>expanding loops: while-else, for-else</li>
+                          <li>nesting loops and conditional statements</li>
+                          <li>controlling loop execution: break, continue</li>
+                      </ul>
+                    <li>Exam block #4: Data Collections – Lists, Tuples, and Dictionaries</li>
+                      <ul>
+                          <li>simple lists: constructing vectors, indexing and slicing, the len() function</li>
+                          <li>lists in detail: indexing, slicing, basic methods (append(), insert(), index()) and functions (len(), sorted(), etc.), del instruction, iterating lists with the for loop, initializing, in and not in operators, list comprehension, copying and cloning</li>
+                          <li>lists in lists: matrices and cubes</li>
+                          <li>tuples: indexing, slicing, building, immutability</li>
+                          <li>tuples vs. lists: similarities and differences, lists inside tuples and tuples inside lists</li>
+                          <li>dictionaries: building, indexing, adding and removing keys, iterating through dictionaries as well as their keys and values, checking key existence, keys(), items() and values() methods</li>
+                          <li>strings in detail: escaping using the \ character, quotes and apostrophes inside strings, multiline strings, basic string functions.</li>
+                      </ul>
+                    <li>Exam block #5: Functions</li>
+                        <ul>
+                          <li>defining and invoking your own functions and generators</li>
+                          <li>return and yield keywords, returning results,</li>
+                          <li>the None keyword,</li>
+                          <li>recursion</li>
+                          <li>parameters vs. arguments,</li>
+                          <li>positional keyword and mixed argument passing,</li>
+                          <li>default parameter values</li>
+                          <li>converting generator objects into lists using the list() function</li>
+                          <li>name scopes, name hiding (shadowing), the global keyword</li>   
+                        </ul>
+                </ul>
+            </div>
+          </div>
+
+
+        </details>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

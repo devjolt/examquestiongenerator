@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{question}}</h2>
+
+<h2>1. {{answer1}}</h2>
+
+<h2>2. {{answer2}}</h2>
+
+<h2>3. {{answer3}}</h2>
+
+<h2>4. {{answer4}}</h2>
+
+
+
+<p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
+    Click for answer
+  </a>
+</p>
+<div class="collapse" id="collapseExample2">
+  <div class="card card-body">
+    <h3>{{correctAnswer}}</h3>
+  </div>
+</div>
+
+<h5>Refresh for another question</h5>
+
+{% endblock %}

@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">A-level Physics</li>
+    </ol>
+</nav>
+
+
+
+<div class="jumbotron text-left bg-light">
+    <div class="container">
+      <h1>A-Level Physics it is... pick a module!</h1>
+      <p>There's also a map of the entire A-level just underneath if you like that sort of thing.</p>
+      <hr>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Particles and radiation</h5>
+              <div class="alert alert-warning" role="alert">
+                Under construction
+              </div>
+              <a href="matter_and_radiation/" class="btn btn-primary">Take me there!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Waves and optics</h5>
+              <div class="alert alert-danger" role="alert">
+                Not built yet
+              </div>
+              <a href="#" class="btn btn-primary.disabled">Check back later</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Mechanics and materials</h5>
+              <div class="alert alert-danger" role="alert">
+                Not built yet
+              </div>
+              <a href="#" class="btn btn-primary.disabled">Check back later</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Electricity</h5>
+              <div class="alert alert-warning" role="alert">
+                Under construction
+              </div>
+              <a href="electricity/" class="btn btn-primary">Take me there!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Further mechanics and thermal physics</h5>
+              <div class="alert alert-warning" role="alert">
+                Under construction
+              </div>
+              <a href="further_mechanics_and_thermal_physics/" class="btn btn-primary">Take me there!</a>
+              <a href="further_mechanics_and_thermal_physics/random/" class="btn btn-primary">Give me a random question</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Fluid dynamics</h5>
+              <div class="alert alert-danger" role="alert">
+                Not built yet
+              </div>
+              <a href="#" class="btn btn-primary.disabled">Check back later</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Nuclear Physics</h5>
+              <div class="alert alert-danger" role="alert">
+                Not built yet
+              </div>
+              <a href="#" class="btn btn-primary.disabled">Check back later</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Skills for A-level physics</h5>
+              <div class="alert alert-danger" role="alert">
+                Not built yet
+              </div>
+              <a href="#" class="btn btn-primary.disabled">Check back later</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <details>
+        <summary>Map of the entire A-level</summary>
+        <div class="card">
+            <div class="card-body">
+                <ul>
+                    <li>Particles and radiation</li>
+                      <ul>
+                          <li>Matter and radiation</li>
+                          <li>Quarks and leptons</li>
+                          <li>Quantum phenomena</li>
+                      </ul>
+                    <li>Waves and optics</li>
+                      <ul>
+                          <li>Waves</li>
+                          <li>Optics</li>
+                          <li>Quantum phenomena</li>
+                      </ul>
+                    <li>Mechanics and materials</li>
+                      <ul>
+                          <li>Forces in equilibrium</li>
+                          <li>On the move</li>
+                          <li>Newton's laws of motion</li>
+                          <li>Force and momentum</li>
+                          <li>Work, energy and power</li>
+                          <li>Materials</li>
+                        </ul>
+                    <li>Electricity</li>
+                      <ul>
+                          <li>Electric current</li>
+                          <li>DC circuits</li>
+                      </ul>
+                    <li>Further mechanics and thermal physics</li>
+                        <ul>
+                            <li>Motion in a circle</li>
+                            <li>Simple harmonic motion</li>
+                            <li>Thermal physics</li>
+                            <li>Gases</li>
+                        </ul>
+                    <li>Fields</li>
+                        <ul>
+                            <li>Gravitational fields</li>
+                            <li>Electric fields</li>
+                            <li>Capacitors</li>
+                            <li>Magnetic fields</li>
+                            <li>Electromagnetic induction</li>
+                        </ul>
+                    <li>Nuclear physics</li>
+                        <ul>
+                            <li>Radioactivity</li>
+                            <li>Nuclear energy</li>
+                            <li>Capacitors</li>
+                            <li>Magnetic fields</li>
+                            <li>Electromagnetic induction</li>
+                        </ul>
+                    <li>Skills for A-level physics</li>
+                        <ul>
+                            <li>Practical work</li>
+                            <li>Maths</li>
+                        </ul>
+
+                </ul>
+            </div>
+          </div>
+
+
+        </details>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

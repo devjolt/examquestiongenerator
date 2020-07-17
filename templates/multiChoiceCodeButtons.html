@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/question.css" %}">
+
+<div>
+  <p class="centered">
+    <button class="btn btn-primary" onClick="history.go(0);">Generate another another one!</button>
+  </p>
+</div>
+
+<div class="row"> 
+  <div class="column left">
+    <h4 class="number"></h4>
+  </div>
+  <div class="column right">
+
+    {%if constant != None %}
+    <h4>{{constant}}</h4>
+    {% endif %}
+    
+    {% if diagram != None %}
+    <div>
+      <p class="centered"><img  width="50%" height="auto" src= "{% static diagram %}" alt="things"></p>
+    </div>
+    {% endif %}
+    <h4>{{questionBase}}</h4>
+  
+    <pre>
+      <code> {% if line1 != None %}{{line1}}{% endif %}
+                {% if line2 != None %}{{line2}}{% endif %}
+                {% if line3 != None %}{{line3}}{% endif %}</code></pre>
+  </div>
+</div>
+
+<div class="row"> 
+
+  <div class="column left">
+  </div>
+  
+  <div class="column right">
+
+    <p>
+    <h4>1. {{option1}}</h4>
+    <h4>2. {{option2}}</h4>
+    <h4>3. {{option3}}</h4>
+    <h4>4. {{option4}}</h4>
+    </p>
+
+    <div>
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+      </a>   
+  </div>
+    
+    <div class="collapse" id="collapse1">
+      <div class="card card-body">        
+        <h4>{{answer}}</h4>
+        <div>
+          <p class="centered">
+            <button class="btn btn-primary" onClick="history.go(0);">Generate another another one!</button>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    </p>
+  </div> 
+
+</div>
+
+
+
+{% endblock %}

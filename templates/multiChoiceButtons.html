@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/question.css" %}">
+
+<div>
+  <p class="centered">
+    <a width="50px" href="{{previousQ}}" class="btn btn-secondary">Previous </a>
+    <button class="btn btn-primary" onClick="history.go(0);">Generate another another one of these!</button>
+    <a width="50px" href="{{nextQ}}" class="btn btn-secondary">Next</a>
+  </p>
+</div>
+
+<div class="row"> 
+  <div class="column left">
+    <h4 class="number">Qu</h4>
+  </div>
+  <div class="column right">
+
+    {%if constant != None %}
+    <h4>{{constant}}</h4>
+    {% endif %}
+    
+    {% if diagram != None %}
+    <div>
+      <p class="centered"><img  width="50%" height="auto" src= "{% static diagram %}" alt="things"></p>
+    </div>
+    {% endif %}
+    <h4>{{questionBase}}</h4>
+  </div>
+</div>
+
+{% if question1 != None %}
+<div class="row"> 
+
+  <div class="column left">
+    <h4 class="number">a</h4>
+  </div>
+  
+  <div class="column right">
+    <p>
+    <h4>{{question1}}</h4>
+      <div class="c">
+        <div>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+                Answer
+            </a>   
+        </div>
+      </div>
+    </p>
+    
+    <div class="collapse" id="collapse1">
+      <div class="card card-body">        
+        <h4>{{answer1}}</h4>
+      </div>
+    </div>
+    </p>
+  </div> 
+
+</div>
+{% endif %}
+
+{% if question2 != None %}
+<div class="row"> 
+
+  <div class="column left">
+    <h4 class="number">b</h4>
+  </div>
+  
+  <div class="column right">
+    <p>
+    <h4>{{question2}}</h4>
+      <div class="c">
+        <div>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">
+                Answer
+            </a>   
+        </div>
+      </div>
+    </p>
+    
+    <div class="collapse" id="collapse2">
+      <div class="card card-body">        
+        <h4>{{answer2}}</h4>
+      </div>
+    </div>
+    </p>
+  </div> 
+
+</div>
+{% endif %}
+
+{% if question3 != None %}
+<div class="row"> 
+
+  <div class="column left">
+    <h4 class="number">c</h4>
+  </div>
+  
+  <div class="column right">
+    <p>
+    <h4>{{question3}}</h4>
+      <div class="c">
+        <div>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">
+                Answer
+            </a>   
+        </div>
+      </div>
+    </p>
+    
+    <div class="collapse" id="collapse3">
+      <div class="card card-body">        
+        <h4>{{answer3}}</h4>
+      </div>
+    </div>
+    </p>
+  </div> 
+
+</div>
+{% endif %}
+
+{% if question1 != None %}
+<div class="row"> 
+
+  <div class="column left">
+    <h4 class="number">d</h4>
+  </div>
+  
+  <div class="column right">
+    <p>
+    <h4>{{question4}}</h4>
+      <div class="c">
+        <div>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">
+                Answer
+            </a>   
+        </div>
+      </div>
+    </p>
+    
+    <div class="collapse" id="collapse4">
+      <div class="card card-body">        
+        <h4>{{answer4}}</h4>
+      </div>
+    </div>
+    </p>
+  </div> 
+
+</div>
+{% endif %}
+
+
+<div>
+  <p class="centered">
+    <a href="{{previousQ}}" class="btn btn-secondary">Previous </a>
+    <button class="btn btn-primary" onClick="history.go(0);">Generate another another one of these!</button>
+    <a href="{{nextQ}}" class="btn btn-secondary">Next</a>
+  </p>
+</div>
+
+{% endblock %}

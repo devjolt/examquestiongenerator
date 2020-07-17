@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/..">Home</a></li>
+      <li class="breadcrumb-item"><a href="/physics">A-level physics</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Particles and radiation</li>
+    </ol>
+</nav>
+
+
+<div class="jumbotron">
+    <h1 class="display-4">Matter and radiation</h1>
+    <hr class="my-4">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="inside_the_atom" data-toggle="tab" href="#nav-inside_the_atom" role="tab" aria-controls="nav-home" aria-selected="true">Inside the atom</a>
+          <a class="nav-item nav-link" id="stable_and_unstable_nuclei" data-toggle="tab" href="#nav-stable_and_unstable_nuclei" role="tab" aria-controls="nav-stable_and_unstable_nuclei" aria-selected="false">Stable and unstable nuclei</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tab">
+        <div class="tab-pane fade show active" id="nav-inside_the_atom" role="tabpanel" aria-labelledby="nav-nav-inside_the_atom-tab">
+            <a class="dropdown-item" href="nucleus/"target="_blank">Protons and neutrons</a class="dropdown-item">
+            <a class="dropdown-item" href="">Specific charge (coming soon)</a class="dropdown-item">
+            <a class="dropdown-item" href="namepartoftheatom/" target="_blank">Parts of the atom</a class="dropdown-item">
+            <a class="dropdown-item" href="ionised/" target="_blank">Ionisation</a class="dropdown-item">
+            <a class="dropdown-item" href="">Mass of an atom (Coming soon)</a class="dropdown-item">
+        </div>
+        <div class="tab-pane fade" id="nav-stable_and_unstable_nuclei" role="tabpanel" aria-labelledby="nav-stable_and_unstable_nuclei-tab">
+             <a class="dropdown-item" href="#">Coming soon</a>
+        </div>
+
+    </div>
+  </div>
+
+
+{% endblock %}

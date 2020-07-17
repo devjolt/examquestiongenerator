@@ -1,0 +1,1287 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/question.css" %}">
+
+<div>
+  <p class="centered">
+    <button class="btn btn-primary" onClick="history.go(0);">Generate another another one of these!</button>
+  </p>
+</div>
+
+<div class="row"> 
+  <div class="column left">
+    <h4 class="number">0 1</h4>
+  </div>
+  <div class="column right">
+    {% if constant1 != None %}
+    <h4>{{constant1}}</h4>
+    {% endif %}
+    {% if svg != None %}
+    {{svg}}
+    {% endif %}
+    {% if diagram1 != None %}
+    <div>
+      <p class="centered"><img  width="60%" height="auto" src= "{% static diagram1 %}" alt="things"></p>
+    </div>
+    {% endif %}
+
+    {% if piclink1 != None %}
+    <div>
+      <p class="centered"><img  width="30%" height="auto" src= "{{piclink1}}" alt="things"></p>
+    </div>
+    {% endif %}
+    <h4>{{questionBase1}}</h4>
+    {% if pre1 != None %}
+    <div>
+      <pre><h4>{{pre1}}</h4></pre>
+    </div>
+    {% endif %}
+    {% if tip1 != None %}
+    <details>
+      <summary>A little help?</summary>
+        <h5>{{tip1}}</h5>
+        {% if video1 != None %}
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="{{video1}}" allowfullscreen></iframe>
+        </div>
+        {% endif %}
+        {% if website1 != None %}
+        <a href="{{website1}}" class="btn btn-secondary" target="_blank" data-toogle="tooltip" title="I didn't make this website, but it might help! (opens in a new tab!)">A little more help?</a>
+        {% endif %}
+    </details>
+    {% endif %}
+
+  </div>
+</div>
+
+{% if answer1 != None %}
+<div class="row"> 
+  <div class="column left">
+  </div>
+  <div class="column right">
+    <p>
+      <div class="c">
+        <div>
+          <h4>[{{marks1}} marks]</h4>   
+        </div>
+      </div>
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse">
+        Answer
+      </a>
+    </p>
+    <div class="collapse" id="collapse">
+      <div class="card card-body">        
+        <h4>{{answer1}}</h4>
+        {% if preans1 != None %}
+        <pre><h4>{{preans1}}</h4></pre>
+        {% endif %}
+        {% if tips1 != None %}
+        <details>
+          <summary>Not sure where you went wrong?</summary>
+          <div class="card">
+            <div class="card-body">
+              <p>{tips}</p>
+            </div>
+          </div>
+        </details>
+        {% endif %}
+      </div>
+    </div>
+    </p>
+  </div> 
+</div>
+{% endif %}
+
+{% if question11 != None %}
+<div class="row"> 
+
+  <div class="column left">
+    <h4 class="number">0 1 . 1</h4>
+  </div>
+  
+  <div class="column right">
+    <p>
+    <h4>{{question11}}</h4>
+      <div class="c">
+        <div>
+          <h4>[{{marks11}} marks]</h4>   
+        </div>
+      </div>
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+        Answer
+      </a>
+    </p>
+    
+    <div class="collapse" id="collapse1">
+      <div class="card card-body">        
+        <h4>{{answer11}}</h4>
+      </div>
+    </div>
+    </p>
+  </div> 
+
+</div>
+{% endif %}
+
+
+{% if question21 != None %}
+<div class="row"> 
+
+  <div class="column left">
+    <h4 class="number">0 1 . 2</h4>
+  </div>
+  
+  <div class="column right">
+    <p>
+    <h4>{{question21}}</h4>
+      <div class="c">
+        <div>
+          <h4>[{{marks21}} marks]</h4>   
+        </div>
+      </div>
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse1">
+        Answer
+      </a>
+    </p>
+    
+    <div class="collapse" id="collapse2">
+      <div class="card card-body">        
+        <h4>{{answer21}}</h4>
+      </div>
+    </div>
+    </p>
+  </div> 
+  
+</div>
+{% endif %}
+
+
+{% if question31 != None %}
+<div class="row"> 
+
+  <div class="column left">
+    <h4 class="number">0 1 . 3</h4>
+  </div>
+  
+  <div class="column right">
+    <p>
+    <h4>{{question31}}</h4>
+      <div class="c">
+        <div>
+          <h4>[{{marks31}} marks]</h4>   
+        </div>
+      </div>
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse1">
+        Answer
+      </a>
+    </p>
+    
+    <div class="collapse" id="collapse3">
+      <div class="card card-body">        
+        <h4>{{answer31}}</h4>
+      </div>
+    </div>
+    </p>
+  </div> 
+  
+</div>
+{% endif %}
+
+
+{% if question41 != None %}
+<div class="row"> 
+
+  <div class="column left">
+    <h4 class="number">0 1 . 4</h4>
+  </div>
+  
+  <div class="column right">
+    <p>
+    <h4>{{question31}}</h4>
+      <div class="c">
+        <div>
+          <h4>[{{marks41}} marks]</h4>   
+        </div>
+      </div>
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">
+        Answer
+      </a>
+    </p>
+    
+    <div class="collapse" id="collapse4">
+      <div class="card card-body">        
+        <h4>{{answer41}}</h4>
+      </div>
+    </div>
+    </p>
+  </div> 
+  
+</div>
+{% endif %}
+
+
+{% if question51 != None %}
+<div class="row"> 
+
+  <div class="column left">
+    <h4 class="number">0 1 . 5</h4>
+  </div>
+  
+  <div class="column right">
+    <p>
+    <h4>{{question51}}</h4>
+      <div class="c">
+        <div>
+          <h4>[{{marks51}} marks]</h4>   
+        </div>
+      </div>
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapse5" role="button" aria-expanded="false" aria-controls="collapse1">
+        Answer
+      </a>
+    </p>
+    
+    <div class="collapse" id="collapse5">
+      <div class="card card-body">        
+        <h4>{{answer51}}</h4>
+      </div>
+    </div>
+    </p>
+  </div> 
+  
+</div>
+{% endif %}
+
+{if questionBase2 != None %}
+
+<div class="row"> 
+    <div class="column left">
+      <h4 class="number">0 2</h4>
+    </div>
+    <div class="column right">
+      {% if constant2 != None %}
+      <h4>{{constant2}}</h4>
+      {% endif %}
+      {% if svg != None %}
+      {{svg}}
+      {% endif %}
+      {% if diagram2 != None %}
+      <div>
+        <p class="centered"><img  width="60%" height="auto" src= "{% static diagram2 %}" alt="things"></p>
+      </div>
+      {% endif %}
+  
+      {% if piclink2 != None %}
+      <div>
+        <p class="centered"><img  width="30%" height="auto" src= "{{piclink2}}" alt="things"></p>
+      </div>
+      {% endif %}
+      <h4>{{questionBase1}}</h4>
+      {% if pre2 != None %}
+      <div>
+        <pre><h4>{{pre2}}</h4></pre>
+      </div>
+      {% endif %}
+      {% if tip2 != None %}
+      <details>
+        <summary>A little help?</summary>
+          <h5>{{tip2}}</h5>
+          {% if video2 != None %}
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="{{video2}}" allowfullscreen></iframe>
+          </div>
+          {% endif %}
+          {% if website2 != None %}
+          <a href="{{website2}}" class="btn btn-secondary" target="_blank" data-toogle="tooltip" title="I didn't make this website, but it might help! (opens in a new tab!)">A little more help?</a>
+          {% endif %}
+      </details>
+
+  
+    </div>
+  </div>
+  {% endif %}
+  
+  {% if answer2 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+    </div>
+    
+    <div class="column right">
+      <p>
+        <div class="c">
+          
+          <div>
+            
+            <h4>[{{marks2}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse">
+        <div class="card card-body">        
+          <h4>{{answer2}}</h4>
+          {% if preans2 != None %}
+          <pre><h4>{{preans2}}</h4></pre>
+          {% endif %}
+          
+          {% if tips2 != None %}
+          <details>
+            <summary>Not sure where you went wrong?</summary>
+            <div class="card">
+              <div class="card-body">
+                <p>{tips2}</p>
+              </div>
+            </div>
+          </details>
+          {% endif %}
+  
+        </div>
+      </div>
+      </p>
+    </div> 
+  
+  </div>
+  {% endif %}
+  
+  {% if question12 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 2 . 1</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question12}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks12}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse1">
+        <div class="card card-body">        
+          <h4>{{answer12}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+  
+  </div>
+  {% endif %}
+  
+  
+  {% if question22 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 2 . 2</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question22}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks22}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse2">
+        <div class="card card-body">        
+          <h4>{{answer22}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  {% endif %}
+  
+  
+  {% if question32 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 2 . 3</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question32}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks32}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse3">
+        <div class="card card-body">        
+          <h4>{{answer32}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  {% endif %}
+  
+  
+  {% if question42 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 2 . 4</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question32}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks42}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse4">
+        <div class="card card-body">        
+          <h4>{{answer42}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  {% endif %}
+  
+  
+  {% if question52 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 2 . 5</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question52}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks52}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse5" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse5">
+        <div class="card card-body">        
+          <h4>{{answer52}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  </div>
+  {% endif %}
+ 
+  
+  {% if questionBase3 != None %}
+
+  <div class="row"> 
+    <div class="column left">
+      <h4 class="number">0 3</h4>
+    </div>
+    <div class="column right">
+      {% if constant3 != None %}
+      <h4>{{constant3}}</h4>
+      {% endif %}
+      {% if svg != None %}
+      {{svg}}
+      {% endif %}
+      {% if diagram3 != None %}
+      <div>
+        <p class="centered"><img  width="60%" height="auto" src= "{% static diagram3 %}" alt="things"></p>
+      </div>
+      {% endif %}
+  
+      {% if piclink3 != None %}
+      <div>
+        <p class="centered"><img  width="30%" height="auto" src= "{{piclink3}}" alt="things"></p>
+      </div>
+      {% endif %}
+      <h4>{{questionBase3}}</h4>
+      {% if pre3 != None %}
+      <div>
+        <pre><h4>{{pre3}}</h4></pre>
+      </div>
+      {% endif %}
+      {% if tip3 != None %}
+      <details>
+        <summary>A little help?</summary>
+          <h5>{{tip3}}</h5>
+          {% if video3 != None %}
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="{{video3}}" allowfullscreen></iframe>
+          </div>
+          {% endif %}
+          {% if website3 != None %}
+          <a href="{{website3}}" class="btn btn-secondary" target="_blank" data-toogle="tooltip" title="I didn't make this website, but it might help! (opens in a new tab!)">A little more help?</a>
+          {% endif %}
+      </details>
+      {% endif %}
+  
+    </div>
+  </div>
+  
+  {% if answer3 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+    </div>
+    
+    <div class="column right">
+      <p>
+        <div class="c">
+          
+          <div>
+            
+            <h4>[{{marks3}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse">
+        <div class="card card-body">        
+          <h4>{{answer3}}</h4>
+          {% if preans3 != None %}
+          <pre><h4>{{preans3}}</h4></pre>
+          {% endif %}
+          
+          {% if tips3 != None %}
+          <details>
+            <summary>Not sure where you went wrong?</summary>
+            <div class="card">
+              <div class="card-body">
+                <p>{tips3}</p>
+              </div>
+            </div>
+          </details>
+          {% endif %}
+  
+        </div>
+      </div>
+      </p>
+    </div> 
+  
+  </div>
+  {% endif %}
+  
+  {% if question13 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 3 . 1</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question13}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks13}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse1">
+        <div class="card card-body">        
+          <h4>{{answer13}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+  
+  </div>
+  {% endif %}
+  
+  
+  {% if question23 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 3 . 2</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question23}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks23}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse2">
+        <div class="card card-body">        
+          <h4>{{answer23}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  {% endif %}
+  
+  
+  {% if question33 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 3 . 3</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question33}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks33}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse3">
+        <div class="card card-body">        
+          <h4>{{answer33}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  {% endif %}
+  
+  
+  {% if question43 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 3 . 4</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question33}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks43}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse4">
+        <div class="card card-body">        
+          <h4>{{answer43}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  {% endif %}
+  
+  
+  {% if question53 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 3 . 5</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question53}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks53}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse5" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse5">
+        <div class="card card-body">        
+          <h4>{{answer53}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  </div>
+  {% endif %}
+{% endif %}}
+
+{if questionBase4 != None %}
+
+<div class="row"> 
+    <div class="column left">
+      <h4 class="number">0 4</h4>
+    </div>
+    <div class="column right">
+      {% if constant4 != None %}
+      <h4>{{constant4}}</h4>
+      {% endif %}
+      {% if svg != None %}
+      {{svg}}
+      {% endif %}
+      {% if diagram4 != None %}
+      <div>
+        <p class="centered"><img  width="60%" height="auto" src= "{% static diagram4 %}" alt="things"></p>
+      </div>
+      {% endif %}
+  
+      {% if piclink4 != None %}
+      <div>
+        <p class="centered"><img  width="30%" height="auto" src= "{{piclink4}}" alt="things"></p>
+      </div>
+      {% endif %}
+      <h4>{{questionBase4}}</h4>
+      {% if pre4 != None %}
+      <div>
+        <pre><h4>{{pre4}}</h4></pre>
+      </div>
+      {% endif %}
+      {% if tip4 != None %}
+      <details>
+        <summary>A little help?</summary>
+          <h5>{{tip4}}</h5>
+          {% if video4 != None %}
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="{{video4}}" allowfullscreen></iframe>
+          </div>
+          {% endif %}
+          {% if website4 != None %}
+          <a href="{{website4}}" class="btn btn-secondary" target="_blank" data-toogle="tooltip" title="I didn't make this website, but it might help! (opens in a new tab!)">A little more help?</a>
+          {% endif %}
+      </details>
+      {% endif %}
+  
+    </div>
+  </div>
+  
+  {% if answer4 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+    </div>
+    
+    <div class="column right">
+      <p>
+        <div class="c">
+          
+          <div>
+            
+            <h4>[{{marks4}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse">
+        <div class="card card-body">        
+          <h4>{{answer4}}</h4>
+          {% if preans4 != None %}
+          <pre><h4>{{preans4}}</h4></pre>
+          {% endif %}
+          
+          {% if tips4 != None %}
+          <details>
+            <summary>Not sure where you went wrong?</summary>
+            <div class="card">
+              <div class="card-body">
+                <p>{tips4}</p>
+              </div>
+            </div>
+          </details>
+          {% endif %}
+  
+        </div>
+      </div>
+      </p>
+    </div> 
+  
+  </div>
+  {% endif %}
+  
+  {% if question14 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 4 . 1</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question14}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks14}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse1">
+        <div class="card card-body">        
+          <h4>{{answer14}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+  
+  </div>
+  {% endif %}
+  
+  
+  {% if question24 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 4 . 2</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question24}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks24}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse2">
+        <div class="card card-body">        
+          <h4>{{answer24}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  {% endif %}
+  
+  
+  {% if question34 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 4 . 3</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question34}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks34}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse3">
+        <div class="card card-body">        
+          <h4>{{answer34}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  {% endif %}
+  
+  
+  {% if question44 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 4 . 4</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question34}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks44}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse4">
+        <div class="card card-body">        
+          <h4>{{answer44}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  {% endif %}
+  
+  
+  {% if question54 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 4 . 5</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question54}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks54}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse5" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse5">
+        <div class="card card-body">        
+          <h4>{{answer54}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  </div>
+
+{% endif %}
+  
+{if questionBase5 != None %}
+
+  <div class="row"> 
+    <div class="column left">
+      <h4 class="number">0 5</h4>
+    </div>
+    <div class="column right">
+      {% if constant5 != None %}
+      <h4>{{constant5}}</h4>
+      {% endif %}
+      {% if svg != None %}
+      {{svg}}
+      {% endif %}
+      {% if diagram5 != None %}
+      <div>
+        <p class="centered"><img  width="60%" height="auto" src= "{% static diagram5 %}" alt="things"></p>
+      </div>
+      {% endif %}
+  
+      {% if piclink5 != None %}
+      <div>
+        <p class="centered"><img  width="30%" height="auto" src= "{{piclink5}}" alt="things"></p>
+      </div>
+      {% endif %}
+      <h4>{{questionBase5}}</h4>
+      {% if pre != None %}
+      <div>
+        <pre><h4>{{pre5}}</h4></pre>
+      </div>
+      {% endif %}
+      {% if tip5 != None %}
+      <details>
+        <summary>A little help?</summary>
+          <h5>{{tip5}}</h5>
+          {% if video5 != None %}
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="{{video5}}" allowfullscreen></iframe>
+          </div>
+          {% endif %}
+          {% if website5 != None %}
+          <a href="{{website5}}" class="btn btn-secondary" target="_blank" data-toogle="tooltip" title="I didn't make this website, but it might help! (opens in a new tab!)">A little more help?</a>
+          {% endif %}
+      </details>
+      {% endif %}
+  
+    </div>
+  </div>
+  
+  {% if answer5 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+    </div>
+    
+    <div class="column right">
+      <p>
+        <div class="c">
+          
+          <div>
+            
+            <h4>[{{marks5}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse">
+        <div class="card card-body">        
+          <h4>{{answer5}}</h4>
+          {% if preans5 != None %}
+          <pre><h4>{{preans5}}</h4></pre>
+          {% endif %}
+          
+          {% if tips5 != None %}
+          <details>
+            <summary>Not sure where you went wrong?</summary>
+            <div class="card">
+              <div class="card-body">
+                <p>{tips}</p>
+              </div>
+            </div>
+          </details>
+          {% endif %}
+  
+        </div>
+      </div>
+      </p>
+    </div> 
+  
+  </div>
+  {% endif %}
+  
+  {% if question15 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 5 . 1</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question15}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks15}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse1">
+        <div class="card card-body">        
+          <h4>{{answer15}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+  
+  </div>
+  {% endif %}
+  
+  
+  {% if question25 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 5 . 2</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question25}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks25}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse2">
+        <div class="card card-body">        
+          <h4>{{answer25}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  {% endif %}
+  
+  
+  {% if question35 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 5 . 3</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question35}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks35}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse3">
+        <div class="card card-body">        
+          <h4>{{answer35}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  {% endif %}
+  
+  
+  {% if question45 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 5 . 4</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question35}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks45}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse4">
+        <div class="card card-body">        
+          <h4>{{answer45}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  {% endif %}
+  
+  
+  {% if question51 != None %}
+  <div class="row"> 
+  
+    <div class="column left">
+      <h4 class="number">0 5 . 5</h4>
+    </div>
+    
+    <div class="column right">
+      <p>
+      <h4>{{question55}}</h4>
+        <div class="c">
+          <div>
+            <h4>[{{marks55}} marks]</h4>   
+          </div>
+        </div>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse5" role="button" aria-expanded="false" aria-controls="collapse1">
+          Answer
+        </a>
+      </p>
+      
+      <div class="collapse" id="collapse5">
+        <div class="card card-body">        
+          <h4>{{answer55}}</h4>
+        </div>
+      </div>
+      </p>
+    </div> 
+    
+  </div>
+  </div>
+
+  {% endif %}
+
+  <div>
+    <p class="centered">
+      <div class="alert alert-secondary" role="alert">
+        <h5 style="text-align:center;">Close this window to return to the menu</h5>
+      </div>    
+    </p>
+  </div>
+  
+  {% endblock %}

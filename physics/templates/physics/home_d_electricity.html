@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/..">Home</a></li>
+      <li class="breadcrumb-item"><a href="/physics">A-level physics</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Electricity</li>
+    </ol>
+</nav>
+
+
+<div class="jumbotron">
+    <h1 class="display-4">Electrical current</h1>
+    <hr class="my-4">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-charge" role="tab" aria-controls="nav-home" aria-selected="true">Charge</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-energy" role="tab" aria-controls="nav-energy" aria-selected="false">Energy</a>
+          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-resistance" role="tab" aria-controls="nav-resistance" aria-selected="false">Resistance</a>
+          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-components" role="tab" aria-controls="nav-components" aria-selected="false">Components and their characteristics</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-charge" role="tabpanel" aria-labelledby="nav-charge-tab">
+            <a class="dropdown-item" href="./chargeCurrentTime" target="_blank">Calculate the charge passing a point in the wire</a>
+            <a class="dropdown-item" href="electronsCurrentTime/" target="_blank">Calculate the number of electrons pasing a point</a>
+            <a class="dropdown-item" href="electronBeamExperiment/" target="_blank">In an electron beam experiment</a>
+            <a class="dropdown-item" href="rechargableBattery/" target="_blank">Maximum time a rechargable battery can be used</a>
+        </div>
+        <div class="tab-pane fade" id="nav-energy" role="tabpanel" aria-labelledby="nav-energy-tab">
+            <a class="dropdown-item" href="work_pd_current/" target="_blank">Calculate energy transfer</a>
+            <a class="dropdown-item" href="power_pd_current/" target="_blank">Power, potential difference and current</a>
+            <a class="dropdown-item" href="pd_charge_energy_power_time/" target="_blank">Charge, energy and power</a>
+        </div>
+        <div class="tab-pane fade" id="nav-resistance" role="tabpanel" aria-labelledby="nav-resistance-tab">
+            <a class="dropdown-item" href="resistance_pd_current/" target="_blank">Resistance, potential difference and current</a>
+            <a class="dropdown-item" href="resistivity_uniform_wire/" target="_blank">Resistivity in a uniform wire</a>
+            <a class="dropdown-item" href="resistivity_rectangular_wire/" target="_blank">Resistivity in a rectangular objects</a>
+            <a class="dropdown-item" href="two_part_resistivity" target="_blank">Two part resistivity question</a>
+        </div>
+        <div class="tab-pane fade" id="nav-components" role="tabpanel" aria-labelledby="nav-components-tab">
+            <a class="dropdown-item" href="temperature_of_a_fillament/" target="_blank">Resistance in a filament bulb</a>
+            <a class="dropdown-item" href="temperature_of_a_thermistor/" target="_blank">Resistance, temperature and thermistors</a>
+            <a class="dropdown-item" href="variable_temperature_resistance/" target="_blank">Resistance changing with temperature</a>
+         </div>
+
+    </div>
+  </div>
+
+  <div class="jumbotron">
+    <h1 class="display-4">Direct current circuits</h1>
+    <hr class="my-4">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-circuit-rules" role="tab" aria-controls="nav-circuit-rules" aria-selected="true">Circuit rules</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-circuit-resistance" role="tab" aria-controls="nav-circuit-resistance" aria-selected="false">Resistance in circuits</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-emf-internal-resistance" role="tab" aria-controls="nav-emf-internal-resistance" aria-selected="false">EMF and internal resistance</a>
+        
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-circuit-rules" role="tabpanel" aria-labelledby="nav-circuit-rules-tab">
+            <a class="dropdown-item" href="two_components_parallel/" target="_blank">Calculating values in parallel circuits</a>
+            <a class="dropdown-item" href="two_components_series/" target="_blank">Calculating values in series circuits</a>
+            <a class="dropdown-item" href="two_components_series2/" target="_blank">Calculating resistance in series circuits</a>
+        </div>
+        <div class="tab-pane fade" id="nav-circuit-resistance" role="tabpanel" aria-labelledby="nav-circuit-resistance-tab">
+            <a class="dropdown-item" href="seriesParallelChoice/" target="_blank">Resistance in series and parallel components</a>
+            <a class="dropdown-item" href="oneSeriesTwoParallel/" target="_blank">Resistance in series and parallel circuits</a>
+            <a class="dropdown-item" href="oneSeriesTwoParallelSecond/"  target="_blank">Resistors in series and parallel</a>
+            <a class="dropdown-item" href="element/" target="_blank">Power and resistance</a>
+        </div>
+        <div class="tab-pane fade" id="nav-emf-internal-resistance" role="tabpanel" aria-labelledby="nav-emf-internal-resistance">
+            <a class="dropdown-item" href="emf_internal_reistance_random/" target="_blank">Random EMF and internal resistance</a>
+        </div>
+
+
+    </div>
+  </div>
+{% endblock %}
