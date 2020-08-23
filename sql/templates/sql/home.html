@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">SQL</li>
+    </ol>
+</nav>
+
+<div class="jumbotron text-left bg-light">
+    <div class="container">
+      <h1>SQL it is... pick a module!</h1>
+      <p></p>
+      <hr>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Basics</h5>
+              <div class="alert alert-warning" role="alert">
+                Under construction
+              </div>
+              <a href="basics/" class="btn btn-primary">Take me there!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Advanced</h5>
+              <div class="alert alert-danger" role="alert">
+                Not built yet
+              </div>
+              <a href="#" class="btn btn-primary.disabled">Check back later</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  
+    function getCookie(cname) {//gets the cookie!
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+    
+    function CookieSet (cName, cValue){//sets a cookie
+      document.cookie = cName + "=" + cValue;
+      alert(document.cookie)
+    }
+    //check if already exists. if already exists, leave alone
+    if (getCookie('sql_attempts') == '')
+      {
+      CookieSet("sql_attempts",'0');
+      }
+    if (getCookie('sql_correct') == '')
+      {
+      CookieSet("sql_correct",'0');
+      }
+
+  </script>
+
+{% endblock %}

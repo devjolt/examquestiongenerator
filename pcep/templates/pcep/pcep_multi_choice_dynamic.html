@@ -1,3 +1,6 @@
+
+
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -43,73 +46,55 @@
 <div class="column right">
   <table class="table table-striped">
     <tbody>
-      <tr>
-        <th scope="row"><h4>1.</h4></th>
-        <td><h4>{%if a1 != None%}{{a1}}{% endif %}<code>{%if a1code != None%}{{a1code}}{% endif %}</code></h4></td>
+      
+      <tr id="answer1">
+        <th scope="row" ><h4>1.</h4></th>
+        <td ><p >{%if a1 != None%}{{a1}}{% endif %}<code>{%if a1code != None%}{{a1code}}{% endif %}</p></td>
         <td>
           <div class="btn-group dropleft">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              answer
-            </button>
-            <div class="dropdown-menu">
-              {% if a1ci == "correct"%}<div class="alert alert-success" role="alert">Correct!</div>{% endif %}
-              {% if a1ci == "incorrect"%}<div class="alert alert-danger" role="alert">incorrect!</div>{% endif %}
-            </div>
-            </div>
+            {% if a1ci == "correct"%}<button id="button1" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer1').style.background='lightgreen';document.getElementById('button1').style.background='green';document.getElementById('button1').innerHTML = '{{a1ci}}'">Answer</button>{% endif %}
+            {% if a1ci == "incorrect"%}<button id="button1" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer1').style.background='pink';document.getElementById('button1').style.background='red';document.getElementById('button1').innerHTML = '{{a1ci}}'">Answer</button>{% endif %}
           </div>
-        </td> 
+        </td>
       </tr>
 
-      <tr>
-        <th scope="row"><h4>2.</h4></th>
-        <td><h4>{%if a2 != None%}{{a2}}{% endif %}<code>{%if a2code != None%}{{a2code}}{% endif %}</code></h4></td>
+      <tr id="answer2">
+        <th scope="row" ><h4>2.</h4></th>
+        <td><p>{%if a2 != None%}{{a2}}{% endif %}<code>{%if a2code != None%}{{a2code}}{% endif %}</p></td>
         <td>
           <div class="btn-group dropleft">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              answer
-            </button>
-            <div class="dropdown-menu">
-              {% if a2ci == "correct"%}<div class="alert alert-success" role="alert">Correct!</div>{% endif %}
-              {% if a2ci == "incorrect"%}<div class="alert alert-danger" role="alert">incorrect!</div>{% endif %}
-            </div>
-            </div>
-          </div>
-        </td>
-      </tr>  
-      <tr>
-        <th scope="row"><h4>3.</h4></th>
-        <td><h4>{%if a3 != None%}{{a3}}{% endif %}<code>{%if a3code != None%}{{a3code}}{% endif %}</code></h4></td>
-        <td>
-          <div class="btn-group dropleft">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              answer
-            </button>
-            <div class="dropdown-menu">
-              {% if a3ci == "correct"%}<div class="alert alert-success" role="alert">Correct!</div>{% endif %}
-              {% if a3ci == "incorrect"%}<div class="alert alert-danger" role="alert">incorrect!</div>{% endif %}
-            </div>
-            </div>
-          </div>
-        </td>
-      </tr>  
-      
-      <tr>
-        <th scope="row"><h4>4.</h4></th>
-        <td><h4>{%if a4 != None%}{{a4}}{% endif %}<code>{%if a4code != None%}{{a4code}}{% endif %}</code></h4></td>
-        <td>
-          <div class="btn-group dropleft">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              answer
-            </button>
-            <div class="dropdown-menu">
-              {% if a4ci == "correct"%}<div class="alert alert-success" role="alert">Correct!</div>{% endif %}
-              {% if a4ci == "incorrect"%}<div class="alert alert-danger" role="alert">incorrect!</div>{% endif %}
-            </div>
+            {% if a2ci == "correct"%}<button id="button2" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer2').style.background='lightgreen';document.getElementById('button2').style.background='green';document.getElementById('button2').innerHTML = '{{a2ci}}'">Answer</button>{% endif %}
+            {% if a2ci == "incorrect"%}<button id="button2" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer2').style.background='pink';document.getElementById('button2').style.background='red';document.getElementById('button2').innerHTML = '{{a2ci}}'">Answer</button>{% endif %}
           </div>
         </td>
       </tr> 
+
+      <tr id="answer3">
+        <th scope="row"><h4>3.</h4></th>
+        <td><p>{%if a3 != None%}{{a3}}{% endif %}<code>{%if a3code != None%}{{a3code}}{% endif %}</p></td>
+        <td>
+          <div class="btn-group dropleft">
+            {% if a3ci == "correct"%}<button id="button3" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer3').style.background='lightgreen';document.getElementById('button3').style.background='green';document.getElementById('button3').innerHTML = '{{a3ci}}'">Answer</button>{% endif %}
+            {% if a3ci == "incorrect"%}<button id="button3" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer3').style.background='pink';document.getElementById('button3').style.background='red';document.getElementById('button3').innerHTML = '{{a3ci}}'">Answer</button>{% endif %}
+          </div>
+        </td>
+      </tr> 
+
+      <tr id="answer4">
+        <th scope="row"><h4>4.</h4></th>
+        <td><p >{%if a4 != None%}{{a4}}{% endif %}<code>{%if a4code != None%}{{a4code}}{% endif %}</p></td>
+        <td>
+          <div class="btn-group dropleft">
+            {% if a4ci == "correct"%}<button id="button4" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer4').style.background='lightgreen';document.getElementById('button4').style.background='green';document.getElementById('button4').innerHTML = '{{a4ci}}'">Answer</button>{% endif %}
+            {% if a4ci == "incorrect"%}<button id="button4" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer4').style.background='pink';document.getElementById('button4').style.background='red';document.getElementById('button4').innerHTML = '{{a4ci}}'">Answer</button>{% endif %}
+          </div>
+        </td>
+      </tr>
+
     </tbody>
   </table>
+
+
 
   {% if hint != None %}
     <details>
@@ -121,7 +106,6 @@
         </div>
         {% endif %}
         {% if weblink != None %}
-        <a href="{{weblink}}" class="btn btn-secondary" target="_blank" data-toogle="tooltip" title="I didn't make this website, but it might help! (opens in a new tab!)">A little more help?</a>
         {% endif %}
     </details>
   {% endif %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/..">Home</a></li>
+      <li class="breadcrumb-item"><a href="/sql">SQL</a></li>
+      <li class="breadcrumb-item active" aria-current="page">SQL Basics</li>
+    </ol>
+</nav>
+
+<div class="jumbotron">
+    <h1 class="display-4">Not sure where to start?</h1>
+    <p>Try these to see what you need to work on...</p>
+    <hr class="my-4">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="sql-basics" data-toggle="tab" href="#nav-sql-basics" role="tab" aria-controls="nav-sql-basics" aria-selected="true">SQL Basics</a>
+          <a class="nav-item nav-link" id="sql-general" data-toggle="tab" href="#nav-sql-general" role="tab" aria-controls="nav-general" aria-selected="false">SQL General</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tab">
+        <div class="tab-pane fade show active" id="nav-sql-basics" role="tabpanel" aria-labelledby="nav-sql-basics">
+            <a class="dropdown-item" href="test/" target="_blank">Test page</a>
+            <a class="dropdown-item" href="a1qa_what_is_sql/" target="_blank">What is SQL?</a>
+        </div>
+        <div class="tab-pane fade" id="nav-sql-general" role="tabpanel" aria-labelledby="nav-general">
+            <a class="dropdown-item" href="algebra_solve_random/" target="_blank">Random find x question</a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -21,21 +21,24 @@ def select_random(request):
     return render(request, "questionAnswerButtons2.html", view_builder(currentFuncName()))
 #selects a function at random from moduleList generated list and returns everything needed to generate a view
 '''
+def template():
+    return "pcep/pcep_multi_choice_dynamic.html"
+
 
 def e1qa_test(request):
-    return render(request, "pcep/pcep_multi_choice.html", view_builder(currentFuncName()))
+    return render(request, template(), view_builder(currentFuncName()))
 
 def a1qa_interpreting_the_interpreter(request):
-    return render(request, "pcep/pcep_multi_choice_dynamic.html", view_builder(currentFuncName()))
+    return render(request, template(), view_builder(currentFuncName()))
 def a1qb_compilation_and_the_compiler(request):
-    return render(request, "pcep/pcep_multi_choice.html", view_builder(currentFuncName()))
+    return render(request, template(), view_builder(currentFuncName()))
 def a1qc_machine_higher_level_natural_languages(request):
-    return render(request, "pcep/pcep_multi_choice.html", view_builder(currentFuncName()))
+    return render(request, template(), view_builder(currentFuncName()))
 def a1qd_language_elements(request):
-    return render(request, "pcep/pcep_multi_choice.html", view_builder(currentFuncName()))
+    return render(request, template(), view_builder(currentFuncName()))
 def a1qe_python(request):
-    return render(request, "pcep/pcep_multi_choice.html", view_builder(currentFuncName()))
+    return render(request, template(), view_builder(currentFuncName()))
 def a1qf_python_keywords(request):
-    return render(request, "pcep/pcep_multi_choice.html", view_builder(currentFuncName()))
+    return render(request, template(), view_builder(currentFuncName()))
 def a1qg_indentation_and_spacing(request):
-    return render(request, "pcep/pcep_multi_choice.html", view_builder(currentFuncName()))
+    return render(request, template(), view_builder(currentFuncName()))

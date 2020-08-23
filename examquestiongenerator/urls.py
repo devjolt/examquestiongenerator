@@ -25,5 +25,6 @@ urlpatterns = [
     path('gcsebiology/', include('gcsebiology.urls')),
     path('pcap/', include('pcap.urls')),
     path('pcep/', include('pcep.urls')),
-    path('testapp/', include('testapp.urls'))
+    path('testapp/', include('testapp.urls')),
+    path('sql/', include('sql.urls'))
 ]

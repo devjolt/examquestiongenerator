@@ -1,0 +1,210 @@
+
+
+
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/multi_choice_dynamic.css" %}">
+
+
+<div class="row"> 
+
+<div class="column left">
+  <div class="grid-container">
+    <div class="grid-item"><p>Attempted: </p></div>
+    <div class="grid-item"><p id = 'attempted'></p></div>
+    <div class="grid-item"><p>% correct: </p></div>
+    <div class="grid-item"><p id = 'percent'> </p></div>
+  </div>
+</div>
+
+<div class="column right">
+  <div class="centered">
+    <button type="button" class="btn btn-primary dropdown-toggle" onclick = "resetCookies();document.getElementById('attempted').innerHTML = '0';document.getElementById('percent').innerHTML = '0';">Reset stats</button></div>
+  </div>
+
+</div>
+
+  
+ 
+
+
+<div class="row"> 
+
+  
+  <div class="column left">  </div>
+
+  <div class="column right">
+    {% if diagram != None %}
+    <div>
+      <p class="centered"><img  width="50%" height="auto" src= "{% static diagram %}" alt="things"></p>
+    </div>
+    {% endif %}
+
+    {% if piclink != None %}
+    <div><p class="centered"><img  width="30%" height="auto" src= "{{piclink}}" alt="things"></p></div>
+    {% endif %}
+    <h4>{{questionBase}}</h4>
+    {% if code != None%}<h4><code>{{code}}</code></h4>{% endif%}
+  </div>
+</div>
+
+
+
+<div class="column left">
+</div>
+
+<div class="column right">
+  <table class="table table-striped">
+    <tbody>
+      
+      <tr id="answer1">
+        <th scope="row" ><h4>1.</h4></th>
+        <td ><p >{%if a1 != None%}{{a1}}{% endif %}<code>{%if a1code != None%}{{a1code}}{% endif %}</p></td>
+        <td>
+          <div class="btn-group dropleft">
+            {% if a1ci == "correct"%}<button id="button1" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer1').style.background='lightgreen';document.getElementById('button1').style.background='green';document.getElementById('button1').innerHTML = '{{a1ci}}';ifRespondedCorrect('yes')">Answer</button>{% endif %}
+            {% if a1ci == "incorrect"%}<button id="button1" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer1').style.background='pink';document.getElementById('button1').style.background='red';document.getElementById('button1').innerHTML = '{{a1ci}}';ifRespondedCorrect('')">Answer</button>{% endif %}
+          </div>
+        </td>
+      </tr>
+
+      <tr id="answer2">
+        <th scope="row" ><h4>2.</h4></th>
+        <td><p>{%if a2 != None%}{{a2}}{% endif %}<code>{%if a2code != None%}{{a2code}}{% endif %}</p></td>
+        <td>
+          <div class="btn-group dropleft">
+            {% if a2ci == "correct"%}<button id="button2" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer2').style.background='lightgreen';document.getElementById('button2').style.background='green';document.getElementById('button2').innerHTML = '{{a2ci}}';ifRespondedCorrect('yes')">Answer</button>{% endif %}
+            {% if a2ci == "incorrect"%}<button id="button2" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer2').style.background='pink';document.getElementById('button2').style.background='red';document.getElementById('button2').innerHTML = '{{a2ci}}';ifRespondedCorrect('')">Answer</button>{% endif %}
+          </div>
+        </td>
+      </tr> 
+
+      <tr id="answer3">
+        <th scope="row"><h4>3.</h4></th>
+        <td><p>{%if a3 != None%}{{a3}}{% endif %}<code>{%if a3code != None%}{{a3code}}{% endif %}</p></td>
+        <td>
+          <div class="btn-group dropleft">
+            {% if a3ci == "correct"%}<button id="button3" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer3').style.background='lightgreen';document.getElementById('button3').style.background='green';document.getElementById('button3').innerHTML = '{{a3ci}}';ifRespondedCorrect('yes')">Answer</button>{% endif %}
+            {% if a3ci == "incorrect"%}<button id="button3" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer3').style.background='pink';document.getElementById('button3').style.background='red';document.getElementById('button3').innerHTML = '{{a3ci}}';ifRespondedCorrect('')">Answer</button>{% endif %}
+          </div>
+        </td>
+      </tr> 
+
+      <tr id="answer4">
+        <th scope="row"><h4>4.</h4></th>
+        <td><p >{%if a4 != None%}{{a4}}{% endif %}<code>{%if a4code != None%}{{a4code}}{% endif %}</p></td>
+        <td>
+          <div class="btn-group dropleft">
+            {% if a4ci == "correct"%}<button id="button4" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer4').style.background='lightgreen';document.getElementById('button4').style.background='green';document.getElementById('button4').innerHTML = '{{a4ci}}';ifRespondedCorrect('yes')">Answer</button>{% endif %}
+            {% if a4ci == "incorrect"%}<button id="button4" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer4').style.background='pink';document.getElementById('button4').style.background='red';document.getElementById('button4').innerHTML = '{{a4ci}}';ifRespondedCorrect('')">Answer</button>{% endif %}
+          </div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  
+
+
+  {% if hint != None %}
+    <details>
+      <summary>A little help?</summary>
+        <h5>{{hint}}</h5>
+        {% if video != None %}
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="{{video}}" allowfullscreen></iframe>
+        </div>
+        {% endif %}
+        {% if weblink != None %}
+        {% endif %}
+    </details>
+  {% endif %}
+
+
+  <div>
+    <p class="centered">
+      {% if previousQ != None %}
+      <a href="{{previousQ}}" class="btn btn-secondary">Previous </a>
+      {% endif %}
+  
+      <button class="btn btn-primary" onClick="history.go(0);">Generate another another one of these!</button>
+      
+      {% if nextQ != None %}
+      <a href="{{nextQ}}" class="btn btn-secondary">Next</a>
+      {% endif %}
+  
+    </p>
+  </div>
+</div>
+
+<script type="text/javascript">
+  
+  function resetCookies(){
+      document.cookie = 'sql_attempts' + '=' + '0';
+      document.cookie = 'sql_correct' + '=' + '0';
+    }
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+function calculatePercentage(){
+  if (getCookie('sql_attempts') == 0){
+    return 0;
+  }else{
+    var percent = Math.ceil( getCookie('sql_correct') / getCookie('sql_attempts') * 100);
+    return percent;
+  }
+}
+function incrementCookie(cName){
+      var value = parseInt(getCookie(cName)) + 1;
+      document.cookie = cName + "=" + value;
+      return value;
+    }
+
+
+document.getElementById("attempted").innerHTML = parseInt(getCookie('sql_attempts'));  
+document.getElementById("percent").innerHTML = calculatePercentage(); 
+console.log(getCookie('sql_attempts') + 'attempts');
+console.log(getCookie('sql_correct') + 'correct');
+console.log(calculatePercentage());
+// desired behaviour:
+//  onclick if responded == 0: responded = 1,  attempted+=1, if correct correct +=1, 
+var responded = 0
+
+function ifRespondedCorrect(correct){
+  if (responded == 0){
+    responded = 1
+    incrementCookie('sql_attempts');
+    console.log('first response');
+    if (correct == 'yes'){
+      incrementCookie('sql_correct');
+      console.log('Plus 1 to correct');
+    }else{
+      console.log('Wrong');
+    }
+   }else{
+      console.log('SOOOO many clicks');
+    }
+  }
+
+
+</script>
+
+
+{% endblock %}

@@ -159,7 +159,7 @@ def a1qb_compilation_and_the_compiler():
     questionBase = f'Which of the following statements about interpreters and compilers is {q}:'
     a1code, a2code, a3code, a4code, answercode = None, None, None, None, None
     help, weblink, video = None, None, None
-    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode)
+    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode, a1ci, a2ci, a3ci, a4ci)
 
 def a1qc_machine_higher_level_natural_languages():
     previousQ, nextQ = previousNext("a1q", 0, 3, currentFuncName())
@@ -197,10 +197,12 @@ def a1qc_machine_higher_level_natural_languages():
     ]
     code, hint = None, None
     answer, a1, a2, a3, a4, q, num = true_false_options_mangle(true, false)
+    a1ci, a2ci, a3ci, a4ci = correct_incorrect_sequence(num)
     questionBase = f'Which of the following statements about machine language, natural language and higher level coding languages is {q}:'
+    
     a1code, a2code, a3code, a4code, answercode = None, None, None, None, None
     help, weblink, video = None, None, None
-    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode)
+    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode, a1ci, a2ci, a3ci, a4ci)
 
 def a1qd_language_elements():
     previousQ, nextQ = previousNext("a1q", 0, 3, currentFuncName())
@@ -231,10 +233,11 @@ def a1qd_language_elements():
     ]
     code, hint = None, None
     answer, a1, a2, a3, a4, q, num = true_false_options_mangle(true, false)
+    a1ci, a2ci, a3ci, a4ci = correct_incorrect_sequence(num)
     questionBase = f'Which of the following statements about the elements of a language is {q}:'
     a1code, a2code, a3code, a4code, answercode = None, None, None, None, None
     help, weblink, video = None, None, None
-    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode)
+    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode, a1ci, a2ci, a3ci, a4ci)
 
 def a1qe_python():
     previousQ, nextQ = previousNext("a1q", 0, 3, currentFuncName())
@@ -265,10 +268,11 @@ def a1qe_python():
     ]
     code, hint = None, None
     answer, a1, a2, a3, a4, q, num = true_false_options_mangle(true, false)
+    a1ci, a2ci, a3ci, a4ci = correct_incorrect_sequence(num)
     questionBase = f'Which of the following statements about the Python programming language is {q}:'
     a1code, a2code, a3code, a4code, answercode = None, None, None, None, None
     help, weblink, video = None, None, None
-    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode)
+    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode, a1ci, a2ci, a3ci, a4ci)
 
 def a1qf_python_keywords():
     previousQ, nextQ = previousNext("a1q", 0, 3, currentFuncName())
@@ -286,11 +290,12 @@ def a1qf_python_keywords():
     code, hint = None, 'Keywords are the reserved words in Python. We cannot use a keyword as variable name, function name or any other identifier.'
     answer, a1, a2, a3, a4 = None, None, None, None, None
     answercode, a1code, a2code, a3code, a4code, q, num = true_false_options_mangle(true, false)
+    a1ci, a2ci, a3ci, a4ci = correct_incorrect_sequence(num)
     areNot = "is" if q == "true" else "is not"
     questionBase = f'Which of the following {areNot} a python keyword:'
     
     help, weblink, video = hint, 'https://www.programiz.com/python-programming/keyword-list', None
-    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode)
+    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode, a1ci, a2ci, a3ci, a4ci)
 
 def a1qg_indentation_and_spacing():
     previousQ, nextQ = previousNext("a1q", 0, 3, currentFuncName())
@@ -311,14 +316,11 @@ def a1qg_indentation_and_spacing():
         ]
     code, hint = None, None
     answer, a1, a2, a3, a4, q, num = true_false_options_mangle(true, false)
+    a1ci, a2ci, a3ci, a4ci = correct_incorrect_sequence(num)
     questionBase = f'Which of the following statements about the Python programming language is {q}:'
     a1code, a2code, a3code, a4code, answercode = None, None, None, None, None
-    help, weblink, video = None, None, None
-    if num == 1: a1ci, a2ci, a3ci, a4ci = "correct", "incorrect", "incorrect","incorrect"
-    elif num == 2: a3ci, a1ci, a2ci, a4ci = "correct", "incorrect", "incorrect","incorrect"
-
-    
-    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode)
+    help, weblink, video = None, None, None    
+    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode, a1ci, a2ci, a3ci, a4ci)
 
 '''
 literals: Boolean, integer, floating-point numbers, scientific notation, strings
