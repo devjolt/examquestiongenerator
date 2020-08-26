@@ -8,33 +8,32 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static "css/multi_choice_dynamic.css" %}">
+<script type="text/javascript" src="{% static "js/script.js" %}"></script>
 
 
 <div class="row"> 
 
-<div class="column left">
-  <div class="grid-container">
-    <div class="grid-item"><p>Attempted: </p></div>
-    <div class="grid-item"><p id = 'attempted'></p></div>
-    <div class="grid-item"><p>% correct: </p></div>
-    <div class="grid-item"><p id = 'percent'> </p></div>
-  </div>
-</div>
-
-<div class="column right">
-  <div class="centered">
-    <button type="button" class="btn btn-primary dropdown-toggle" onclick = "resetCookies();document.getElementById('attempted').innerHTML = '0';document.getElementById('percent').innerHTML = '0';">Reset stats</button></div>
+  <div class="column left">
+    <div class="grid-container">
+      <div class="grid-item"><p>Attempted: </p></div>
+      <div class="grid-item"><p id = 'attempted'></p></div>
+      <div class="grid-item"><p>% correct: </p></div>
+      <div class="grid-item"><p id = 'percent'> </p></div>
+    </div>
   </div>
 
+  <div class="column right">
+    <div>
+      <p>
+        <button type="button" class="btn btn-primary" onclick = "resetCookies();document.getElementById('attempted').innerHTML = '0';document.getElementById('percent').innerHTML = '0';">Reset stats</button></div>
+      </p>
+    </div>
+  </div>
+
 </div>
-
-  
- 
-
 
 <div class="row"> 
 
-  
   <div class="column left">  </div>
 
   <div class="column right">
@@ -52,8 +51,6 @@
   </div>
 </div>
 
-
-
 <div class="column left">
 </div>
 
@@ -67,7 +64,7 @@
         <td>
           <div class="btn-group dropleft">
             {% if a1ci == "correct"%}<button id="button1" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer1').style.background='lightgreen';document.getElementById('button1').style.background='green';document.getElementById('button1').innerHTML = '{{a1ci}}';ifRespondedCorrect('yes')">Answer</button>{% endif %}
-            {% if a1ci == "incorrect"%}<button id="button1" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer1').style.background='pink';document.getElementById('button1').style.background='red';document.getElementById('button1').innerHTML = '{{a1ci}}';ifRespondedCorrect('')">Answer</button>{% endif %}
+            {% if a1ci == "incorrect"%}<button id="button1" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer1').style.background='pink';document.getElementById('button1').style.background='red';document.getElementById('button1').innerHTML = '{{a1ci}}';addToCookieList('work_on');ifRespondedCorrect('')">Answer</button>{% endif %}
           </div>
         </td>
       </tr>
@@ -78,7 +75,7 @@
         <td>
           <div class="btn-group dropleft">
             {% if a2ci == "correct"%}<button id="button2" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer2').style.background='lightgreen';document.getElementById('button2').style.background='green';document.getElementById('button2').innerHTML = '{{a2ci}}';ifRespondedCorrect('yes')">Answer</button>{% endif %}
-            {% if a2ci == "incorrect"%}<button id="button2" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer2').style.background='pink';document.getElementById('button2').style.background='red';document.getElementById('button2').innerHTML = '{{a2ci}}';ifRespondedCorrect('')">Answer</button>{% endif %}
+            {% if a2ci == "incorrect"%}<button id="button2" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer2').style.background='pink';document.getElementById('button2').style.background='red';document.getElementById('button2').innerHTML = '{{a2ci}}';addToCookieList('work_on');ifRespondedCorrect('')">Answer</button>{% endif %}
           </div>
         </td>
       </tr> 
@@ -89,7 +86,7 @@
         <td>
           <div class="btn-group dropleft">
             {% if a3ci == "correct"%}<button id="button3" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer3').style.background='lightgreen';document.getElementById('button3').style.background='green';document.getElementById('button3').innerHTML = '{{a3ci}}';ifRespondedCorrect('yes')">Answer</button>{% endif %}
-            {% if a3ci == "incorrect"%}<button id="button3" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer3').style.background='pink';document.getElementById('button3').style.background='red';document.getElementById('button3').innerHTML = '{{a3ci}}';ifRespondedCorrect('')">Answer</button>{% endif %}
+            {% if a3ci == "incorrect"%}<button id="button3" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer3').style.background='pink';document.getElementById('button3').style.background='red';document.getElementById('button3').innerHTML = '{{a3ci}}';addToCookieList('work_on');ifRespondedCorrect('')">Answer</button>{% endif %}
           </div>
         </td>
       </tr> 
@@ -100,16 +97,13 @@
         <td>
           <div class="btn-group dropleft">
             {% if a4ci == "correct"%}<button id="button4" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer4').style.background='lightgreen';document.getElementById('button4').style.background='green';document.getElementById('button4').innerHTML = '{{a4ci}}';ifRespondedCorrect('yes')">Answer</button>{% endif %}
-            {% if a4ci == "incorrect"%}<button id="button4" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer4').style.background='pink';document.getElementById('button4').style.background='red';document.getElementById('button4').innerHTML = '{{a4ci}}';ifRespondedCorrect('')">Answer</button>{% endif %}
+            {% if a4ci == "incorrect"%}<button id="button4" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer4').style.background='pink';document.getElementById('button4').style.background='red';document.getElementById('button4').innerHTML = '{{a4ci}}';addToCookieList('work_on');ifRespondedCorrect('')">Answer</button>{% endif %}
           </div>
         </td>
       </tr>
 
     </tbody>
   </table>
-
-  
-
 
   {% if hint != None %}
     <details>
@@ -126,85 +120,76 @@
   {% endif %}
 
 
-  <div>
-    <p class="centered">
-      {% if previousQ != None %}
-      <a href="{{previousQ}}" class="btn btn-secondary">Previous </a>
-      {% endif %}
   
-      <button class="btn btn-primary" onClick="history.go(0);">Generate another another one of these!</button>
-      
-      {% if nextQ != None %}
-      <a href="{{nextQ}}" class="btn btn-secondary">Next</a>
-      {% endif %}
-  
-    </p>
-  </div>
+</div>
+
+<div>
+  <p class="centered">
+    {% if previousQ != None %}
+    <a href="{{previousQ}}" class="btn btn-secondary">Previous </a>
+    {% endif %}
+
+    <button class="btn btn-primary" onClick="history.go(0);">Generate another another one of these!</button>
+    
+    {% if nextQ != None %}
+    <a href="{{nextQ}}" class="btn btn-secondary">Next</a>
+    {% endif %}
+
+  </p>
+  <p class="centered">
+    <a href="/sql/work_on/" class="btn btn-primary" target='_blank'>See what you need to read up on</a>
+  </p>
+</div>
+
+<div>
+  <p class="centered">
+    <div class="alert alert-secondary" role="alert">
+      <h5 style="text-align:center;">Close this window to return to the menu</h5>
+    </div>    
+  </p>
 </div>
 
 <script type="text/javascript">
-  
-  function resetCookies(){
-      document.cookie = 'sql_attempts' + '=' + '0';
-      document.cookie = 'sql_correct' + '=' + '0';
-    }
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-function calculatePercentage(){
-  if (getCookie('sql_attempts') == 0){
-    return 0;
-  }else{
-    var percent = Math.ceil( getCookie('sql_correct') / getCookie('sql_attempts') * 100);
-    return percent;
-  }
-}
-function incrementCookie(cName){
-      var value = parseInt(getCookie(cName)) + 1;
-      document.cookie = cName + "=" + value;
-      return value;
-    }
 
-
+if (getCookie('sql_attempts') == 'nope')
+      {
+      CookieSet("sql_attempts",'0');
+      }
+if (getCookie('sql_correct') == 'nope')
+      {
+      CookieSet("sql_correct",'0');
+      }
 document.getElementById("attempted").innerHTML = parseInt(getCookie('sql_attempts'));  
 document.getElementById("percent").innerHTML = calculatePercentage(); 
 console.log(getCookie('sql_attempts') + 'attempts');
 console.log(getCookie('sql_correct') + 'correct');
 console.log(calculatePercentage());
-// desired behaviour:
-//  onclick if responded == 0: responded = 1,  attempted+=1, if correct correct +=1, 
 var responded = 0
 
-function ifRespondedCorrect(correct){
-  if (responded == 0){
-    responded = 1
-    incrementCookie('sql_attempts');
-    console.log('first response');
-    if (correct == 'yes'){
-      incrementCookie('sql_correct');
-      console.log('Plus 1 to correct');
-    }else{
-      console.log('Wrong');
-    }
-   }else{
-      console.log('SOOOO many clicks');
-    }
-  }
+document.onload = createWorkOnCookie()
 
+var workOn = "{{workOn}}"
+var weblink = "{{weblink}}"
+var helplink = "<a href='"+weblink+"' target='_blank'>" + workOn + "</a>"
+
+function addToCookieList(cName){
+    if (responded == 0){
+        console.log('trying to add');
+        console.log(helplink);
+        console.log(getCookie("work_on").split(',').includes(helplink));
+        console.log(getCookie("work_on").split(','));
+        if (getCookie("work_on").split(',').includes(helplink)){
+            console.log('No need to add');
+            return
+        }
+        else {
+            console.log('adding');
+            var value = getCookie(cName) + "," + helplink;
+            document.cookie = cName + "=" + value + ";path=/";
+        }
+    }
+}
 
 </script>
-
 
 {% endblock %}

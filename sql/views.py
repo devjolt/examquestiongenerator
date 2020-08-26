@@ -8,5 +8,8 @@ def home(request):
     print("yep")
     return render(request,"sql/home.html")
 
+def work_on(request):
+    return render(request, "sql/work_on.html")
+
 def home_a_basics(request):
     return render(request,"sql/home_a_basics.html")

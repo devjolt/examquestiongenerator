@@ -65,7 +65,7 @@ def true_false_options_mangle(list1, list2): #generates a correct answer, a true
             options.append(list1[randint(0, len(list1)-1)])
     options.insert(num, answer) # inserts answer into a random place (num defined earlier)
     num2 = options.index(answer)
-    answer = f"{num+1}. {answer}" #answer now includes number of correct answer to make like easier
+    answer = f"{num+1}. {answer}" #answer now includes number of correct answer to make life easier
     return answer, options[0], options[1], options[2], options[3], tf, num # num also returned because of use in correct_incorrect_sequence()
 
 def correct_incorrect_sequence(num): # returns four ordered strings consisting of one "correct" and three "incorrect"s to be used as flags for js.

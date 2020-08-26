@@ -4,6 +4,27 @@
 
 <main role="main">
 
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <p></p><strong>Cookie alert!</strong> This site uses cookies so that you can track:</p>
+    <ul>
+      <li>how many questions you've done</li>
+      <li>how many you've got right</li>
+      <li>which questions you've got wrong so you can go and work on them</li>
+    </ul>
+    <p>Using cookies to do this means you don't have to log in, register, or provide personal data to use this site. <a href='https://youtu.be/79DijItQXMM?t=37' target="_blank">You're welcome.</a> But I'm a one man team, and I don't have time to put something here to switch them off. If you can't handle that <a href='https://www.youtube.com/watch?v=QcuuwL9Z4II' target="_blank">best leave now...</a></p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <details>
+      <summary>More information</summary>
+      <div class="card">
+          <div class="card-body">
+            What more information could you possibly need? Gosh.
+          </div>
+      </div>
+    </details>
+  </div>
+
   <section class="jumbotron text-center navbar-dark bg-dark">
     <div class="container">
       <h1 class="text-warning">No login. No paywall.</h1>
@@ -11,10 +32,46 @@
 
       <p class="lead text-white">A quick, easy-to-use resource for teachers. Free exam practice for students. It's that simple.</p>
       <p class="text-white">Check below to see what we have. New questions added daily!</p>
-      <p>
-        <a href="physics/" class="btn btn-primary my-2">Go straight to A-level physics!</a>
-        <a href="gcsemaths/" class="btn btn-primary my-2">Go straight to GCSE Maths!</a>
-      </p>
+    </div>
+  </section>
+
+  <section class="jumbotron text-center navbar-dark bg-light">
+    <div class="container">
+      <h1 class="text-primary">What do you want to work on?</h1>
+      
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <a href="physics/" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">A-level physics</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <a href="gcsemaths/" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">GCSE Maths</a>
+            </div>
+          </div>
+        </div> 
+      </div>
+    
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <a href="sql/" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">SQL</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <a href="pcep/" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Python Certified Entry Level Programmer</a>
+            </div>
+          </div>
+        </div> 
+      </div>
     </div>
   </section>
 

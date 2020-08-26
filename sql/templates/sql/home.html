@@ -2,7 +2,9 @@
 
 {% block content %}
 
+{% load static %}
 
+<script type="text/javascript" src="{% static "js/script.js" %}"></script>
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -45,38 +47,5 @@
     </div>
   </div>
 
-  <script type="text/javascript">
-  
-    function getCookie(cname) {//gets the cookie!
-      var name = cname + "=";
-      var decodedCookie = decodeURIComponent(document.cookie);
-      var ca = decodedCookie.split(';');
-      for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-          return c.substring(name.length, c.length);
-        }
-      }
-      return "";
-    }
-    
-    function CookieSet (cName, cValue){//sets a cookie
-      document.cookie = cName + "=" + cValue;
-      alert(document.cookie)
-    }
-    //check if already exists. if already exists, leave alone
-    if (getCookie('sql_attempts') == '')
-      {
-      CookieSet("sql_attempts",'0');
-      }
-    if (getCookie('sql_correct') == '')
-      {
-      CookieSet("sql_correct",'0');
-      }
-
-  </script>
 
 {% endblock %}

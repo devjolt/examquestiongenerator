@@ -30,5 +30,16 @@ def test(request):
     return render(request, template(), view_builder(currentFuncName()))
 
 def a1qa_what_is_sql(request):
-    print("Here is ip: " + request.META.get('HTTP_X_FORWARDED_FOR', request.META.get('REMOTE_ADDR', '')).split(',')[0].strip())
+    return render(request, template(), view_builder(currentFuncName()))
+def a1qb_what_sql_does(request):
+    return render(request, template(), view_builder(currentFuncName()))
+def a1qc_database_brands(request):
+    return render(request, template(), view_builder(currentFuncName()))
+def a1qd_database_entities(request):
+    return render(request, template(), view_builder(currentFuncName()))
+def a2qa_statements(request):
+    return render(request, template(), view_builder(currentFuncName()))
+def a2qb_commands_starting_statements(request):
+    return render(request, template(), view_builder(currentFuncName()))
+def a2qc_create_statements(request):
     return render(request, template(), view_builder(currentFuncName()))

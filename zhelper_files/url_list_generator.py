@@ -52,7 +52,8 @@ print(list_of_defs)
 list_of_urls = []
 for thing in module_list:
     thingName = thing.replace("_", " ")
-    thingName = thingName[5:-2] + f" (level {thingName[-1]})"
+    #VVV Enable this if you've got levels at the end of your function names! VVV
+    #thingName = thingName[5:-2] + f" (level {thingName[-1]})"
     list_of_urls.append(f'''<a class="dropdown-item" href="{thing}/" target="_blank">{thingName}</a>''')
 print(list_of_urls)
 

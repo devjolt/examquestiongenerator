@@ -31,7 +31,7 @@ def allArguments(previousQ='', nextQ='', diagram='', constant=None, questionBase
 
 #makes it even less messy and less dependent on the length of the tuple passed in, although all arguments still have to be in the order below!
 def allArguments2(passed):
-    template_strings = ('previousQ', 'nextQ', 'diagram', 'piclink', 'questionBase', 'code', 'hint', 'weblink', 'video', 'a1', 'a1code', 'a2', 'a2code', 'a3', 'a3code', 'a4', 'a4code', 'answer', 'answercode', 'a1ci', 'a2ci', 'a3ci', 'a4ci')
+    template_strings = ('previousQ', 'nextQ', 'diagram', 'piclink', 'questionBase', 'code', 'hint', 'weblink', 'video', 'a1', 'a1code', 'a2', 'a2code', 'a3', 'a3code', 'a4', 'a4code', 'answer', 'answercode', 'a1ci', 'a2ci', 'a3ci', 'a4ci', 'workOn')
     template_dict = {}
     for i in range(len(passed)):
         template_dict.update({template_strings[i] : passed[i]})
