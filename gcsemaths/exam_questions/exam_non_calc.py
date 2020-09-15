@@ -90,4 +90,6 @@ def p1f_18n_9_fraction_half_way3(request):
     q.questionBase = f'''Work out the fraction that is halfway between {printed1} and {printed2}. Give your answer as a mixed fraction if appropriate.'''
     q.previousQ, q.nextQ = previousNext("p1", 0, 2, cf.currentFuncName(), module_path())
     q.marks = 3
+    q.webLink = 'https://www.mathsisfun.com/fractions_subtraction.html' 
+    q.workOn = 'Subtracting fractions'
     return render(request, "gcsemaths/multiChoicePlusReveal.html", cf.allArguments2(q.returnAll()))

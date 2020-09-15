@@ -12,7 +12,7 @@
 <style>
   .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto;
   }
   
   .grid-item {
@@ -39,33 +39,44 @@
 
  
 <div class="grid-container">
+    
+    <div class="grid-item"></div>
     <div class="grid-item">
         <p>
-          <button type="button" class="btn btn-primary" onclick = "resetCookies();resetElements()">Start recording/reset stats</button>
+          <button type="button" class="btn btn-primary" onclick = "resetCookies();resetElements()">Reset</button>
         </p>
     </div>
     <div class="grid-item"></div>
-    <div class="grid-item"><p>Correct marks: </p></div>
-    <div class="grid-item-r"><p id = 'correct'>0</p></div>
-    <div class="grid-item"><p>Percentage: </p></div>
-    <div class="grid-item-r"><p id = 'percent'>0</p></div>
     <div class="grid-item"></div>
     <div class="grid-item"></div>
     <div class="grid-item"></div>
-    <div class="grid-item"><button onclick="displayMulti()">Multiple choice</button></div>
-    <div class="grid-item"><button onclick="displayShow()">Reveal Answer</button></div>
-    
-    
+    <div class="grid-item"><button onclick="displayMulti()">Multi-choice</button></div>
+    <div class="grid-item"><button onclick="displayShow()">Answer reveal</button></div>
+    <div class="grid-item"></div>
+
+    <div class="grid-item"></div>
     <div class="grid-item"><p>Attempted: </p></div>
     <div class="grid-item-r"><p id = 'attempted'>0</p></div>
-    <div class="grid-item"><p>Possible marks: </p></div>
-    <div class="grid-item-r"><p id = 'possible'>0</p></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    
+    <div class="grid-item"></div>
+    <div class="grid-item"><p>Score: </p></div>
+    <div class="grid-item-r"><p id = 'score'>0</p></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+
+    <div class="grid-item"></div>
     <div class="grid-item"><p>Grade: </p></div>
-    <div class="grid-item-r"><p id = 'grade'>Still working on this feature...</p></div>
-    <div class="grid-item"></div>
-    <div class="grid-item"></div>
-    <div class="grid-item"></div>
-    <div class="grid-item"></div>
+    <div class="grid-item-r"><p id = 'grade'>Revealed after 80 marks</p></div>
 
   
 </div>
@@ -75,8 +86,6 @@
 
     <div class="column right">
 
-
-    
       {% if diagram != None %}
       <div>
         <p class="centered"><img  width="60%" height="auto" src= "{% static diagram %}" alt="things"></p>
@@ -296,11 +305,7 @@ if (getCookie('gcsemaths_correct') == 'nope')
 
 document.onload = createWorkOnCookie()
 
-//populating attempts, possible score, correct score
-document.getElementById("attempted").innerHTML = parseInt(getCookie('gcsemaths_attempts'));  
-document.getElementById("correct").innerHTML = parseInt(getCookie('gcsemaths_correct'));  
-document.getElementById("possible").innerHTML = parseInt(getCookie('gcsemaths_possible'));  
-document.getElementById("percent").innerHTML = calculatePercentage(); 
+
 
 //Allows stats to be reset onclick of button
 function resetCookies(){
@@ -314,10 +319,11 @@ function resetCookies(){
 function resetElements(){
   console.log("Visual elements reset");
   document.getElementById("attempted").innerHTML = '0';
-  document.getElementById("correct").innerHTML = '0';
-  document.getElementById("possible").innerHTML = '0';
-  document.getElementById("percent").innerHTML = '0';
-  document.getElementById("grade").innerHTML = '0';
+  //document.getElementById("correct").innerHTML = '0';
+  //document.getElementById("possible").innerHTML = '0';
+  //document.getElementById("percent").innerHTML = '0';
+  document.getElementById("grade").innerHTML = 'Complete 80 marks to get a grade!';
+  document.getElementById("score").innerHTML = '0';
 }
 
 //Displaying to the console to make sure it is working
@@ -364,6 +370,49 @@ function calculatePercentage(){
 var responded = 0;
 var possible_marks = {{marks}};
 
+var correct = getCookie('gcsemaths_correct');
+var possible = getCookie('gcsemaths_possible');
+var out_of = correct.toString() + '/' + possible.toString();
+
+function scoreEighty(){
+  if (possible < 80){
+    grade = (80 - possible).toString() + ' to go';
+  }
+  else {
+    if (calculatePercentage() > 86){
+      grade = (9).toString();
+    }
+    if (calculatePercentage() > 71){
+      grade = (8).toString();
+    }
+    if (calculatePercentage() > 56){
+      grade = (7).toString();
+    }
+    if (calculatePercentage() > 43){
+      grade = (6).toString();
+    }
+    if (calculatePercentage() > 31){
+      grade = (5).toString();
+    }
+    if (calculatePercentage() > 18){
+      grade = (4).toString();
+    }
+    if (calculatePercentage() > 11){
+      grade = (3).toString();
+    }
+  }
+  document.getElementById("grade").innerHTML = grade;
+}
+
+scoreEighty()
+
+//populating attempts, possible score, correct score
+document.getElementById("attempted").innerHTML = parseInt(getCookie('gcsemaths_attempts'));
+document.getElementById("score").innerHTML = out_of
+//document.getElementById("correct").innerHTML = parseInt(getCookie('gcsemaths_correct'));  
+//document.getElementById("possible").innerHTML = parseInt(getCookie('gcsemaths_possible'));  
+//document.getElementById("percent").innerHTML = calculatePercentage(); 
+
 function revealedAnswer(){
   responded = 1;
 }
@@ -375,16 +424,14 @@ function ifRespondedCorrect(correct){
     incrementCookie('gcsemaths_attempts');
     incrementCookie('gcsemaths_possible', possible_marks)
     document.getElementById("attempted").innerHTML = parseInt(getCookie('gcsemaths_attempts'));
-    document.getElementById("possible").innerHTML = parseInt(getCookie('gcsemaths_possible'));
-    document.getElementById("percent").innerHTML = calculatePercentage();
+    document.getElementById("score").innerHTML = out_of
+    scoreEighty()
     console.log('first response');
     if (correct == 'yes'){
       incrementCookie('gcsemaths_correct', possible_marks);
-      document.getElementById("percent").innerHTML = calculatePercentage();
-      document.getElementById("correct").innerHTML = parseInt(getCookie('gcsemaths_correct'));
     }else{
       console.log('Wrong');
-      document.getElementById("percent").innerHTML = calculatePercentage();
+      //document.getElementById("percent").innerHTML = calculatePercentage();
     }
   }else{
       console.log('SOOOO many clicks');
@@ -448,8 +495,6 @@ function incrementCookie(cName, to_add = 1){
     console.log('Incremented')
     console.log(cName)
 }
-
-
 
 </script>
 

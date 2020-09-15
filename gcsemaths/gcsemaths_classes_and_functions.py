@@ -46,7 +46,7 @@ class Question():
     a1, a2, a3, a4 = None, None, None, None#4 answer options for multiple choice questions
     a1code, a2code, a3code, a4code = None, None, None, None#4 answers options in code formatting
     a1ci, a2ci, a3ci, a4ci = None, None, None, None#indicators stating whether numbered answer is correct or incorrect for use in template
-
+    
     num = randint(0,3)
 
     def __init__(self, answer, incorrect):
