@@ -11,3 +11,6 @@ def home_algebra(request):
 
 def home_geometry(request):
     return render(request,"gcsemaths/e_geometry_home.html")
+
+def home_exam_non_calc(request):
+    return render(request, "gcsemaths/home.html")

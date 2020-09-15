@@ -1,39 +1,25 @@
 from django.shortcuts import render
 from random import randint
-from fractions import Fraction
-from decimal import Decimal
-import math
-import sys
+from sql import sql_classes_and_functions as cf
 
-currentFuncName = lambda n=0: sys._getframe(n + 1).f_code.co_name # allows previousNext functionality to work by getting current function's name
-
-def moduleListGen(qtype = None, low = 0, high = None): 
+def list_callable_functions():
     entireModuleList = []
     for key, value in globals().items():
         if callable(value) and value.__module__ == __name__:
             entireModuleList.append(key)
-    if qtype == None: # use qtype = None to use low high to select slice of list returned in relation to total modules in THIS file, low = -1 for last module only
-        count = -1
-        poop = []
-        for thing in entireModuleList[low:high]:
-            count += 1
-            poop.append(thing)
-    else:
-        count = -1
-        poop = []
-        for thing in entireModuleList:
-            if str(thing)[low:high] == qtype: # use qtype ='anystring', low = int representing start of string, high = int representing end of string for modules selected by name
-                count += 1
-                poop.append(thing)
-    return poop
+    return entireModuleList
 
-def previousNext(qtype = None, low = 0, high = None, name=''):
-    modList = moduleListGen(qtype, low, high)
+def modulesList():#this list is used by views to automatically generate views!
+    return cf.moduleListGen(list_callable_functions(), 'a', 0, 1)
+
+def previousNext(qtype = None, low = 0, high = None, name='', module_path=''):#uses list of all functions to return previous and next modules in list
+    modList = cf.moduleListGen(list_callable_functions(), qtype, low, high)
     modDict = {}
     count = -1
     for thing in modList:
         count+=1
         modDict.update({str(thing):count})
+    print(modDict)
     place = modDict[name]
     current = modList[place]
     try:
@@ -45,53 +31,21 @@ def previousNext(qtype = None, low = 0, high = None, name=''):
     except IndexError:
         previous_q = modList[-1]
     return f"/sql/basics/{previous_q}", f"/sql/basics/{next_q}"
+
+def module_path():
+    return "/sql/basics/"
 '''
 def e4_at_the_fairground_random():
     modList = moduleListGen("e4q", 0, 3)
     return eval(f"{modList[randint(0,len(modList)-1)]}()")
 '''
 
-def true_false_options_mangle(list1, list2): #generates a correct answer, a true or false indicator for the question, and 4 options, one of which is the correct answer
-    options, num = [], randint(0,3)#place to put answers, and a random index value to put the correct answer
-    if randint(0,1) == 0: # deciced whether correct answer will be a true or false statement
-        tf = "true"
-        answer = list1[randint(0, len(list1)-1)]# if true, we grab a correct answer from list1 (true list)
-        while len(set(options)) != 3: #this turns options into a set to eliminate duplicates and throws in incorrect answers until we have enough to populate 4 possible answers
-            options.append(list2[randint(0, len(list2)-1)])
-    else:
-        tf = "false" # same again if false
-        answer = list2[randint(0, len(list2)-1)]
-        while len(set(options)) != 3:
-            options.append(list1[randint(0, len(list1)-1)])
-    options.insert(num, answer) # inserts answer into a random place (num defined earlier)
-    num2 = options.index(answer)
-    answer = f"{num+1}. {answer}" #answer now includes number of correct answer to make like easier
-    return answer, options[0], options[1], options[2], options[3], tf, num # num also returned because of use in correct_incorrect_sequence()
-
-def answers_mangle(correct, incorrect):#mangle for use with one known correct answer, and three known incorrect answers
-    options, num = incorrect, randint(0,3)
-    options.insert(num, correct)
-    return options[0], options[1], options[2], options[3], num #returns 1 correct and 3 incorrect answers (in random order) plus index location of correct answer for use with correct_incorrect_sequence()
-
-def correct_incorrect_sequence(num): # returns four ordered strings consisting of one "correct" and three "incorrect"s to be used as flags for js.
-    listy = ["incorrect" for i in range(3)]
-    listy.insert(num, "correct") #num used to place "correct" flag where it needs to be
-    for thing in listy:
-        yield thing # returned as four flags, one of which is correct, to be assigned to varables and passed into template as context
-
 # Just me making sure everything works...
 def test():
-    previousQ, nextQ = None, None
-    diagram, piclink, questionBase, code, hint=None,None,None,None,None
-    a1, a1code, a2, a2code, a3, a3code, a4, a4code=None,None,None,None,None,None,None,None
-    answer, answercode=None,None
-    weblink, video=None,None
-    a1ci, a2ci, a3ci, a4ci = None, None, None, None
-    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode, a1ci, a2ci, a3ci, a4ci, work_on)
+    test_inst = question()
+    return test_inst.returnAll()
 
 def a1qa_what_is_sql():
-    previousQ, nextQ = previousNext("a1q", 0, 3, currentFuncName())
-    diagram, piclink = None, None
     true = [
         'SQL stands for structured query language',
         'SQL is used to manage data in relational database management systems',
@@ -106,7 +60,7 @@ def a1qa_what_is_sql():
         'SQL includes a data manipulation language (DML)',
     ]
     false = [
-        'SQL stands for standary query language',
+        'SQL stands for standard query language',
         'SQL stands for structured query literal',
         'SQL stands for structured question language',
         'SQL is a general purpose programming language', 
@@ -117,18 +71,14 @@ def a1qa_what_is_sql():
         'SQL does not include a data control language (DCL)',
         'SQL does not include a data manipulation language (DML)',
         ]
-    code, hint = None, None
-    answer, a1, a2, a3, a4, q, num = true_false_options_mangle(true, false)
-    a1ci, a2ci, a3ci, a4ci = correct_incorrect_sequence(num)
-    questionBase = f'Which of the following statements about SQL is {q}:'
-    a1code, a2code, a3code, a4code, answercode = None, None, None, None, None
-    help, weblink, video = None, 'https://en.wikipedia.org/wiki/SQL', None
-    workOn = 'What Structured Query Language is'
-    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode, a1ci, a2ci, a3ci, a4ci, workOn)
+    a1qa = cf.trueFalse(true, false)
+    a1qa.previousQ, a1qa.nextQ = previousNext("a1q", 0, 3, cf.currentFuncName(), module_path())
+    a1qa.questionBase = f'Which of the following statements about SQL is {a1qa.tf}:'
+    a1qa.weblink = 'https://en.wikipedia.org/wiki/SQL'
+    a1qa.workOn = 'What Structured Query Language is'
+    return a1qa.returnAll()
 
 def a1qb_what_sql_does():
-    previousQ, nextQ = previousNext("a1q", 0, 3, currentFuncName())
-    diagram, piclink = None, None
     true = [
         'SQL can execute queries against a database',
         'SQL can retrieve data from a database',
@@ -154,18 +104,15 @@ def a1qb_what_sql_does():
         'SQL cannot create stored procedures in a database',
         'SQL cannot create views in a database',
         'SQL cannot set permissions on tables, procedures, and views',        ]
-    code, hint = None, None
-    answer, a1, a2, a3, a4, q, num = true_false_options_mangle(true, false)
-    a1ci, a2ci, a3ci, a4ci = correct_incorrect_sequence(num)
-    questionBase = f'Which of the following statements about SQL is {q}:'
-    a1code, a2code, a3code, a4code, answercode = None, None, None, None, None
-    help, weblink, video = None, 'https://www.w3schools.com/sql/sql_intro.asp', None
-    workOn = "What SQL can do"
-    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode, a1ci, a2ci, a3ci, a4ci, workOn)
+    q = cf.trueFalse(true, false)
+    q.previousQ, q.nextQ = previousNext("a1q", 0, 3, cf.currentFuncName(), module_path())
+    q.getAnswersAndIndicators()
+    q.questionBase = f'Which of the following statements about SQL is {q.tf}:'
+    q.weblink = 'https://www.w3schools.com/sql/sql_intro.asp'
+    q.workOn = "What SQL can do"
+    return q.returnAll()
 
 def a1qc_database_brands():
-    previousQ, nextQ = previousNext("a1q", 0, 3, currentFuncName())
-    diagram, piclink = None, None
     true = [
         'MySQL',
         'Microsoft / Sybase',
@@ -185,19 +132,16 @@ def a1qc_database_brands():
         'GoDB',
         'FortranDB'
         ]
-    code, hint = None, None
-    answer, a1, a2, a3, a4, q, num = true_false_options_mangle(true, false)
-    a1ci, a2ci, a3ci, a4ci = correct_incorrect_sequence(num)
-    areNot = "is" if q == "true" else "is not"
-    questionBase = f'Which of the following {areNot} a relational database which uses SQL:'
-    a1code, a2code, a3code, a4code, answercode = None, None, None, None, None
-    help, weblink, video = None, 'https://www.trustradius.com/relational-databases', None
-    workOn = "Popular relational databases"
-    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode, a1ci, a2ci, a3ci, a4ci, workOn)
+    q = cf.trueFalse(true, false)
+    q.previousQ, q.nextQ = previousNext("a1q", 0, 3, cf.currentFuncName())
+    q.getAnswersAndIndicators()
+    areNot = "is" if q.tf == "true" else "is not"
+    q.questionBase = f'Which of the following {areNot} a relational database which uses SQL:'
+    q.weblink = 'https://www.trustradius.com/relational-databases'
+    q.workOn = "Popular relational databases"
+    return q.returnAll()
 
 def a1qd_database_entities():
-    previousQ, nextQ = previousNext("a1q", 0, 3, currentFuncName())
-    diagram, piclink = None, None
     true = [
         'a database can contain one or many tables',
         'a table can contain one or more records or rows',
@@ -225,18 +169,15 @@ def a1qd_database_entities():
         'a field is a group of related tables',
         'field data type is never specified'
         ]
-    code, hint = None, None
-    answer, a1, a2, a3, a4, q, num = true_false_options_mangle(true, false)
-    a1ci, a2ci, a3ci, a4ci = correct_incorrect_sequence(num)
-    questionBase = f'Which of the following statements are {q}:'
-    a1code, a2code, a3code, a4code, answercode = None, None, None, None, None
-    help, weblink, video = None, 'https://www.cengage.com/school/corpview/RegularFeatures/DatabaseTutorial/db_elements/db_elements2.htm', None
-    workOn = "Database entities"
-    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode, a1ci, a2ci, a3ci, a4ci, workOn)
+    q = cf.trueFalse(true, false)
+    q.previousQ, q.nextQ = previousNext("a1q", 0, 3, cf.currentFuncName())
+    q.getAnswersAndIndicators()
+    q.questionBase = f'Which of the following statements are {q.tf}:'
+    q.weblink = 'https://www.cengage.com/school/corpview/RegularFeatures/DatabaseTutorial/db_elements/db_elements2.htm'
+    q.workOn = "Database entities"
+    return q.returnAll()
 
 def a2qa_statements():
-    previousQ, nextQ = previousNext("a2q", 0, 3, currentFuncName())
-    diagram, piclink = None, None
     true = [
         'not all database systems require a semicolon at the end of each SQL statement',
         'semicolons are commonly used to show the end of an SQL statement',
@@ -263,15 +204,27 @@ def a2qa_statements():
         'dollar signs are commonly used to show the end of an SQL statement'
         'most actions performed on databases are done using python',
         ]
-    code, hint = None, None
-    answer, a1, a2, a3, a4, q, num = true_false_options_mangle(true, false)
-    a1ci, a2ci, a3ci, a4ci = correct_incorrect_sequence(num)
-    questionBase = f'Which of the following statements are {q}:'
-    a1code, a2code, a3code, a4code, answercode = None, None, None, None, None
-    help, weblink, video = None, 'https://www.w3schools.com/sql/sql_syntax.asp', None
-    workOn = "General rules for SQL statements"
-    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode, a1ci, a2ci, a3ci, a4ci, workOn)
+    q = cf.trueFalse(true, false)
+    q.previousQ, q.nextQ = previousNext("a2q", 0, 3, cf.currentFuncName())
+    q.getAnswersAndIndicators()
+    q.questionBase = f'Which of the following statements are {q.tf}:'
+    q.weblink = 'https://www.w3schools.com/sql/sql_syntax.asp'
+    q.workOn = "General rules for SQL statements"
+    return q.returnAll()
 
+def a2qb_commands_starting_statements():
+    true = ['SELECT','UPDATE','DELETE','INSERT','CREATE','ALTER ','DROP',]
+    false = ['WHERE','BETWEEN','AND','ALL','BETWEEN','CHECK','CONSTRAINT','DISTINCT','EXISTS','FROM','LIKE','NOT','OR','TABLE','VALUES','WHERE']
+    q = cf.trueFalseCode(true, false)
+    q.previousQ, q.nextQ = previousNext("a2q", 0, 3, cf.currentFuncName())
+    q.getAnswersAndIndicators()
+    areNot = "can" if q.tf == "true" else "can't"
+    q.questionBase = f'Which of the following commands {areNot} be used at the start of an SQL statement:'
+    q.weblink = 'https://www.w3schools.com/SQl/sql_ref_keywords.asp'
+    q.workOn = "Commands which start SQL statements"
+    return q.returnAll()
+
+'''
 def a2qb_commands_starting_statements():
     previousQ, nextQ = previousNext("a2q", 0, 3, currentFuncName())
     diagram, piclink = None, None
@@ -286,6 +239,7 @@ def a2qb_commands_starting_statements():
     help, weblink, video = None, 'https://www.w3schools.com/SQl/sql_ref_keywords.asp', None
     workOn = "Commands which start SQL statements"
     return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode, a1ci, a2ci, a3ci, a4ci, workOn)
+'''
 
 def a2qc_create_statements():
     names = ['duck', 'stool', 'door','cup', 'tennis', 'pool','monkey','chair','orange','fruit','trampoline','beef','employees','customers','shoes','pants','troopers','rioters','clocks']
@@ -300,38 +254,37 @@ def a2qc_create_statements():
         data += f"{names[randint(0, len(names)-1)]} {data_types[randint(0, len(data_types)-1)]}, "
     data = data[:-2] + ')'
     if choice == 0:
-        a,b,c = f'CREATE {name} {entity}', f'CREATE {entity} {name} {data}', f'CREATE {entity}'
+        a,b,c = f'CREATE {name} {entity};', f'CREATE {entity} {name} {data};', f'CREATE {entity};'
+        answer += ';'
     else:
-        answer += data
-        a,b,c = f'CREATE {name} {entity}', f'CREATE {entity} {data} {name}', f'CREATE {entity} {data}'
-    previousQ, nextQ = previousNext("a2q", 0, 3, currentFuncName())
-    diagram, piclink, code, hint = None, None, None, None
-    a1code, a2code, a3code, a4code, num = answers_mangle(answer, [a,b,c])
-    a1ci, a2ci, a3ci, a4ci = correct_incorrect_sequence(num)
-    questionBase = f'Which of the following statements for creating a {entity} named {name} is valid:'
-    answer, answercode, a1, a2, a3, a4 = None, None, None, None, None, None
-    help, weblink, video = None, 'https://www.w3schools.com/SQL/sql_ref_create.asp', None
-    workOn = "statements using CREATE"
-    return (previousQ, nextQ, diagram, piclink, questionBase, code, hint, weblink, video, a1, a1code, a2, a2code, a3, a3code, a4, a4code, answer, answercode, a1ci, a2ci, a3ci, a4ci, workOn)
-
-
-
+        answer += data + ';'
+        a,b,c = f'CREATE {name} {entity};', f'CREATE {entity} {data} {name};', f'CREATE {entity} {data};'
+    q = cf.selectCorrectCode(answer, [a,b,c])
+    q.previousQ, q.nextQ = previousNext("a2q", 0, 3, cf.currentFuncName())
+    q.getAnswersAndIndicators()
+    q.questionBase = f'Which of the following statements for creating a {entity} named {name} is valid:'
+    q.weblink = 'https://www.w3schools.com/SQL/sql_ref_create.asp'
+    q.workOn = "statements using CREATE"
+    return q.returnAll()
 
 
 
 
 """
 Common commands
-    SELECT - extracts data from a database
-    UPDATE - updates data in a database
-    DELETE - deletes data from a database
-    INSERT INTO - inserts new data into a database
+    CREATE TABLE - creates a new table  
     CREATE DATABASE - creates a new database
-    ALTER DATABASE - modifies a database
-    CREATE TABLE - creates a new table
-    ALTER TABLE - modifies a table
-    DROP TABLE - deletes a table
     CREATE INDEX - creates an index (search key)
+
+    SELECT - extracts data from a database
+
+    UPDATE - updates data in a database
+    INSERT INTO - inserts new data into a database
+    ALTER DATABASE - modifies a database
+    ALTER TABLE - modifies a table
+
+    DELETE - deletes data from a database
+    DROP TABLE - deletes a table
     DROP INDEX - deletes an index
 
 Syntax

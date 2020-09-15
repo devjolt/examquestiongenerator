@@ -9,32 +9,69 @@
 
 <link rel="stylesheet" type="text/css" href="{% static "css/multi_choice_dynamic.css" %}">
 <script type="text/javascript" src="{% static "js/script.js" %}"></script>
+<style>
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
+  }
+  
+  .grid-item {
+    font-size: 20px;
+    padding: 0px;
+    text-align: center;
+  }
+  .grid-item-l {
+    background-color: rgba(255, 255, 255, 0.8);
+    font-size: 20px;
+    padding: 0px;
+    text-align: right;
+  }
+
+  .grid-item-r {
+    background-color: rgba(255, 255, 255, 0.8);
+    font-size: 20px;
+    padding: 0px;
+    text-align: left;
+  </style>
 
 
-<div class="row"> 
 
-  <div class="column left">
-    <div class="grid-container">
-      <div class="grid-item"><p>Attempted: </p></div>
-      <div class="grid-item"><p id = 'attempted'></p></div>
-      <div class="grid-item"><p>% correct: </p></div>
-      <div class="grid-item"><p id = 'percent'> </p></div>
+
+ 
+<div class="grid-container">
+     
+    <div class="grid-item"><p>Attempted: </p></div>
+    <div class="grid-item-r"><p id = 'attempted'></p></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item"><p>% correct: </p></div>
+    <div class="grid-item-r"><p id = 'percent'> </p></div>
+    <div class="grid-item">
+        <p>
+          <button type="button" class="btn btn-primary" onclick = "resetCookies();document.getElementById('attempted').innerHTML = '0';document.getElementById('percent').innerHTML = '0';">Start recording/reset stats</button>
+        </p>
     </div>
-  </div>
-
-  <div class="column right">
-    <div>
-      <p>
-        <button type="button" class="btn btn-primary" onclick = "resetCookies();document.getElementById('attempted').innerHTML = '0';document.getElementById('percent').innerHTML = '0';">Reset stats</button></div>
-      </p>
-    </div>
-  </div>
-
 </div>
+    
+        
+    
 
-<div class="row"> 
+   
+      
+      
 
-  <div class="column left">  </div>
+
+  
+  
+  <div class="row">
+    <div class="column left"></div>
 
   <div class="column right">
     {% if diagram != None %}
@@ -129,7 +166,7 @@
     <a href="{{previousQ}}" class="btn btn-secondary">Previous </a>
     {% endif %}
 
-    <button class="btn btn-primary" onClick="history.go(0);">Generate another another one of these!</button>
+    <button class="btn btn-primary" onClick="history.go(0);">Generate another one!</button>
     
     {% if nextQ != None %}
     <a href="{{nextQ}}" class="btn btn-secondary">Next</a>

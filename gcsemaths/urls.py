@@ -1,59 +1,25 @@
 from django.contrib import admin
 from django.urls import path, include
 from . import views
-from gcsemaths.a_number import ordering_and_comparative, ops_with_int_frac_dec, number_random
+from gcsemaths.exam_questions import exam_non_calc
+from gcsemaths.a_number import aa_ordering_and_comparative, ab_ops_with_int_frac_dec, number_random
 from gcsemaths.b_algebra import algebra_random, algebra_views
 from gcsemaths.e_geometry_and_measure import e_geometry_and_measure_views
 
+
+
 number_patterns = [
 
-    path('ordering_numbers/', ordering_and_comparative.ordering_numbers, name="ordering_numbers"),
-    path('ordering_decimals/', ordering_and_comparative.ordering_decimals, name="ordering_decimals"),
-    path('ordering_fractions/', ordering_and_comparative.ordering_fractions, name="ordering_fractions"),
-    path('ordering_fractions_and_decimals/', ordering_and_comparative.ordering_fractions_and_decimals, name="ordering_fractions_and_decimals"),
+    path('ordering_numbers/', aa_ordering_and_comparative.ordering_numbers, name="ordering_numbers"),
+    path('ordering_decimals/', aa_ordering_and_comparative.ordering_decimals, name="ordering_decimals"),
+    path('ordering_fractions/', aa_ordering_and_comparative.ordering_fractions, name="ordering_fractions"),
+    path('ordering_fractions_and_decimals/', aa_ordering_and_comparative.ordering_fractions_and_decimals, name="ordering_fractions_and_decimals"),
 
-    path('comparative_operators_with_integers/', ordering_and_comparative.comparative_operators_with_integers, name="comparative_operators_with_integers"),
-    path('comparative_operators_with_fractions/', ordering_and_comparative.comparative_operators_with_fractions, name="comparative_operators_with_fractions"),
-    path('comparative_operators_with_fractions_and_decimals/', ordering_and_comparative.comparative_operators_with_fractions_and_decimals, name="comparative_operators_with_fractions_and_decimals"),
+    path('comparative_operators_with_integers/', aa_ordering_and_comparative.comparative_operators_with_integers, name="comparative_operators_with_integers"),
+    path('comparative_operators_with_fractions/', aa_ordering_and_comparative.comparative_operators_with_fractions, name="comparative_operators_with_fractions"),
+    path('comparative_operators_with_fractions_and_decimals/', aa_ordering_and_comparative.comparative_operators_with_fractions_and_decimals, name="comparative_operators_with_fractions_and_decimals")
 
-    path('add_unit/', ops_with_int_frac_dec.add_unit, name="add_unit"),
-    path('add_tens_hundreds/', ops_with_int_frac_dec.add_tens_hundreds, name="add_tens_hundreds"),
-    path('subtract_unit/', ops_with_int_frac_dec.subtract_unit, name="subtract_unit"),
-    path('subtract_tens_hundreds/', ops_with_int_frac_dec.subtract_tens_hundreds, name="subtract_tens_hundreds"),
-    path('add_sub_integers/', ops_with_int_frac_dec.add_sub_integers, name="add_sub_integers"),
-
-    path('multiply_unit/', ops_with_int_frac_dec.multiply_unit, name="multiply_unit"),
-    path('multiply_tens_hundreds/', ops_with_int_frac_dec.multiply_tens_hundreds, name="multiply_tens_hundreds"),
-    path('divide_unit/', ops_with_int_frac_dec.divide_unit, name="divide_unit"),
-    path('divide_tens_hundreds/', ops_with_int_frac_dec.divide_tens_hundreds, name="divide_tens_hundreds"),
-
-    path('negative_add_unit/', ops_with_int_frac_dec.negative_add_unit, name="negative_add_unit"),
-    path('negative_add_tens_hundreds/', ops_with_int_frac_dec.negative_add_tens_hundreds, name="negative_add_tens_hundreds"),
-    path('negative_subtract_unit/', ops_with_int_frac_dec.negative_subtract_unit, name="negative_subtract_unit"),
-    path('negative_subtract_tens_hundreds/', ops_with_int_frac_dec.negative_subtract_tens_hundreds, name="negative_subtract_tens_hundreds"),
-    path('negative_add_sub_integers/', ops_with_int_frac_dec.negative_add_sub_integers, name="negative_add_sub_integers"),
-
-    path('negative_multiply_unit/', ops_with_int_frac_dec.negative_multiply_unit, name="negative_multiply_unit"),
-    path('negative_multiply_tens_hundreds/', ops_with_int_frac_dec.negative_add_tens_hundreds, name="negative_multiply_tens_hundreds"),
-    path('negative_divide_unit/', ops_with_int_frac_dec.negative_divide_unit, name="negative_divide_unit"),
-    path('negative_divide_tens_hundreds/', ops_with_int_frac_dec.negative_divide_tens_hundreds, name="negative_divide_tens_hundreds"),
-
-    path('multiply_integers/', ops_with_int_frac_dec.multiply_integers, name="multiply_integers"),
-    path('divide_integers/', ops_with_int_frac_dec.divide_integers, name="divide_integers"),
-    path('random_integers/', ops_with_int_frac_dec.random_integers, name="random_integers"),
-
-    path('addSub_decimals/', ops_with_int_frac_dec.add_sub_decimals, name="addSub_decimals"),
-    path('multiply_decimals/', ops_with_int_frac_dec.multiply_decimals, name="multiply_decimals"),
-    path('divide_decimals/', ops_with_int_frac_dec.divide_decimals, name="divide_decimals"),
-    path('random_decimals/', ops_with_int_frac_dec.random_decimals, name="random_decimals"),
-
-    path('addSub_fractions/', ops_with_int_frac_dec.add_sub_fractions, name="addSub_fractions"),
-    path('multiply_fractions/', ops_with_int_frac_dec.multiply_fractions, name="multiply_fractions"),
-    path('divide_fractions/', ops_with_int_frac_dec.divide_fractions, name="divide_fractions"),
-    path('random_fractions/', ops_with_int_frac_dec.random_integers, name="random_fractions"),
-    path('addSub_mixed_fractions/', ops_with_int_frac_dec.add_sub_mixed_fractions, name="addSub_mixed_fractions"),
-    path('multiply_mixed_fractions', ops_with_int_frac_dec.multiply_mixed_fractions, name="multiply_mixed_fractions"),
-]
+] + [ eval(f"path('{module}/', ab_ops_with_int_frac_dec.{module}, name='{module}')") for module in ab_ops_with_int_frac_dec.modulesList() ]
 
 algebra_patterns = [
     path("algebra_basics_random/", algebra_views.algebra_basics_random, name = "algebra_basics_random"),
@@ -214,7 +180,7 @@ geometry_patterns = [
     path("ee18_use_surface_area_formula_to_find_an_unknown_value_in_a_cyinder25/", e_geometry_and_measure_views.ee18_use_surface_area_formula_to_find_an_unknown_value_in_a_cyinder25, name = "ee18_use_surface_area_formula_to_find_an_unknown_value_in_a_cyinder25"),
     path("ee19_use_surface_area_formula_to_find_an_unknown_value_in_a_cone25/", e_geometry_and_measure_views.ee19_use_surface_area_formula_to_find_an_unknown_value_in_a_cone25, name = "ee19_use_surface_area_formula_to_find_an_unknown_value_in_a_cone25"),
     path("ee110_problem_hemisphere36/", e_geometry_and_measure_views.ee110_problem_hemisphere36, name = "ee110_problem_hemisphere36"),
-
+ 
     path("ee20_identify_the_3D_shape13/", e_geometry_and_measure_views.ee20_identify_the_3D_shape13, name = "ee20_identify_the_3D_shape13"),
     path("ee21_definitions_of_3D_shapes13/", e_geometry_and_measure_views.ee21_definitions_of_3D_shapes13, name = "ee21_definitions_of_3D_shapes13"),
     path("ee22_volume_formulas13/", e_geometry_and_measure_views.ee22_volume_formulas13, name = "ee22_volume_formulas13"),
@@ -226,13 +192,20 @@ geometry_patterns = [
     path("ee27_volume_of_a_hemisphere_with_radius_known35/", e_geometry_and_measure_views.ee27_volume_of_a_hemisphere_with_radius_known35, name = "ee27_volume_of_a_hemisphere_with_radius_known35"),
 ]
 
+exam_non_calc_patterns = [
+    path('p1f_18n_9_fraction_half_way3/', exam_non_calc.p1f_18n_9_fraction_half_way3, name = 'p1f_18n_9_fraction_half_way3/')
+]
+
+
 urlpatterns = [
     path('', views.home, name="gcsemaths-home"),
+
+    path('exam_non_calc/', views.home_exam_non_calc, name="exam_non_calc"),
+    path('exam_non_calc/', include(exam_non_calc_patterns)),
 
     path('number/', views.home_number, name="number_exam_questions"),
     path('number/', include(number_patterns)),
     path('number_rand/',number_random.select_random, name="random-number"),
-
 
     path('algebra/', views.home_algebra, name="algebra_exam_questions"),
     path('algebra/', include(algebra_patterns)),
