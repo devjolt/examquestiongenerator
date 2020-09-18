@@ -205,8 +205,6 @@
 
 <span id='reveal' style="display:none;">
 
-  
-
   {% if answer != None %}
   <div class="row"> 
 
@@ -369,14 +367,18 @@ function calculatePercentage(){
 //following var and function allows attempts to be incremented
 var responded = 0;
 var possible_marks = {{marks}};
-
-var correct = getCookie('gcsemaths_correct');
 var possible = getCookie('gcsemaths_possible');
-var out_of = correct.toString() + '/' + possible.toString();
+var correct_marks = getCookie('gcsemaths_correct');
+var out_of = correct_marks.toString() + '/' + possible.toString();//create string to show score
+
+document.getElementById("score").innerHTML = out_of//update score element
+document.getElementById("grade").innerHTML = scoreEighty()//work out whether grades can be displaye
+
+
 
 function scoreEighty(){
   if (possible < 80){
-    grade = (80 - possible).toString() + ' to go';
+    var grade = (80 - possible).toString() + ' to go';
   }
   else {
     if (calculatePercentage() > 86){
@@ -401,10 +403,10 @@ function scoreEighty(){
       grade = (3).toString();
     }
   }
-  document.getElementById("grade").innerHTML = grade;
+  return grade;
 }
 
-scoreEighty()
+
 
 //populating attempts, possible score, correct score
 document.getElementById("attempted").innerHTML = parseInt(getCookie('gcsemaths_attempts'));
@@ -421,21 +423,25 @@ console.log(possible_marks)
 function ifRespondedCorrect(correct){
   if (responded == 0){
     responded = 1
-    incrementCookie('gcsemaths_attempts');
-    incrementCookie('gcsemaths_possible', possible_marks)
-    document.getElementById("attempted").innerHTML = parseInt(getCookie('gcsemaths_attempts'));
-    document.getElementById("score").innerHTML = out_of
-    scoreEighty()
+    incrementCookie('gcsemaths_attempts');//record attempt on cookie
+    document.getElementById("attempted").innerHTML = parseInt(getCookie('gcsemaths_attempts'));//update attempted element with cookie value
+    incrementCookie('gcsemaths_possible', possible_marks);//increase possible cookie
     console.log('first response');
     if (correct == 'yes'){
-      incrementCookie('gcsemaths_correct', possible_marks);
+      incrementCookie('gcsemaths_correct', possible_marks);//increase correct cookie
     }else{
       console.log('Wrong');
-      //document.getElementById("percent").innerHTML = calculatePercentage();
     }
   }else{
-      console.log('SOOOO many clicks');
+      console.log('SOOOO many clicks');//happens if you click twice
+      return
   }
+  var possible = getCookie('gcsemaths_possible');
+  var correct_marks = getCookie('gcsemaths_correct');
+  var out_of = correct_marks.toString() + '/' + possible.toString();//create string to show score
+
+  document.getElementById("score").innerHTML = out_of//update score element
+  document.getElementById("grade").innerHTML = scoreEighty()//work out whether grades can be displayed
 }
 
 // get list stored in cookie and put on screen somewhere

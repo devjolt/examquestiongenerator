@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from random import randint
+from random import randint, randrange
 from gcsemaths import gcsemaths_classes_and_functions as cf
 import fractions
+import itertools
 
 def list_callable_functions():
     entireModuleList = []
@@ -32,7 +33,7 @@ def moduleListGen(qtype = None, low = 0, high = None): #generates a list of all 
     return poop
 
 def modulesList():#this list is used by views to automatically generate views!
-    return cf.moduleListGen(list_callable_functions(), 'p', 0, 1)
+    return cf.moduleListGen(list_callable_functions(), 'p1', 0, 2)
 
 def previousNext(qtype = None, low = 0, high = None, name='', module_path=''):#uses list of all functions to return previous and next modules in list
     modList = cf.moduleListGen(list_callable_functions(), qtype, low, high)
@@ -93,3 +94,117 @@ def p1f_18n_9_fraction_half_way3(request):
     q.webLink = 'https://www.mathsisfun.com/fractions_subtraction.html' 
     q.workOn = 'Subtracting fractions'
     return render(request, "gcsemaths/multiChoicePlusReveal.html", cf.allArguments2(q.returnAll()))
+
+def p1f_18n_10_four_possible_values2(request):
+    while True:
+        try:
+            num = randint(2,9)*randint(2,8)
+            correct = [i for i in range(1,num+1) if num%i == 0]
+
+            def addStuff(correct, num):
+                incorrect = correct.copy()
+                del incorrect[randint(0,len(correct)-1)]
+                num = randint(1,num-1)
+                while num in incorrect:
+                    num = randint(1,num-1)
+                incorrect.append(num)
+                return sorted(incorrect)
+            incorrect = [addStuff(correct, num),addStuff(correct, num),addStuff(correct, num)]
+            break
+        except:
+            continue
+    q = cf.Question(correct, incorrect)
+    q.questionBase = f'''x is a positive integer.
+    \n{num} \u00f7 x is a positive integer.
+    \nWork out the {len(correct)} possible values of x.'''
+    q.previousQ, q.nextQ = previousNext("p1", 0, 2, cf.currentFuncName(), module_path())
+    q.marks = 2
+    q.webLink = 'https://www.bbc.co.uk/bitesize/topics/z6j2tfr/articles/zv9sv9q' 
+    q.workOn = 'Finding the factors of a number'
+    return render(request, "gcsemaths/multiChoicePlusReveal.html", cf.allArguments2(q.returnAll()))
+
+def p1f_18n_11a_probability_dice1(request):
+    sides, one_of_the_sides = randrange(4,12,2), randint(1,3)
+    numbers = []
+    for i in range(1,one_of_the_sides+1):
+        poss = randint(1,sides)
+        while poss in numbers:
+            poss = randint(1,sides)
+        numbers.append(poss)
+
+    if len(numbers) == 1:
+        nums = f'is {numbers[0]}'
+    elif len(numbers)==2:
+        nums = f'are {numbers[0]} or {numbers[1]}.'
+    else:
+        nums = f'are {numbers[0]}, {numbers[1]} or {numbers[2]}.'
+  
+    def all_options(one_of_the_sides, sides):
+        correct = one_of_the_sides / sides
+        return f"{fractions.Fraction(one_of_the_sides, sides).numerator}\u2044{fractions.Fraction(one_of_the_sides, sides).denominator} (fraction), {round(correct,3)} (decimal), or {round(correct*100,3)}% (percentage)"
+
+    correct = all_options(one_of_the_sides, sides)
+    incorrect = [all_options(one_of_the_sides, sides-1), all_options(one_of_the_sides, sides+1), all_options(one_of_the_sides - randrange(-1,1,2), sides)]
+    
+    q = cf.Question(correct, incorrect)
+    q.questionBase = f'''A fair dice has {sides} sides, numbered 1 to {sides}.
+    After it is rolled, {sides - 1} of the numbers can be seen.
+    What is the probability that one of these {sides - 1} numbers {nums}'''
+    q.previousQ, q.nextQ = previousNext("p1", 0, 2, cf.currentFuncName(), module_path())
+    q.marks = 1
+    q.webLink = 'https://revisionmaths.com/gcse-maths-revision/statistics-handling-data/probability' 
+    q.workOn = 'Probability'
+    return render(request, "gcsemaths/multiChoicePlusReveal.html", cf.allArguments2(q.returnAll()))
+
+def p1f_18n_11b_probability_dice2(request):
+    sides = randrange(4,12,2)
+    num = randint(1,sides)
+    all_sides = [i for i in range(1,sides+1)]
+    total = sum(all_sides)
+    correct = total-num
+    incorrect = [total, total - randint(1,sides)+1, sides - num + 1]
+    q = cf.Question(correct, incorrect)
+    q.questionBase = f'''A fair dice has {sides} sides, numbered 1 to {sides}.
+    After it is rolled, {sides - 1} of the numbers can be seen.
+    If the number {num} can't be seen, what is the greatest possible sum of the sides which can be seen?'''
+    q.previousQ, q.nextQ = previousNext("p1", 0, 2, cf.currentFuncName(), module_path())
+    q.marks = 2
+    q.webLink = 'https://revisionmaths.com/gcse-maths-revision/statistics-handling-data/probability' 
+    q.workOn = 'Knowledge of dice. Kidding. Probability'
+    return render(request, "gcsemaths/multiChoicePlusReveal.html", cf.allArguments2(q.returnAll()))
+
+
+def p1f_18n_21_number_cards3(request):
+    cards = list(set([randint(9,25) for i in range(randint(4,6))]))
+    combos = [c for i in range(len(cards)+1) for c in itertools.combinations(cards,i)]
+    pairs = [i for i in combos if len(i) ==2]
+    totals = [i[0] + i[1] for i in pairs]
+    target = randint(28,41)
+    greater = randint(0,1)
+    valid_totals = [i for i in totals if i > target] if greater == 1 else [i for i in totals if i < target]
+    greater_less = 'more' if greater == 1 else 'less'
+    correct = f"{fractions.Fraction(len(valid_totals),len(totals)).numerator}\u2044{fractions.Fraction(len(valid_totals),len(totals)).denominator}"
+    if valid_totals == totals: 
+        correct = '1'
+        incorrect_option = '0'
+    elif valid_totals == 0:
+        correct = '0'
+        incorrect_option = '1'
+    else:
+        incorrect_option = str(randint(0,1))
+
+    incorrect = [
+        f"{fractions.Fraction(len(valid_totals) + 1,len(totals)).numerator}\u2044{fractions.Fraction(len(valid_totals) + 1,len(totals)).denominator}",
+        f"{fractions.Fraction(len(valid_totals) -1 ,len(totals)).numerator}\u2044{fractions.Fraction(len(valid_totals) - 1,len(totals)).denominator}",
+        incorrect_option,
+    ]
+    q = cf.Question(correct, incorrect)
+    q.questionBase = f'''Here are {len(cards)} number cards: {cards}. Two of the {len(cards)} cards are picked at random. Work out the probability that the total of the two numbers is {greater_less} than {target}'''
+    q.previousQ, q.nextQ = previousNext("p1", 0, 2, cf.currentFuncName(), module_path())
+    q.marks = 3
+    q.webLink = 'https://revisionmaths.com/gcse-maths-revision/statistics-handling-data/probability' 
+    q.workOn = 'Probability'
+    return render(request, "gcsemaths/multiChoicePlusReveal.html", cf.allArguments2(q.returnAll()))
+
+#def p1f_18n_30_work_out_the_percentage3(request):
+#    fro, to = randint(2,12)*10, randint(24,36)*10

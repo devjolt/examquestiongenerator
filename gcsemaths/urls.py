@@ -192,10 +192,7 @@ geometry_patterns = [
     path("ee27_volume_of_a_hemisphere_with_radius_known35/", e_geometry_and_measure_views.ee27_volume_of_a_hemisphere_with_radius_known35, name = "ee27_volume_of_a_hemisphere_with_radius_known35"),
 ]
 
-exam_non_calc_patterns = [
-    path('p1f_18n_9_fraction_half_way3/', exam_non_calc.p1f_18n_9_fraction_half_way3, name = 'p1f_18n_9_fraction_half_way3/')
-]
-
+exam_non_calc_patterns = [ eval(f"path('{module}/', exam_non_calc.{module}, name='{module}')") for module in exam_non_calc.modulesList() ]
 
 urlpatterns = [
     path('', views.home, name="gcsemaths-home"),
