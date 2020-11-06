@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/..">Home</a></li>
+      <li class="breadcrumb-item"><a href="/physics">A-level physics</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Further mechanics</li>
+    </ol>
+</nav>
+
+
+<div class="jumbotron">
+  <h1 class="display-4">Questions about motion in a circle</h1>
+  <p>Pick your favourite...</p>
+  <hr class="my-4">
+  <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-uniform-circular-motion" data-toggle="tab" href="#nav-uniform" role="tab" aria-controls="nav-uniform" aria-selected="true">Uniform circular motion</a>
+          <a class="nav-item nav-link" id="nav_centripetal_acceleration" data-toggle="tab" href="#nav-centripetal" role="tab" aria-controls="nav-centripetal" aria-selected="false">Centripetal acceleration</a>
+          <a class="nav-item nav-link" id="nav_on_the_road" data-toggle="tab" href="#nav-on" role="tab" aria-controls="nav-on" aria-selected="false">Centripetal forces on the road</a>
+          <a class="nav-item nav-link" id="nav_at_the_fairground" data-toggle="tab" href="#nav-at" role="tab" aria-controls="nav-at" aria-selected="false">Centripetal forces at the fair ground</a>
+      </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-uniform" role="tabpanel" aria-labelledby="nav_uniform_circular_motion">
+          {% for item in e1aa %}
+          <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+          {% endfor %}
+      </div>
+      <div class="tab-pane fade" id="nav-centripetal" role="tabpanel" aria-labelledby="nav_centripetal_acceleration">
+          {% for item in e1ab %}
+          <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+          {% endfor %}
+      </div>
+      <div class="tab-pane fade" id="nav-on" role="tabpanel" aria-labelledby="nav_on_the_road">
+          {% for item in e1ac %}
+          <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+          {% endfor %}
+      </div>
+      <div class="tab-pane fade" id="nav-at" role="tabpanel" aria-labelledby="nav_at_the_fairground">
+          {% for item in e1ad %}
+          <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+          {% endfor %}
+      </div>
+  </div>
+</div>
+
+
+<div class="jumbotron">
+    <h1 class="display-4">Simple Harmonic Motion</h1>
+    <hr class="my-4">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="inside_the_atom" data-toggle="tab" href="#nav-inside_the_atom" role="tab" aria-controls="nav-home" aria-selected="true">Oscillations</a>
+          <a class="nav-item nav-link" id="stable_and_unstable_nuclei" data-toggle="tab" href="#nav-stable_and_unstable_nuclei" role="tab" aria-controls="nav-stable_and_unstable_nuclei" aria-selected="false">Stable and unstable nuclei</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tab">
+        <div class="tab-pane fade show active" id="nav-inside_the_atom" role="tabpanel" aria-labelledby="nav-nav-inside_the_atom-tab">
+          {% for item in e1ba %}
+          <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+          {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="nav-stable_and_unstable_nuclei" role="tabpanel" aria-labelledby="nav-stable_and_unstable_nuclei-tab">
+             <a class="dropdown-item" href="#">Coming soon</a>
+        </div>
+
+        
+
+
+    </div>
+  </div>
+
+
+{% endblock %}

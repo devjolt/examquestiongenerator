@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from random import randint, randrange
-from gcsemaths import gcsemaths_classes_and_functions as cf
+from gcsemaths import gcsemaths_classes_functions as cf
 import fractions
 import itertools
 

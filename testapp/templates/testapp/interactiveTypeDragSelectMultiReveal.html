@@ -1,0 +1,880 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/testapp.css" %}">
+
+<div class="interactive-dash-grid">
+    
+      <div class="dash-item-r"><p>Attempted: </p></div>
+      <div class="dash-item-l"><p id = 'attempted'>0</p></div>
+
+      <div class="dash-item-r"><p>Grade: </p></div>
+      {% if qtype != 'multi' %}
+      <div class="dash-item-l"><p id = 'grade'>Revealed after 60 marks attempted</p></div>
+      {% else %}
+      <div class="dash-item-l"><p id = 'grade'>Revealed after 25 questions attempted</p></div>
+      {% endif %}
+
+      <div class="dash-item-r"><p>Score: </p></div>
+      <div class="dash-item-l"><p id = 'score'>0</p></div>
+ 
+      <div class="dash-item-r">
+      <p>
+        <button type="button" class="btn btn-primary" onclick = "resetCookies();resetElements()">Reset</button>
+      </p>
+      </div>
+      <div class="dash-item"></div>
+      
+
+</div>
+
+<!--Button grid to allow changing between offered question format and revealing the answer-->
+<div class = "interactive-reveal-buttons-grid">
+    {% if qtype == 'type' %}
+    <div class="interactive-button-item" onclick="displayInteractiveReveal('block', 'none')"><h5>Input and submit</h5></div>
+    {% elif qtype == 'drag' %}
+    <div class="interactive-button-item" onclick="displayInteractiveReveal('block', 'none')"><h5>5>Drag and drop</h5></div>
+    {% elif qtype == 'select' %}
+    <div class="interactive-button-item" onclick="displayInteractiveReveal('block', 'none')"><h5>Select and submit</h5></div>
+    {% elif qtype == 'multi' %}
+    <div class="interactive-button-item" onclick="displayInteractiveReveal('block', 'none')"><h5>Multiple choice</h5></div>
+    {% endif %}
+    <div class="reveal-button-item" onclick="displayInteractiveReveal('none', 'block')"><h5>Reveal answer</h5></div>
+</div>
+
+<div class = 'section-grid'><!--three columns-->
+    <div></div><!--margin column 1-->
+    <div><!--main section column 2-->
+        <div class = 'section-header-box'>
+            {% if qtype != 'multi' %}
+            <h4><b>Section A</b></h4>
+            </br>
+            <h5>Answer <b>all</b> questions in this section.</h5>
+            </br>
+            {% else %}
+            <h4><b>Section B</b></h4>
+            <h5>Each of Questions <b>7</b> to <b>31</b> is followed by four responses, <b>A</b>, <b>B</b>, <b>C</b> and <b>D</b>.</h5>
+            </br>
+            <h5>For each question select the best response.</h5>
+            </br>
+            {% endif %}
+            
+        </div>
+
+    <div class = "section-main-grid"><!--three columns-->
+
+        <div><h5 class = 'question-number-box'>{{questionNumber}}</h5></div><!--number margin column 1-->
+        <div></div><!--sub number margin column 2-->
+        <div><!--question section column 3-->
+            {% if constant != None %}
+            <h4>{{constant}}</h4>
+            {% endif %}
+            {% if diagram != None %}
+            <div>
+                <p class="centered"><img  width="60%" height="auto" src= "{% static q.diagram %}" alt="things"></p>
+            </div>
+            {% endif %}
+            {% if piclink != None %}
+            <div>
+                <p class="centered"><img  width="30%" height="auto" src= "{{q.piclink}}" alt="things"></p>
+            </div>
+            {% endif %}
+            <h5>{{questionBase}}</h5>
+
+            {% if q.marksBase == None %}
+            <h5 class = "section-marks-base"><b>[1 mark]</b></h5>
+            {% elif q.marksBase == 1 %}
+            <h5 class = "section-marks-base"><b>[{{q.marksBase}} mark]</b></h5>
+            {% else %}
+            <h5 class = "section-marks-base"><b>[{{q.marksBase}} marks]</b></h5>
+            {% endif %}
+        
+            {% if qtype == 'type' %}
+            <span id='question' style="display:block;">
+            <p><input type="text" id="fname" name="fname" placeholder="Input your answer here">{% if answerUnits != None %}{{answerUnits}}{% endif %}</p>
+            <br>
+            <button type="button" class="btn btn-primary" onclick = "typeAnswer()">Submit</button>
+            </span>
+            {% endif %}
+
+
+            {% if qtype == 'select' %}
+
+            <span id='question' style="display:block;">
+                {% if a1ci != None %}
+                <div class = "checkbox-grid">
+                    <div class = "checkbox-item" name="option1row" ><h4 >1.</h4></div>
+                    <div class = "checkbox-item" name="option1row" >
+                    <input type="checkbox" id="option1" class = "c-radius">
+                    </div>
+                    <div class = "checkbox-item-text" name="option1row"><p>{%if a1 != None%}{{a1}}{% endif %}<code>{%if a1code != None%}{{a1code}}{% endif %}</code></p></div>
+                    <div class = "checkbox-item-text" name="option1row"id = "option1ci"></div>
+                </div>
+                {% endif %}
+
+                {% if a2ci != None %}
+                <div class = "checkbox-grid">
+                    <div class = "checkbox-item" name="option2row"><h4>2.</h4></div>
+                    <div class = "checkbox-item" name="option2row">
+                    <input type="checkbox" id="option2" name="option2" class = "c-radius">
+                    </div>
+                    <div class = "checkbox-item-text" name="option2row"><p >{%if a2 != None%}{{a2}}{% endif %}<code>{%if a2code != None%}{{a2code}}{% endif %}</code></p></div>
+                    <div class = "checkbox-item-text" name="option2row" id = "option2ci"></div>
+                </div>
+                {% endif %}
+
+                {% if a3ci != None %}
+                <div class = "checkbox-grid">
+                    <div class = "checkbox-item" name="option3row"><h4>3.</h4></div>
+                    <div class = "checkbox-item" name="option3row">
+                    <input type="checkbox" id="option3" name="option3" class = "c-radius">
+                    </div>
+                    <div class = "checkbox-item-text" name="option3row"><p >{%if a3 != None%}{{a3}}{% endif %}<code>{%if a3code != None%}{{a3code}}{% endif %}</code></p></div>
+                    <div class = "checkbox-item-text" name="option3row" id = "option3ci"></div>
+                </div>
+                {% endif %}
+
+                {% if a4ci != None %}
+                <div class = "checkbox-grid">
+                    <div class = "checkbox-item" name="option4row"><h4>4.</h4></div>
+                    <div class = "checkbox-item" name="option4row">
+                    <input type="checkbox" id="option4" name="option4" class = "c-radius">
+                    </div>
+                    <div class = "checkbox-item-text"name="option4row"><p >{%if a4 != None%}{{a4}}{% endif %}<code>{%if a4code != None%}{{a4code}}{% endif %}</code></p></div>
+                    <div class = "checkbox-item-text" name="option4row" id = "option4ci"></div>
+                </div>
+                {% endif %}
+
+                {% if a5ci != None %}
+                <div class = "checkbox-grid">
+                    <div class = "checkbox-item" name="option5row"><h4>5.</h4></div>
+                    <div class = "checkbox-item" name="option5row">
+                    <input type="checkbox" id="option5" name="option5" class = "c-radius">
+                    </div>
+                    <div class = "checkbox-item-text" name="option5row"><p >{%if a5 != None%}{{a5}}{% endif %}<code>{%if a1code != None%}{{a5code}}{% endif %}</code></p></div>
+                    <div class = "checkbox-item-text" name="option5row" id = "option5ci"></div>
+                </div>
+                {% endif %}
+
+                {% if a6ci != None %}
+                <div class = "checkbox-grid">
+                    <div class = "checkbox-item" name="option6row"><h4>6.</h4></div>
+                    <div class = "checkbox-item" name="option6row">
+                    <input type="checkbox" id="option6" name="option6" class = "c-radius">
+                    </div>
+                    <div class = "checkbox-item-text" name="option6row"><p >{%if a6 != None%}{{a6}}{% endif %}<code>{%if a6code != None%}{{a6code}}{% endif %}</code></p></div>
+                    <div class = "checkbox-item-text" name="option6row" id = "option6ci"></div>
+                </div>
+                {% endif %}
+
+                {% if a7ci != None %}
+                <div class = "checkbox-grid">
+                    <div class = "checkbox-item" name="option7row"><h4>7.</h4></div>
+                    <div class = "checkbox-item" name="option7row">
+                    <input type="checkbox" id="option7" name="option7" class = "c-radius">
+                    </div>
+                    <div class = "checkbox-item-text" name="option7row"><p >{%if a7 != None%}{{a7}}{% endif %}<code>{%if a7code != None%}{{a7code}}{% endif %}</code></p></div>
+                    <div class = "checkbox-item-text" name="option7row" id = "option7ci"></div>
+                </div>
+                {% endif %}
+
+                {% if a8ci != None %}
+                <span id="option8row">
+                <div class = "checkbox-grid">
+                    <div class = "checkbox-item" name="option8row"><h4>8.</h4></div>
+                    <div class = "checkbox-item" name="option8row">
+                    <input type="checkbox" id="option8" name="option8" class = "c-radius">
+                    </div>
+                    <div class = "checkbox-item-text" name="option8row"><p >{%if a8 != None%}{{a8}}{% endif %}<code>{%if a8code != None%}{{a8code}}{% endif %}</code></p></div>
+                    <div class = "checkbox-item-text" name="option8row" id = "option8ci"></div>
+                </div>
+                {% endif %}
+
+                {% if a9ci != None %}
+                <div class = "checkbox-grid">
+                    <div class = "checkbox-item" name="option9row"><h4>9.</h4></div>
+                    <div class = "checkbox-item" name="option9row">
+                    <input type="checkbox" id="option9" name="option9" class = "c-radius">
+                    </div>
+                    <div class = "checkbox-item-text" name="option9row"><p >{%if a9 != None%}{{a9}}{% endif %}<code>{%if a9code != None%}{{a9code}}{% endif %}</code></p></div>
+                    <div class = "checkbox-item-text" name="option9row" id = "option9ci"></div>
+                </div>
+                {% endif %}
+
+                {% if a10ci != None %}
+                <div class = "checkbox-grid">
+                    <div class = "checkbox-item" name="option10row"><h4>10.</h4></div>
+                    <div class = "checkbox-item" name="option10row">
+                    <input type="checkbox" id="option10" name="option10" class = "c-radius">
+                    </div>
+                    <div class = "checkbox-item-text" name="option10row"><p >{%if a10 != None%}{{a10}}{% endif %}<code>{%if a10code != None%}{{a10code}}{% endif %}</code></p></div>
+                    <div class = "checkbox-item-text" name="option10row" id = "option10ci"></div>
+                </div>
+                {% endif %}
+
+                <div class = "checkbox-grid">
+                <div class = "checkbox-item"></div>
+                <div class = "checkbox-item">
+                    <p>
+                    <button type="button" class="btn btn-primary" onclick = "checkboxSubmit()">Submit</button>
+                    </p>
+                </div>
+                <div class = "checkbox-item"></div>
+                </div> 
+
+            </span>
+            {% endif %}
+
+
+            {% if qtype == 'drag' %}
+            <span id='question' style="display:block;">
+                <div class="drag-grid">
+                    <div>
+                        <div class="drag-box-grid">
+                            {% if pair1a != None %}
+                            <div name = "row1">
+                              <h4>{{pair1a}}</h4>
+                            </div> 
+                            <div name = "row1">
+                                <div class="drop-box" id ="box1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            </div>
+                            {% endif %}
+  
+                            {% if pair2a != None %}
+                            <div name = "row2">
+                                <h4>{{pair2a}}</h4>
+                            </div>
+                            <div name = "row2">
+                                <div class="drop-box" id ="box2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            </div>            
+                            {% endif %}
+  
+                            {% if pair3a != None %}
+                            <div name = "row3">
+                                <h4>{{pair3a}}</h4>
+                            </div>
+                            <div  name = "row3">
+                                <div class="drop-box" id ="box3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            </div>
+                            {% endif %}
+  
+                            {% if pair4a != None %}
+                            <div  name = "row4">
+                                <h4>{{pair4a}}</h4>
+                            </div>
+                            <div  name = "row4">
+                                <div class="drop-box" id ="box4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            </div>
+                            {% endif %}
+  
+                            {% if pair5a != None %}
+                            <div name = "row5">
+                                <h4>{{pair5a}}</h4>
+                            </div>
+                            <div name = "row5">
+                                <div class="drop-box" id ="box5" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            </div>
+                            {% endif %}
+  
+                            {% if pair6a != None %}
+                            <div name = "row6">
+                                <h4>{{pair6a}}</h4>
+                            </div>
+                            <div name = "row6">
+                                <div class="drop-box" id ="box6" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            </div>
+                            {% endif %}
+  
+                            {% if pair7a != None %}
+                            <div name = "row7">
+                                <h4>{{pair7a}}</h4>
+                            </div>
+                            <div name = "row7">
+                                <div class="drop-box" id ="box7" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            </div>
+                            {% endif %}
+  
+                            {% if pair8a != None %}
+                            <div name = "row8">
+                                <h4>{{pair8a}}</h4>
+                            </div>
+                            <div name = "row8">
+                                <div class="drop-box" id ="box8" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            </div>
+                            {% endif %}
+  
+                            {% if pair9a != None %}
+                            <div name = "row9">
+                                <h4>{{pair9a}}</h4>
+                            </div>
+                            <div name = "row9">
+                                <div class="drop-box" id ="box9" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            </div>
+                            {% endif %}
+  
+                            {% if pair10a != None %}
+                            <div name = "row10">
+                                <h4>{{pair10a}}</h4>
+                            </div>
+                            <div name = "row10">
+                                <div class="drop-box" id ="box10" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            </div>
+                            {% endif %}
+  
+                            {% if pair11a != None %}
+                            <div name = "row11">
+                                <h4>{{pair11a}}</h4>
+                            </div>
+                            <div name = "row11">
+                                <div class="drop-box" id ="box11" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            </div>
+                            {% endif %}
+  
+                            {% if pair12a != None %}
+                            <div name = "row12">
+                                <h4>{{pair12a}}</h4>
+                            </div>
+                            <div name = "row12">
+                                <div class="drop-box" id ="box12" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            </div>
+                            {% endif %}
+                        </div>
+                            
+                        <div class = 'button-grid'>
+                            <div class='dash-item'>
+                                <p>
+                                    <button type="button" class="btn btn-primary" onclick = "dragAndDropSubmit()">Submit</button>
+                                </p>
+                            </div>
+                        </div>
+                                                 
+                    </div>
+  
+                    <div>
+                        <div class="drag-answer-grid">
+                        {% for option in options %}
+                            <h4 class = "option-box" id="{{option}}" name="dropable" draggable="true" ondragstart="drag(event)">{{option}}</h4>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    
+                </div>
+            </span>
+            {% endif %}
+
+
+            {% if qtype == 'multi' %}
+            <span id='question' style="display:block;">
+                <div class = "interactive-multi-choice-grid" id="answer_row1"> 
+                    <div><h5><b>A</b></h5></div>
+                    <div><h5>{%if a1 != None%}{{a1}}{% endif %}<code>{%if a1code != None%}{{a1code}}{% endif %}</code></h5></div>
+                    {% if a1ci == "correct"%}<div class = 'mc-answer-box' id="button1" onclick="document.getElementById('answer_row1').style.background='lightgreen';document.getElementById('button1').style.background='green';document.getElementById('feedback1').innerHTML = '{{a1ci}}';ifRespondedCorrect('yes')"><div class='oval'></div></div><h5 id = 'feedback1'></h5>{% endif %}
+                    {% if a1ci == "incorrect"%}<div class = 'mc-answer-box' id="button1" onclick="document.getElementById('answer_row1').style.background='pink';document.getElementById('button1').style.background='red';document.getElementById('feedback1').innerHTML = '{{a1ci}}';addToCookieList('work_on');ifRespondedCorrect('')"><div class='oval'></div></div><h5 id = 'feedback1'></h5>{% endif %}
+                </div>
+
+                <div class = "interactive-multi-choice-grid" id="answer_row2"> 
+                  <div><h5><b>B</b></h5></div>
+                  <div><h5>{%if a2 != None%}{{a2}}{% endif %}<code>{%if a2code != None%}{{a2code}}{% endif %}</code></h5></div>
+                  {% if a2ci == "correct"%}<div class = 'mc-answer-box' id="button2" onclick="document.getElementById('answer_row2').style.background='lightgreen';document.getElementById('button2').style.background='green';document.getElementById('feedback2').innerHTML = '{{a2ci}}';ifRespondedCorrect('yes')"><div class='oval'></div></div><h5 id = 'feedback2'></h5>{% endif %}
+                  {% if a2ci == "incorrect"%}<div class = 'mc-answer-box' id="button2" onclick="document.getElementById('answer_row2').style.background='pink';document.getElementById('button2').style.background='red';document.getElementById('feedback2').innerHTML = '{{a2ci}}';addToCookieList('work_on');ifRespondedCorrect('')"><div class='oval'></div></div><h5 id = 'feedback2'></h5>{% endif %}
+                </div>
+
+                <div class = "interactive-multi-choice-grid" id="answer_row3"> 
+                  <div><h5><b>C</b></h5></div>
+                  <div><h5>{%if a3 != None%}{{a3}}{% endif %}<code>{%if a3code != None%}{{a3code}}{% endif %}</code></h5></div>
+                  {% if a3ci == "correct"%}<div class = 'mc-answer-box' id="button3" onclick="document.getElementById('answer_row3').style.background='lightgreen';document.getElementById('button3').style.background='green';document.getElementById('feedback3').innerHTML = '{{a3ci}}';ifRespondedCorrect('yes')"><div class='oval'></div></div><h5 id = 'feedback3'></h5>{% endif %}
+                  {% if a3ci == "incorrect"%}<div class = 'mc-answer-box' id="button3" onclick="document.getElementById('answer_row3').style.background='pink';document.getElementById('button3').style.background='red';document.getElementById('feedback3').innerHTML = '{{a3ci}}';addToCookieList('work_on');ifRespondedCorrect('')"><div class='oval'></div></div><h5 id = 'feedback3'></h5>{% endif %}
+                </div>
+
+                <div class = "interactive-multi-choice-grid" id="answer_row4"> 
+                  <div><h5><b>D</b></h5></div>
+                  <div><h5>{%if a4 != None%}{{a4}}{% endif %}<code>{%if a4code != None%}{{a4code}}{% endif %}</code></h5></div>
+                  {% if a4ci == "correct"%}<div class = 'mc-answer-box' id="button4" onclick="document.getElementById('answer_row4').style.background='lightgreen';document.getElementById('button4').style.background='green';document.getElementById('feedback4').innerHTML = '{{a4ci}}';ifRespondedCorrect('yes')"><div class='oval'></div></div><h5 id = 'feedback4'>Click to answer</h5>{% endif %}
+                  {% if a4ci == "incorrect"%}<div class = 'mc-answer-box' id="button4" onclick="document.getElementById('answer_row4').style.background='pink';document.getElementById('button4').style.background='red';document.getElementById('feedback4').innerHTML = '{{a4ci}}';addToCookieList('work_on');ifRespondedCorrect('')"><div class='oval'></div></div><h5 id = 'feedback4'>Click to answer</h5>{% endif %}
+                </div>
+
+                <table class="table table-striped">
+                    <tbody>
+                      <tr id="answer_row1">
+                        <th scope="row" ><h4>A.</h4></th>
+                        <td ><p >{%if a1 != None%}{{a1}}{% endif %}<code>{%if a1code != None%}{{a1code}}{% endif %}</p></td>
+                        <td>
+                          <div class="btn-group dropleft">
+                            {% if a1ci == "correct"%}<button id="button1" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer_row1').style.background='lightgreen';document.getElementById('button1').style.background='green';document.getElementById('button1').innerHTML = '{{a1ci}}';ifRespondedCorrect('yes')">Answer</button>{% endif %}
+                            {% if a1ci == "incorrect"%}<button id="button1" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer_row1').style.background='pink';document.getElementById('button1').style.background='red';document.getElementById('button1').innerHTML = '{{a1ci}}';addToCookieList('work_on');ifRespondedCorrect('')">Answer</button>{% endif %}
+                          </div>
+                        </td>
+                      </tr>
+          
+                      <tr id="answer_row2">
+                        <th scope="row" ><h4>B.</h4></th>
+                        <td><p>{%if a2 != None%}{{a2}}{% endif %}<code>{%if a2code != None%}{{a2code}}{% endif %}</p></td>
+                        <td>
+                          <div class="btn-group dropleft">
+                            {% if a2ci == "correct"%}<button id="button2" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer_row2').style.background='lightgreen';document.getElementById('button2').style.background='green';document.getElementById('button2').innerHTML = '{{a2ci}}';ifRespondedCorrect('yes')">Answer</button>{% endif %}
+                            {% if a2ci == "incorrect"%}<button id="button2" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer_row2').style.background='pink';document.getElementById('button2').style.background='red';document.getElementById('button2').innerHTML = '{{a2ci}}';addToCookieList('work_on');ifRespondedCorrect('')">Answer</button>{% endif %}
+                          </div>
+                        </td>
+                      </tr> 
+          
+                      <tr id="answer_row3">
+                        <th scope="row"><h4>C.</h4></th>
+                        <td><p>{%if a3 != None%}{{a3}}{% endif %}<code>{%if a3code != None%}{{a3code}}{% endif %}</p></td>
+                        <td>
+                          <div class="btn-group dropleft">
+                            {% if a3ci == "correct"%}<button id="button3" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer_row3').style.background='lightgreen';document.getElementById('button3').style.background='green';document.getElementById('button3').innerHTML = '{{a3ci}}';ifRespondedCorrect('yes')">Answer</button>{% endif %}
+                            {% if a3ci == "incorrect"%}<button id="button3" type="button" class="btn btn-primary dropdown-toggle" onclick="document.getElementById('answer_row3').style.background='pink';document.getElementById('button3').style.background='red';document.getElementById('button3').innerHTML = '{{a3ci}}';addToCookieList('work_on');ifRespondedCorrect('')">Answer</button>{% endif %}
+                          </div>
+                        </td>
+                      </tr> 
+          
+                      {% if a4ci != None %}
+                      <tr id="answer_row4">
+                        <th scope="row"><h4>D.</h4></th>
+                        <td><p >{%if a4 != None%}{{a4}}{% endif %}<code>{%if a4code != None%}{{a4code}}{% endif %}</p></td>
+                        <td>
+                          <div class="btn-group dropleft">
+                            {% if a4ci == "correct"%}<div class = 'mc-answer-box' id="button4" onclick="document.getElementById('answer_row4').style.background='lightgreen';document.getElementById('button4').style.background='green';document.getElementById('feedback4').innerHTML = '{{a4ci}}';ifRespondedCorrect('yes')"><div class='oval'></div><h5 class = 'feedback4'></h5></div>{% endif %}
+                            {% if a4ci == "incorrect"%}<div class = 'mc-answer-box' id="button4" onclick="document.getElementById('answer_row4').style.background='pink';document.getElementById('button4').style.background='red';document.getElementById('feedback4').innerHTML = '{{a4ci}}';addToCookieList('work_on');ifRespondedCorrect('')"><div class='oval'></div><h5 class = 'feedback4'></h5></div>{% endif %}
+                          </div>
+                        </td>
+                      </tr>
+                      {% endif %}          
+                    </tbody>
+                  </table>
+            </span>
+            {% endif %}
+
+            <span id='reveal' style = "display:none;">
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapse{{q.questionNumber}}{{item.sub_number}}" role="button" aria-expanded="false" aria-controls="collapse">
+                    Answer
+                </a>
+                <div class="collapse" id="collapse{{q.questionNumber}}{{item.sub_number}}">
+                    <div class="card card-body">        
+                        <h4>{{answerBase}}{% if answerUnits != None %}{{answerUnits}}{% endif %}</h4>
+                        <!--{% if preans != None %}<pre><h4>{{preans}}</h4></pre>{% endif %}-->
+                        {% if hint != None %}
+                        <details>
+                        <summary>Not sure where you went wrong?</summary>
+                        <div class="card">
+                            <div class="card-body">
+                                <p>{hint}</p>
+                            </div>
+                        </div>
+                        </details>
+                        {% endif %}
+                    </div>
+                </div>
+            </span>
+            
+            </div>
+                
+            </div><!--closing column 3/3-->
+            </div><!--closing section main grid containing 3 columns-->
+        <div><p class = 'donot'>Do not write outside the box</p></div><!--margin column 3/3 in section grid-->
+    </div><!--closing section grid containing 3 columns-->
+
+    <div class = 'lower'>
+        <div class = 'lower-item'>
+            {% if previousQ != None %}
+            <a href="{{previousQ}}" class="btn btn-secondary">Previous </a>
+            {% endif %}
+        </div>
+        <div class = 'lower-item'>
+            <button class="btn btn-primary" onClick="history.go(0);">Generate another one!</button>
+        </div>
+        <div class = 'lower-item'>
+            {% if nextQ != None %}
+            <a href="{{nextQ}}" class="btn btn-secondary">Next</a>
+            {% endif %}
+        </div>
+        <div></div>
+        <div class = 'lower-item'>
+            <a href="/work_on/" class="btn btn-primary" target='_blank'>See what you need to read up on</a>
+        </div>
+    </div>
+      
+    <div>
+        <p class="centered">
+            <div class="alert alert-secondary" role="alert">
+                <h5 style="text-align:center;">Close this window to return to the menu</h5>
+            </div>    
+        </p>
+    </div>
+
+
+<script type="text/javascript">
+    //setting cookies if they don't exist: comptia_a_plus_attempts, comptia_a_plus_possible, comptia_a_plus_correct
+    if (getCookie('physics_attempts') == 'nope')
+      {
+      setCookie("physics_attempts",'0');
+      console.log("No physics_attempts cookie so we made one");
+      }
+    if (getCookie('physics_possible') == 'nope')
+      {
+      setCookie("physics_possible",'0');
+      console.log("No physics_possible cookie so we made one");
+      }
+    if (getCookie('physics_correct') == 'nope')
+      {
+      setCookie("physics_correct",'0');
+      console.log("No physics_cookie so we made one");
+      }
+    
+    document.onload = createWorkOnCookie()
+    
+    //Allows stats to be reset onclick of button
+    function resetCookies(){
+        console.log("Resetting cookies!")
+        setCookie('physics_attempts', '0')
+        setCookie('physics_possible', '0')
+        setCookie('physics_correct', '0')
+    }
+    
+    //Allows reset of visual elements
+    function resetElements(){
+      console.log("Visual elements reset");
+      document.getElementById("attempted").innerHTML = '0';
+      //document.getElementById("correct").innerHTML = '0';
+      //document.getElementById("possible").innerHTML = '0';
+      //document.getElementById("percent").innerHTML = '0';
+      document.getElementById("grade").innerHTML = 'Complete the section to get a grade!';
+      document.getElementById("score").innerHTML = '0';
+    }
+    
+    //Displaying to the console to make sure it is working
+    console.log(getCookie('physics_attempts') + ' attempts');
+    console.log(getCookie('physics_correct') + ' correct');
+    console.log(calculatePercentage());
+    
+    //following variable and function enable workon cookie list to be populated
+    var workOn = "{{workOn}}"
+    var weblink = "{{weblink}}"
+    var helplink = "<a href='"+weblink+"' target='_blank'>" + workOn + "</a>"
+    
+    function addToCookieList(cName){
+        if (clicks == 0){
+            console.log('trying to add');
+            console.log(helplink);
+            console.log(getCookie("work_on").split(',').includes(helplink));
+            console.log(getCookie("work_on").split(','));
+            if (getCookie("work_on").split(',').includes(helplink)){
+                console.log('No need to add');
+                return
+            }
+            else {
+                console.log('adding');
+                var value = getCookie(cName) + "," + helplink;
+                document.cookie = cName + "=" + value + ";path=/";
+            }
+        }
+    }
+    
+    // get list stored in cookie and put on screen somewhere
+    function createWorkOnCookie(){//Creates cookie to record subjects to work on, if not existing
+        if (getCookie("work_on") == 'nope'){
+            document.cookie = "work_on='';path=/;"
+            console.log('set workon cookie')
+        }
+        else{
+          console.log('no need to set')
+        }
+    }
+    
+    //Unused but don't want to get rid of it yet...
+    function calculatePercentage(){
+        if (getCookie('physics_attempted') == 0){
+          return 0;
+        }else{
+          var percent = Math.ceil( getCookie('physics_correct') / getCookie('physics_possible') * 100);
+          return percent;
+        }
+    }
+    
+    //All vars reset when each question refreshes
+    var correct_required = {{marksBase}};//use this variable in all functions where you need to know the number of correct answers needed for an answer
+    var clicks = 0;//number of clicks made on any single question
+    var clicks_correct = 0;//number of correct clicks made on any single question
+    var possible_marks = {{marksBase}};//possible marks for a question, taken from possible marks
+    var possible = getCookie('physics_possible');//use the cookies for relevant module
+    var correct_marks = getCookie('physics_correct');//use cookies for relevant module
+    var out_of = correct_marks.toString() + '/' + possible.toString();//create string to show score
+    
+    
+    function score(question_type){
+      if (question_type == 'multi'){
+        if (possible < 25){
+          var grade = (25 - possible).toString() + ' to go';
+        }else{
+          var percent = calculatePercentage();
+          if (percent < 22){
+            grade = 'U';
+          }
+          if (22 <= percent < 31){
+            grade = 'E';
+          }
+          if (31 <= percent < 41){
+            grade = 'D';
+          }
+          if (41 <= percent < 51){
+            grade = 'C';
+          }
+          if (51 <= percent < 61){
+            grade = 'B';
+          }
+          if (percent >= 74){
+            grade = 'A';
+          }
+        }
+      } else {
+        if (possible < 60){
+          var grade = (60 - possible).toString() + ' to go';
+        } else {
+          var percent = calculatePercentage();
+          if (percent < 22){
+            grade = 'U';
+          }
+          if (22 <= percent < 31){
+            grade = 'E';
+          }
+          if (31 <= percent < 41){
+            grade = 'D';
+          }
+          if (41 <= percent < 51){
+            grade = 'C';
+          }
+          if (51 <= percent < 61){
+            grade = 'B';
+          }
+          if (percent >= 74){
+            grade = 'A';
+          }
+        }
+      }
+      return grade;
+    }
+    
+    //populating attempts, possible score, correct score
+    function populateAttemptedScoreGrade(){
+      console.log("Trying to update these on screen...");
+      document.getElementById("grade").innerHTML = scoreEighty();//work out whether grades can be displaye
+      document.getElementById("attempted").innerHTML = parseInt(getCookie('comptia_a_plus_attempts'));
+      document.getElementById("score").innerHTML = out_of;//update score element 
+    }
+    
+    document.onload= populateAttemptedScoreGrade();
+    
+    //allow changes between main question type and reveal answer perpectives
+    var q_type = '{{qtype}}'
+    
+function displayInteractiveReveal(question, reveal) {
+  document.getElementById("question").style.display = question;
+  document.getElementById("reveal").style.display = reveal;
+}
+    function revealedAnswer(){
+      clicks = 10;
+      submitted = true;
+    }
+    
+    //Type logic
+    function typeAnswer(){
+      var answer = '{{answerBase}}'
+      var attempt = document.getElementById('fname').value;
+      if(clicks<1){
+        if(attempt == '{{answerBase}}'){
+        document.getElementById('fname').style.background='lightgreen';
+        
+        } else {
+            document.getElementById('fname').style.background='pink';
+      }
+
+      }
+      
+      clicks = clicks + 1
+    }
+    
+
+
+
+
+//Select and submit logic:
+var final_mark = 0
+var submitted = false
+
+function checkboxSubmit(){
+  if (submitted == false){//if form hasn't been submitted before
+    console.log("First form submit")
+
+    function incrementFinalMarkIfCorrect(ci, check_box_str, row_str, correct_incorrect_str){
+      if ( ci !== null){//if an option exists
+        console.log(ci)
+        var option =$(check_box_str).is(":checked");//get true or false value representing whether box checked
+        if (option == false){//if unchecked...
+          if ( ci == "correct"){//if option correct, subtract one from final_mark
+            final_mark -= 1;
+            document.getElementsByName(row_str)[0].style.background='red';
+            document.getElementsByName(row_str)[1].style.background='lightgreen';
+            document.getElementsByName(row_str)[2].style.background='lightgreen';
+            document.getElementsByName(row_str)[3].style.background='lightgreen';
+            document.getElementById(correct_incorrect_str).innerHTML = 'Incorrect'
+          }
+        } else {//elif box checked
+          if (ci == "correct"){//if option correct, add one to final mark score
+            final_mark += 1;
+            document.getElementsByName(row_str)[0].style.background='green';
+            document.getElementsByName(row_str)[1].style.background='lightgreen';
+            document.getElementsByName(row_str)[2].style.background='lightgreen';
+            document.getElementsByName(row_str)[3].style.background='lightgreen';
+            document.getElementById(correct_incorrect_str).innerHTML = 'Correct';
+          } else {//else subtract one from final mark score
+            final_mark -= 1;
+            document.getElementsByName(row_str)[0].style.background='red';
+            document.getElementsByName(row_str)[1].style.background='pink';
+            document.getElementsByName(row_str)[2].style.background='pink';
+            document.getElementsByName(row_str)[3].style.background='pink';
+            document.getElementById(correct_incorrect_str).innerHTML = 'Incorrect';
+          }
+        }
+      }
+    }
+    incrementFinalMarkIfCorrect('{{a1ci}}', "#option1", 'option1row', 'option1ci')
+    incrementFinalMarkIfCorrect('{{a2ci}}', "#option2", 'option2row', 'option2ci')
+    incrementFinalMarkIfCorrect('{{a3ci}}', "#option3", 'option3row', 'option3ci')
+    incrementFinalMarkIfCorrect('{{a4ci}}', "#option4", 'option4row', 'option4ci')
+    incrementFinalMarkIfCorrect('{{a5ci}}', "#option5", 'option5row', 'option5ci')
+    incrementFinalMarkIfCorrect('{{a6ci}}', "#option6", 'option6row', 'option6ci')
+    incrementFinalMarkIfCorrect('{{a7ci}}', "#option7", 'option7row', 'option7ci')
+    incrementFinalMarkIfCorrect('{{a8ci}}', "#option8", 'option8row', 'option8ci')
+    incrementFinalMarkIfCorrect('{{a9ci}}', "#option9", 'option9row', 'option9ci')
+    incrementFinalMarkIfCorrect('{{a10ci}}', "#option10", 'option10row', 'option10ci')
+
+    console.log(final_mark)
+    if (final_mark == correct_required){
+      incrementCookie('physics_correct', possible_marks);//increase correct cookie
+    }else{
+      addToCookieList('work_on')
+    }
+    incrementCookie('physics_attempts');//record attempt on cookie
+    document.getElementById("attempted").innerHTML = parseInt(getCookie('physics_attempts'));//update attempted element with cookie value
+    incrementCookie('physics_possible', possible_marks);//increase possible cookie
+    
+    submitted = true
+    console.log(submitted)
+    var possible = getCookie('physics_possible');
+    var correct_marks = getCookie('physics_correct');
+    var out_of = correct_marks.toString() + '/' + possible.toString();//create string to show score 
+    document.getElementById("score").innerHTML = out_of//update score element
+    document.getElementById("grade").innerHTML = scoreEighty()//work out whether grades can be displayed
+  }  
+}
+  
+//DRAG AND DROP SPECIFIC
+//Allow dragging and dropping
+function allowDrop(ev) {
+  if(ev.target.hasChildNodes() == false){
+    ev.preventDefault();
+  }
+}
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+
+//Drag and drop marking logic activated on submit button
+
+var submitted = false
+function dragAndDropSubmit(){
+//after all boxes have been checked, marks = score
+  if(submitted == false){//only allow one submit to be clicked
+    score = 0
+    function calculateScore(paira, pairb, drop_box_id, row_name, colour){//each option box (numbered top to bottom) which has a matching child, increment score, highlight green, print correct
+      try{
+        if (paira != 'null'){//if options box exists
+          var parent = document.getElementById(drop_box_id);
+          var child = parent.childNodes;//get contents of options box
+          console.log(child);
+          if (child[0].innerHTML == pairb){//if correct value in options box
+            console.log('correct')
+            score = score + 1 ;
+            document.getElementsByName(row_name)[0].style.background='lightgreen';
+            document.getElementsByName(row_name)[1].style.background='lightgreen';
+          }else{//if no matching child, -1, highlight box and add to workon cookies
+            console.log('incorrect')
+            score = score - 1
+            document.getElementsByName(row_name)[0].style.background=colour;
+            document.getElementById(pairb).style.background=colour;
+          }
+        }
+      }
+      catch(err){
+        console.log('oops')
+      }
+    }
+    calculateScore('{{pair1a}}','{{pair1b}}', 'box1', 'row1', 'red');
+    calculateScore('{{pair2a}}','{{pair2b}}', 'box2', 'row2', 'orange');
+    calculateScore('{{pair3a}}','{{pair3b}}', 'box3', 'row3', 'yellow');
+    calculateScore('{{pair4a}}','{{pair4b}}', 'box4', 'row4', 'cyan');
+    calculateScore('{{pair5a}}','{{pair5b}}', 'box5', 'row5', 'blue');
+    calculateScore('{{pair6a}}','{{pair6b}}', 'box6', 'row6', 'pink');
+    calculateScore('{{pair7a}}','{{pair7b}}', 'box7', 'row7', 'violet');
+    calculateScore('{{pair8a}}','{{pair8b}}', 'box8', 'row8', 'purple');
+    calculateScore('{{pair9a}}','{{pair9b}}', 'box9', 'row9', 'grey');
+    calculateScore('{{pair10a}}','{{pair10b}}', 'box10', 'row10', 'brown');
+  }
+  if (score >= correct_required){
+    incrementCookie('physics_correct', possible_marks);//increase correct cookie
+  }else{
+    addToCookieList('work_on');    
+  }
+  submitted = true//only allow one submit to be clicked
+  incrementCookie('physics_attempts');//when clicked increment attempts
+  document.getElementById("attempted").innerHTML = parseInt(getCookie('physics_attempts'));//update attempted element with cookie value
+  incrementCookie('physics_possible', possible_marks);//increase possible cookie
+  var possible = getCookie('physics_possible');
+  var correct_marks = getCookie('physics_correct');
+  var out_of = correct_marks.toString() + '/' + possible.toString();//create string to show score 
+  document.getElementById("score").innerHTML = out_of//update score element
+  document.getElementById("grade").innerHTML = scoreEighty()//work out whether grades can be displayed
+}
+
+    // utility functions
+    
+    //sets a cookie with a given name and value
+    function setCookie (cName, cValue){//sets a cookie
+        document.cookie = `${cName}=${cValue};path=/`;
+    }
+    
+    //either returns the value of a cookie or "nope" if cookies doesn't exist
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "nope";
+    }
+    
+    // increases value of any given cookie, default of 1
+    function incrementCookie(cName, to_add = 1){
+        var value = parseInt(getCookie(cName)) + to_add;
+        setCookie(cName, value)
+        console.log('Incremented')
+        console.log(cName)
+    }
+    
+    </script>
+{% endblock %}

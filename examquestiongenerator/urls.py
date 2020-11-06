@@ -20,11 +20,18 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name="home"),
+
+    path('alevelmaths/', include('alevelmaths.urls')),
     path('physics/', include('physics.urls')),
     path('gcsemaths/', include('gcsemaths.urls')),
     path('gcsebiology/', include('gcsebiology.urls')),
+
+    path('comptia_a_plus/', include('comptia_a_plus.urls')),
     path('pcap/', include('pcap.urls')),
     path('pcep/', include('pcep.urls')),
+    path('sql/', include('sql.urls')),
+    
+    path('work_on/', views.work_on, name = 'work_on'),
+
     path('testapp/', include('testapp.urls')),
-    path('sql/', include('sql.urls'))
 ]

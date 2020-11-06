@@ -1,0 +1,688 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/mcReveal.css" %}">
+<!--<script type="text/javascript" src="{% static "js/mcReveal.js" %}"></script>-->
+
+<div class="drag-grid">
+    
+    <div class="dash-item">
+      <div class = "stats-grid">
+        <div class="dash-item-r"><p>Attempted: </p></div>
+        <div class="dash-item-l"><p id = 'attempted'>0</p></div>
+
+        <div class="dash-item-r"><p>Score: </p></div>
+        <div class="dash-item-l"><p id = 'score'>0</p></div>
+
+        <div class="dash-item-r"><p>Grade: </p></div>
+        <div class="dash-item-l"><p id = 'grade'>Revealed after 90 questions</p></div>
+      </div>
+
+      <div class = "button-grid">
+        <div class="dash-item"></div>
+        <p>
+          <button type="button" class="btn btn-primary" onclick = "resetCookies();resetElements()">Reset</button>
+        </p>
+      </div>
+    </div>
+
+    <div class="dash-item">
+      <div class = "button-grid">
+        {% if qtype == 'drag' %}
+        <div class="dash-item"><button onclick="displayQuestion(q_type)">Drag and drop</button></div>
+        {% endif %}
+        <div class="dash-item"><button onclick="displayReveal(q_type)">Answer reveal</button></div>
+      </div>
+    </div>
+ 
+</div>
+
+
+
+<div class="margin-grid">
+    <div class="margin-item"></div>
+    <div class="margin-item">
+
+      {% if diagram != None %}
+      <div>
+        <p class="centered"><img  width="60%" height="auto" src= "{% static diagram %}" alt="things"></p>
+      </div>
+      {% endif %}
+
+      {% if piclink != None %}
+      <div>
+        <p class="centered"><img  width="30%" height="auto" src= "{{piclink}}" alt="things"></p>
+      </div>
+      {% endif %}
+      
+      <h4>{{questionBase}}</h4>
+      
+      {% if pre != None %}
+      <div>
+        <pre><h4>{{pre}}</h4></pre>
+      </div>
+      {% endif %}
+      
+      {% if tip != None %}
+      <details>
+        <summary>A little help?</summary>
+          <h5>{{tip}}</h5>
+          {% if video != None %}
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="{{video}}" allowfullscreen></iframe>
+          </div>
+          {% endif %}
+          {% if website != None %}
+          <a href="{{website}}" class="btn btn-secondary" target="_blank" data-toogle="tooltip" title="I didn't make this website, but it might help! (opens in a new tab!)">A little more help?</a>
+          {% endif %}
+      </details>
+      {% endif %}
+
+    </div>
+</div>
+    
+<span id='drag'>
+  <div class="margin-grid"> 
+
+    <div class="margin-item"></div>
+
+    <div class="margin-item">
+
+        <div class="triple-drag-grid">
+
+            <div>
+                <div class="button-grid">
+
+                    
+                    {% if pair1a != None %}
+                    <div  name = "row1">
+                        <h4>{{pair1a}}</h4>
+                    </div>
+                    <div name = "row1">
+                        <div class="drop-box" id ="box1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </div>
+                    {% endif %}
+
+                    {% if pair2a != None %}
+                    <div name = "row2">
+                        <h4>{{pair2a}}</h4>
+                    </div>
+                    <div name = "row2">
+                        <div class="drop-box" id ="box2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </div>
+                    {% endif %}
+
+                    {% if pair3a != None %}
+                    <div name = "row3">
+                        <h4>{{pair3a}}</h4>
+                    </div>
+                    <div  name = "row3">
+                        <div class="drop-box" id ="box3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </div>
+                    {% endif %}
+
+                    {% if pair4a != None %}
+                    <div  name = "row4">
+                        <h4>{{pair4a}}</h4>
+                    </div>
+                    <div  name = "row4">
+                        <div class="drop-box" id ="box4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </div>
+                    {% endif %}
+
+                    {% if pair5a != None %}
+                    <div name = "row5">
+                        <h4>{{pair5a}}</h4>
+                    </div>
+                    <div name = "row5">
+                        <div class="drop-box" id ="box5" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+                
+                <div>
+                    <div class="drag-answer-grid">
+                    {% for option in options %}
+                        <h4 class = "option-box" id="{{option}}" name="dropable" draggable="true" ondragstart="drag(event)">{{option}}</h4>
+                    {% endfor %}
+                    </div>
+                    
+                    <div class = 'button-grid'>
+                      <div class='dash-item'>
+                          <p>
+                              <button type="button" class="btn btn-primary" onclick = "dragAndDropSubmit()">Submit</button>
+                          </p>
+                      </div>
+                    </div>
+
+                </div>
+
+
+
+                <div>
+                    {% if pair6a != None %}
+                    <div name = "row6">
+                        <h4>{{pair6a}}</h4>
+                    </div>
+                    <div name = "row6">
+                        <div class="drop-box" id ="box6" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </div>
+                    {% endif %}
+
+                    {% if pair7a != None %}
+                    <div name = "row7">
+                        <h4>{{pair7a}}</h4>
+                    </div>
+                    <div name = "row7">
+                        <div class="drop-box" id ="box7" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </div>
+                    {% endif %}
+
+                    {% if pair8a != None %}
+                    <div name = "row8">
+                        <h4>{{pair8a}}</h4>
+                    </div>
+                    <div name = "row8">
+                        <div class="drop-box" id ="box8" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </div>
+                    {% endif %}
+
+                    {% if pair9a != None %}
+                    <div name = "row9">
+                        <h4>{{pair9a}}</h4>
+                    </div>
+                    <div name = "row9">
+                        <div class="drop-box" id ="box9" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </div>
+                    {% endif %}
+
+                    {% if pair10a != None %}
+                    <div name = "row10">
+                        <h4>{{pair10a}}</h4>
+                    </div>
+                    <div name = "row10">
+                        <div class="drop-box" id ="box10" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </div>
+                    {% endif %}
+                </div>
+                    
+                
+              
+                    
+                
+            </div>
+
+           
+            
+        </div>
+
+
+    
+        {% if hint != None %}
+        <details>
+            <summary>A little help?</summary>
+            <h5>{{hint}}</h5>
+            {% if video != None %}
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="{{video}}" allowfullscreen></iframe>
+            </div>
+            {% endif %}
+            {% if weblink != None %}
+            {% endif %}
+        </details>
+        {% endif %}
+    </div>
+  </div>
+</span>
+
+
+
+<span id='reveal' style="display:none;">
+  <div class="margin-grid"> 
+    <div class="margin-item"></div>
+    <div class="margin-item">
+      <p>    
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse" onclick='revealedAnswer()'>
+          Answer
+        </a>
+      </p> 
+      <div class="collapse" id="collapse">
+        <div class="card card-body">        
+          <h4>{{answerReveal}}</h4>
+          {% if preans != None %}
+          <pre><h4>{{preans}}</h4></pre>
+          {% endif %}
+          
+          {% if tips != None %}
+          <details>
+            <summary>Not sure where you went wrong?</summary>
+            <div class="card">
+              <div class="card-body">
+                <p>{tips}</p>
+              </div>
+            </div>
+          </details>
+          {% endif %}
+
+        </div>
+      </div>
+      </p>
+    </div> 
+
+  </div> 
+    
+  </div>
+</span>
+
+
+
+<div class="margin-grid">   
+  <div class="margin-item"></div>
+  <div class="margin-item-r">
+    <h4>[{{marks}} marks]</h4>  
+  </div>
+</div>
+
+<div class = 'button-grid'>
+  <div class="dash-item-r">
+    {% if previousQ != None %}
+    <a href="{{previousQ}}" class="btn btn-secondary">Previous </a>
+    {% endif %}
+  </div>
+  <div class="dash-item">
+    <button class="btn btn-primary" onClick="history.go(0);">Generate another one!</button>
+  </div>
+  <div class="dash-item-l">
+    {% if nextQ != None %}
+    <a href="{{nextQ}}" class="btn btn-secondary">Next</a>
+    {% endif %}
+  </div>
+
+  <div class="dash-item"></div>
+  <div class="dash-item">
+    <a href="/work_on/" class="btn btn-primary" target='_blank'>See what you need to read up on</a>
+  </div>
+  <div class="dash-item"></div>
+
+</div>
+
+<div>
+  <p class="centered">
+    <div class="alert alert-secondary" role="alert">
+      <h5 style="text-align:center;">Close this window to return to the menu</h5>
+    </div>    
+  </p>
+</div>
+
+<script type="text/javascript">
+
+
+//setting cookies if they don't exist: comptia_a_plus_attempts, comptia_a_plus_possible, comptia_a_plus_correct
+if (getCookie('comptia_a_plus_attempts') == 'nope')
+  {
+  setCookie("comptia_a_plus_attempts",'0');
+  console.log("No comptia_a_plus_attempts cookie so we made one");
+  }
+if (getCookie('comptia_a_plus_possible') == 'nope')
+  {
+  setCookie("comptia_a_plus_possible",'0');
+  console.log("No comptia_a_plus_possible cookie so we made one");
+  }
+if (getCookie('comptia_a_plus_correct') == 'nope')
+  {
+  setCookie("comptia_a_plus_correct",'0');
+  console.log("No comptia_a_plus_cookie so we made one");
+  }
+
+document.onload = createWorkOnCookie()
+
+
+
+//Allows stats to be reset onclick of button
+function resetCookies(){
+    console.log("Resetting cookies!")
+    setCookie('comptia_a_plus_attempts', '0')
+    setCookie('comptia_a_plus_possible', '0')
+    setCookie('comptia_a_plus_correct', '0')
+}
+
+//Allows reset of visual elements
+function resetElements(){
+  console.log("Visual elements reset");
+  document.getElementById("attempted").innerHTML = '0';
+  //document.getElementById("correct").innerHTML = '0';
+  //document.getElementById("possible").innerHTML = '0';
+  //document.getElementById("percent").innerHTML = '0';
+  document.getElementById("grade").innerHTML = 'Complete 80 marks to get a grade!';
+  document.getElementById("score").innerHTML = '0';
+}
+
+//Displaying to the console to make sure it is working
+console.log(getCookie('comptia_a_plus_attempts') + ' attempts');
+console.log(getCookie('comptia_a_plus_correct') + ' correct');
+console.log(calculatePercentage());
+
+//following variable and function enable workon cookie list to be populated
+var workOn = "{{workOn}}"
+var weblink = "{{weblink}}"
+var helplink = "<a href='"+weblink+"' target='_blank'>" + workOn + "</a>"
+
+function addToCookieList(cName){
+    if (clicks == 0){
+        console.log('trying to add');
+        console.log(helplink);
+        console.log(getCookie("work_on").split(',').includes(helplink));
+        console.log(getCookie("work_on").split(','));
+        if (getCookie("work_on").split(',').includes(helplink)){
+            console.log('No need to add');
+            return
+        }
+        else {
+            console.log('adding');
+            var value = getCookie(cName) + "," + helplink;
+            document.cookie = cName + "=" + value + ";path=/";
+        }
+    }
+}
+
+// get list stored in cookie and put on screen somewhere
+function createWorkOnCookie(){//Creates cookie to record subjects to work on, if not existing
+    if (getCookie("work_on") == 'nope'){
+        document.cookie = "work_on='';path=/;"
+        console.log('set workon cookie')
+    }
+    else{
+      console.log('no need to set')
+    }
+}
+
+//Unused but don't want to get rid of it yet...
+function calculatePercentage(){
+    if (getCookie('comptia_a_plus_attempted') == 0){
+      return 0;
+    }else{
+      var percent = Math.ceil( getCookie('comptia_a_plus_correct') / getCookie('comptia_a_plus_possible') * 100);
+      return percent;
+    }
+}
+
+//All vars reset when each question refreshes
+var correct_required = {{correctRequired}};
+var clicks = 0;
+var clicks_correct = 0;
+var possible_marks = {{marks}};
+var possible = getCookie('comptia_a_plus_possible');
+var correct_marks = getCookie('comptia_a_plus_correct');
+var out_of = correct_marks.toString() + '/' + possible.toString();//create string to show score
+
+
+function scoreEighty(){
+  if (possible < 90){
+    var grade = (90 - possible).toString() + ' to go';
+  }
+  else {
+    if (calculatePercentage() > 75){
+      grade = 'Pass';
+    }
+    else{
+      grade = 'Fail';
+    }
+  }
+  return grade;
+}
+
+
+//populating attempts, possible score, correct score
+function populateAttemptedScoreGrade(){
+  console.log("Trying to update these on screen...");
+  document.getElementById("grade").innerHTML = scoreEighty();//work out whether grades can be displaye
+  document.getElementById("attempted").innerHTML = parseInt(getCookie('comptia_a_plus_attempts'));
+  document.getElementById("score").innerHTML = out_of;//update score element 
+}
+
+document.onload= populateAttemptedScoreGrade();
+
+//allow changes between main question type and reveal answer perpectives
+var q_type = '{{qtype}}'
+
+function displayQuestion(q_type) {
+  var x = document.getElementById("reveal");
+  var y = document.getElementById(q_type);
+  y.style.display = "block";
+  x.style.display = "none";
+}
+function displayReveal(q_type) {
+  var x = document.getElementById("reveal");
+  var y = document.getElementById(q_type);
+  x.style.display = "block";
+  y.style.display = "none";
+}
+function revealedAnswer(){
+  clicks = 10;
+  submitted = true;
+}
+
+
+//DRAG AND DROP SPECIFIC
+//Allow dragging and dropping
+function allowDrop(ev) {
+  if(ev.target.hasChildNodes() == false){
+    ev.preventDefault();
+  }
+}
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+
+//Drag and drop marking logic activated on submit button
+
+var submitted = false
+function dragAndDropSubmit(){
+//after all boxes have been checked, marks = score
+  if(submitted == false){//only allow one submit to be clicked
+    score = 0
+    function calculateScore(paira, pairb, drop_box_id, row_name, colour){//each option box (numbered top to bottom) which has a matching child, increment score, highlight green, print correct
+      try{
+        if (paira != 'null'){//if options box exists
+          var parent = document.getElementById(drop_box_id);
+          var child = parent.childNodes;//get contents of options box
+          console.log(child);
+          if (child[0].innerHTML == pairb){//if correct value in options box
+            console.log('correct')
+            score = score + 1 ;
+            document.getElementsByName(row_name)[0].style.background='lightgreen';
+            document.getElementsByName(row_name)[1].style.background='lightgreen';
+          }else{//if no matching child, -1, highlight box and add to workon cookies
+            console.log('incorrect')
+            score = score - 1
+            document.getElementsByName(row_name)[0].style.background=colour;
+            document.getElementById(pairb).style.background=colour;
+          }
+        }
+      }
+      catch(err){
+        console.log('oops')
+      }
+    }
+    calculateScore('{{pair1a}}','{{pair1b}}', 'box1', 'row1', 'red');
+    calculateScore('{{pair2a}}','{{pair2b}}', 'box2', 'row2', 'orange');
+    calculateScore('{{pair3a}}','{{pair3b}}', 'box3', 'row3', 'yellow');
+    calculateScore('{{pair4a}}','{{pair4b}}', 'box4', 'row4', 'cyan');
+    calculateScore('{{pair5a}}','{{pair5b}}', 'box5', 'row5', 'blue');
+    calculateScore('{{pair6a}}','{{pair6b}}', 'box6', 'row6', 'pink');
+    calculateScore('{{pair7a}}','{{pair7b}}', 'box7', 'row7', 'violet');
+    calculateScore('{{pair8a}}','{{pair8b}}', 'box8', 'row8', 'purple');
+    calculateScore('{{pair9a}}','{{pair9b}}', 'box9', 'row9', 'grey');
+    calculateScore('{{pair10a}}','{{pair10b}}', 'box10', 'row10', 'brown');
+  }
+  if (score >= correct_required){
+    incrementCookie('comptia_a_plus_correct', possible_marks);//increase correct cookie
+  }else{
+    addToCookieList('work_on');    
+  }
+  submitted = true//only allow one submit to be clicked
+  incrementCookie('comptia_a_plus_attempts');//when clicked increment attempts
+  document.getElementById("attempted").innerHTML = parseInt(getCookie('comptia_a_plus_attempts'));//update attempted element with cookie value
+  incrementCookie('comptia_a_plus_possible', possible_marks);//increase possible cookie
+  var possible = getCookie('comptia_a_plus_possible');
+  var correct_marks = getCookie('comptia_a_plus_correct');
+  var out_of = correct_marks.toString() + '/' + possible.toString();//create string to show score 
+  document.getElementById("score").innerHTML = out_of//update score element
+  document.getElementById("grade").innerHTML = scoreEighty()//work out whether grades can be displayed
+}
+
+//MULTIPLE CHOICE LOGIC
+function ifRespondedCorrect(correct){
+  if (clicks < correct_required){
+    if (correct == 'yes'){
+      clicks_correct = clicks_correct + 1
+    }
+    if (clicks_correct == correct_required){
+      incrementCookie('comptia_a_plus_correct', possible_marks);//increase correct cookie
+    }
+    clicks = clicks + 1
+  }else{
+    return
+  }
+  if (clicks == 1){
+    incrementCookie('comptia_a_plus_attempts');//record attempt on cookie
+    document.getElementById("attempted").innerHTML = parseInt(getCookie('comptia_a_plus_attempts'));//update attempted element with cookie value
+    incrementCookie('comptia_a_plus_possible', possible_marks);//increase possible cookie
+    console.log('first response');
+  }else{
+      console.log('SOOOO many clicks');//happens if you click twice
+  }
+  var possible = getCookie('comptia_a_plus_possible');
+  var correct_marks = getCookie('comptia_a_plus_correct');
+  var out_of = correct_marks.toString() + '/' + possible.toString();//create string to show score 
+  document.getElementById("score").innerHTML = out_of//update score element
+  document.getElementById("grade").innerHTML = scoreEighty()//work out whether grades can be displayed
+}
+
+
+
+
+
+
+//Checkbox logic... on submit button:
+var final_mark = 0
+var submitted = false
+
+function checkboxSubmit(){
+  if (submitted == false){//if form hasn't been submitted before
+    console.log("First form submit")
+
+    function incrementFinalMarkIfCorrect(ci, check_box_str, row_str, correct_incorrect_str){
+      if ( ci !== null){//if an option exists
+        console.log(ci)
+        var option =$(check_box_str).is(":checked");//get true or false value representing whether box checked
+        if (option == false){//if unchecked...
+          if ( ci == "correct"){//if option correct, subtract one from final_mark
+            final_mark -= 1;
+            document.getElementsByName(row_str)[0].style.background='red';
+            document.getElementsByName(row_str)[1].style.background='lightgreen';
+            document.getElementsByName(row_str)[2].style.background='lightgreen';
+            document.getElementsByName(row_str)[3].style.background='lightgreen';
+            document.getElementById(correct_incorrect_str).innerHTML = 'Incorrect'
+          }
+        } else {//elif box checked
+          if (ci == "correct"){//if option correct, add one to final mark score
+            final_mark += 1;
+            document.getElementsByName(row_str)[0].style.background='green';
+            document.getElementsByName(row_str)[1].style.background='lightgreen';
+            document.getElementsByName(row_str)[2].style.background='lightgreen';
+            document.getElementsByName(row_str)[3].style.background='lightgreen';
+            document.getElementById(correct_incorrect_str).innerHTML = 'Correct';
+          } else {//else subtract one from final mark score
+            final_mark -= 1;
+            document.getElementsByName(row_str)[0].style.background='red';
+            document.getElementsByName(row_str)[1].style.background='pink';
+            document.getElementsByName(row_str)[2].style.background='pink';
+            document.getElementsByName(row_str)[3].style.background='pink';
+            document.getElementById(correct_incorrect_str).innerHTML = 'Incorrect';
+          }
+        }
+      }
+    }
+    incrementFinalMarkIfCorrect('{{a1ci}}', "#option1", 'option1row', 'option1ci')
+    incrementFinalMarkIfCorrect('{{a2ci}}', "#option2", 'option2row', 'option2ci')
+    incrementFinalMarkIfCorrect('{{a3ci}}', "#option3", 'option3row', 'option3ci')
+    incrementFinalMarkIfCorrect('{{a4ci}}', "#option4", 'option4row', 'option4ci')
+    incrementFinalMarkIfCorrect('{{a5ci}}', "#option5", 'option5row', 'option5ci')
+    incrementFinalMarkIfCorrect('{{a6ci}}', "#option6", 'option6row', 'option6ci')
+    incrementFinalMarkIfCorrect('{{a7ci}}', "#option7", 'option7row', 'option7ci')
+    incrementFinalMarkIfCorrect('{{a8ci}}', "#option8", 'option8row', 'option8ci')
+    incrementFinalMarkIfCorrect('{{a9ci}}', "#option9", 'option9row', 'option9ci')
+    incrementFinalMarkIfCorrect('{{a10ci}}', "#option10", 'option10row', 'option10ci')
+
+    console.log(final_mark)
+    if (final_mark == correct_required){
+      incrementCookie('comptia_a_plus_correct', possible_marks);//increase correct cookie
+    }else{
+      addToCookieList('work_on')
+    }
+    incrementCookie('comptia_a_plus_attempts');//record attempt on cookie
+    document.getElementById("attempted").innerHTML = parseInt(getCookie('comptia_a_plus_attempts'));//update attempted element with cookie value
+    incrementCookie('comptia_a_plus_possible', possible_marks);//increase possible cookie
+    
+    submitted = true
+    console.log(submitted)
+    var possible = getCookie('comptia_a_plus_possible');
+    var correct_marks = getCookie('comptia_a_plus_correct');
+    var out_of = correct_marks.toString() + '/' + possible.toString();//create string to show score 
+    document.getElementById("score").innerHTML = out_of//update score element
+    document.getElementById("grade").innerHTML = scoreEighty()//work out whether grades can be displayed
+  }  
+}
+  
+
+
+
+
+
+// utility functions
+
+//sets a cookie with a given name and value
+function setCookie (cName, cValue){//sets a cookie
+    document.cookie = `${cName}=${cValue};path=/`;
+}
+
+//either returns the value of a cookie or "nope" if cookies doesn't exist
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "nope";
+}
+
+// increases value of any given cookie, default of 1
+function incrementCookie(cName, to_add = 1){
+    var value = parseInt(getCookie(cName)) + to_add;
+    setCookie(cName, value)
+    console.log('Incremented')
+    console.log(cName)
+}
+
+
+
+</script>
+
+{% endblock %}

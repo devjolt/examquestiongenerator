@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/alevelmaths.css" %}">
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">A-Level Maths</li>
+    </ol>
+</nav>
+
+<div class = "exam-grid">
+    <div></div>
+    <div class = "exam-item">
+        <h4>Paper 1 and 2</h4>
+        <h5>Pure maths:</h5>
+        <ul>
+            <li>Proof</li>
+            <li>Algebra and functions</li>
+            <li>Coordinate geometry in the (x, y) plane</li>
+            <li>Sequences and series</li>
+            <li>Trigonometry</li>
+            <li>Exponentials and logarithms</li>
+            <li>Differentiation</li>
+            <li>Integration</li>
+            <li>Numerical methods</li>
+            <li>Vectors</li>
+        </ul>
+        <p>100 marks for each paper</p>
+        <p>Each paper is worth 33.3%</p>
+    </div>
+    <div></div>
+    <div class = "exam-item">
+        <h4>Paper 3</h4>
+        <h5>Section A: Statistics</h5>
+        <ul>
+            <li>Statistical sampling</li>
+            <li>Data presentation and interpretation</li>
+            <li>Probability</li>
+            <li>Statistical distributions</li>
+            <li>Statistical hypothesis testing</li>
+        </ul>
+        <h5>Section B: Mechanics</h5>
+        <ul>
+            <li>Quantities and units in mechanics</li>
+            <li>Kinematics</li>
+            <li>Forces and Newton’s laws</li>
+            <li>Moments</p>
+        </ul>
+        <p>100 marks</p>
+        <p>This paper is worth 33.3%</p>
+    </div>
+</div>
+<div></div>
+  
+  
+  <div class="jumbotron text-left bg-light">
+      <div class="container">
+        <h1>A-Level Maths it is... pick a module!</h1>
+        <p>There'll be a map of the entire A-level just underneath eventually.</p>
+        <hr>
+  
+        <div class="row">
+          
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">1. Proof</h5>
+                <div class="alert alert-danger" role="alert">
+                    Working on it
+                </div>
+                <a href="#" class="btn btn-primary.disabled">Check back later</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">2. Algebra and functions</h5>
+                <div class="alert alert-warning" role="alert">
+                  Under construction
+                </div>
+                <a href="#" class="btn btn-primary">Take me there!</a>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">3. Coordinate geometry in the (x,y) plane</h5>
+                <div class="alert alert-danger" role="alert">
+                  No sight nor sound
+                </div>
+                <a href="#" class="btn btn-primary.disabled">Check back later</a>
+              </div>
+            </div>
+          </div>
+        
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">4. Sequences and series</h5>
+                <div class="alert alert-danger" role="alert">
+                  Preparing elastic bands
+                </div>
+                <a href="#" class="btn btn-primary.disabled">Check back later</a>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">5. Trigonometry</h5>
+                <div class="alert alert-warning" role="alert">
+                  Under construction
+                </div>
+                <a href="trigonometry/" class="btn btn-primary">Take me there!</a>
+              </div>
+            </div>
+          </div>
+        
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">6. Exponentials and logarithms</h5>
+                <div class="alert alert-warning" role="alert">
+                  Under construction
+                </div>
+                <a href="further_mechanics/" class="btn btn-primary">Take me there!</a>
+                <!--<a href="further_mechanics_and_thermal_physics/random/" class="btn btn-primary">Give me a random question</a>-->
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        </div>
+  
+        <details>
+          <summary>Map of the entire A-level</summary>
+          <div class="card">
+              <div class="card-body">
+                  <ul>
+                      <li>Pure Mathematics</li>
+                        <ul>
+                            <li>Proof</li>
+                            <li>Algebra and functions</li>
+                            <li>Coordinate geometry in the (x,y) plane</li>
+                            <li>Sequences and series</li>
+                            <li>Trigonometry</li>
+                            <li>Exponentials and logarithms</li>
+                            <li>Differentiation</li>
+                            <li>Integration</li>
+                            <li>Numerical methods</li>
+                            <li>Vectors</li>
+                        </ul>
+                      <li>Statistics</li>
+                        <ul>
+                            <li>Statistical sampling</li>
+                            <li>Data presentation and interpretation</li>
+                            <li>Probability</li>
+                            <li>Statistical distributions</li>
+                            <li>Statistical hypothesis testing</li>
+                        </ul>
+                      <li>Mechanics</li>
+                        <ul>
+                            <li>Quantities and units in mechanics</li>
+                            <li>Kinematics</li>
+                            <li>Forces and Newton's laws</li>
+                            <li>Moments</li>
+                        </ul>
+  
+                  </ul>
+              </div>
+            </div>
+  
+  
+          </details>
+  
+  
+  
+      </div>
+    </div>
+  
+  {% endblock %}

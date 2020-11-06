@@ -1,0 +1,326 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/physics.css" %}">
+
+<div class = "paper-markscheme-buttons-grid">
+    <div><h5 class = 'paper' onclick="displayPaperMarkschemeReveal('block', 'none', 'none')">Exam Paper (printable)</h5></div>
+    <div><h5 class = 'markscheme' onclick="displayPaperMarkschemeReveal('none', 'block', 'none')">Markscheme (printable)</h5></div>
+    <div><h5 class = 'paper' onclick="displayPaperMarkschemeReveal('none', 'none', 'block')">Hidden answers</h5></div>    
+</div>
+
+
+
+<span id='paper' style="display:block;">
+        <div class = 'section-grid'><!--three columns-->
+            <div></div><!--margin column 1-->
+            <div><!--main section column 2-->
+                
+                <div class = 'section-header-box'>
+                    <h4><b>Section B</b></h4>
+                    </br>
+                    <h5>Each of Questions <b>7</b> to <b>31</b> is followed by four responses, <b>A</b>, <b>B</b>, <b>C</b> and <b>D</b>.</h5>
+                    </br>
+                    <h5>For each question select the best response.</h5>
+                </div>
+                
+                {% for q in qlist %}
+
+                <div class = "section-main-grid"><!--three columns-->
+                    <div><!--number margin column 1-->
+                        {% if q.questionNumber != None %}
+                        <h5 class = 'question-number-box'>{{q.questionNumber}}</h5>
+                        {% else %}
+                        <h5 class = 'question-number-box'>1</h5>
+                        {% endif %}
+                    </div>
+                    <div></div><!--sub number margin column 2-->
+                    <div><!--question section column 3-->
+                        {% for  constant in q.constantList %}
+                        <h4>{{q.constant}}</h4>
+                        {% endfor %}
+                        {% if q.diagram != None %}
+                        <div>
+                            <p class="centered"><img  width="60%" height="auto" src= "{% static q.diagram %}" alt="things"></p>
+                        </div>
+                        {% endif %}
+
+                        {% if q.piclink != None %}
+                        <div>
+                            <p class="centered"><img  width="30%" height="auto" src= "{{q.piclink}}" alt="things"></p>
+                        </div>
+                        {% endif %}
+
+                        <h5>{{q.questionBase}}</h5>
+                        <h5 class = "section-marks-base"><b>[1 mark]</b></h5>
+                        
+                        <div class = "multi-choice-grid">
+                            <div><h5><b>A</b></h5></div>
+                            <div>{{q.a1}}</div>
+                            <div class = 'mc-answer-box'><div class='oval'></div></div>
+                        </div>
+   
+                        <div class = "multi-choice-grid">
+                            <div><h5><b>B</b></h5></div>
+                            <div>{{q.a2}}</div>
+                            <div class = 'mc-answer-box'><div class='oval'></div></div>
+                        </div>
+
+                        <div class = "multi-choice-grid">   
+                            <div><h5><b>C</b></h5></div>
+                            <div>{{q.a3}}</div>
+                            <div class = 'mc-answer-box'><div class='oval'></div></div>
+                        </div>
+        
+                        <div class = "multi-choice-grid"> 
+                            <div><h5><b>D</b></h5></div>
+                            <div>{{q.a4}}</div>
+                            <div class = 'mc-answer-box'><div class='oval'></div></div> 
+                        </div>
+                        
+                        <div></div>
+                        <div></div>
+                        <div></br></div>
+
+
+                    </div><!--closing main column-->    
+                </div><!--closing main section grid-->
+            
+
+                
+                {% endfor %}
+            </div><!--closing main column 2--> 
+            <div><p class = 'donot'>Do not write outside the box</p></div><!-- main column margin-->
+        </div><!--closing main section--> 
+</span>
+
+<span id='markscheme' style="display:none;">
+    <div class = 'section-grid'>
+        <div></div>
+        <div>
+            <div class = 'markscheme-grid'>
+                <div class = 'markscheme-box'><h5><b>Question</b></h5></div>
+                <div class = 'markscheme-box'><h5><b>Answers</b></h5></div>
+                <div class = 'markscheme-box'><h5><b>Mark</b></h5></div>
+            </div>
+            <br>
+
+            {% for q in qlist %}
+            <div class = 'markscheme-grid'>
+                <div class = 'markscheme-box'><h5>{{q.questionNumber}}</h5></div>
+                <div class = 'answer-box'><h6>{{q.multi_correct}}</h6></div>
+                <div class = 'markscheme-box'><h5>1</h5></div>
+            </div>
+            {% endfor %}
+        </div>
+        <div></div>
+    </div>
+</span>
+
+
+<span id='reveal' style = "display:none;">
+
+    <div class = 'section-grid'><!--three columns-->
+        <div></div><!--margin column 1-->
+        <div><!--main section column 2-->
+            
+            <div class = 'section-header-box'>
+                <h4><b>Section B</b></h4>
+                </br>
+                <h5>Each of Questions <b>7</b> to <b>31</b> is followed by four responses, <b>A</b>, <b>B</b>, <b>C</b> and <b>D</b>.</h5>
+                </br>
+                <h5>For each question select the best response.</h5>
+            </div>
+            
+            {% if qlist %}
+
+            {% for q in qlist %}
+
+            <div class = "section-main-grid"><!--three columns-->
+                <div><!--number margin column 1-->
+                    {% if q.questionNumber != None %}
+                    <h5 class = 'question-number-box'>{{q.questionNumber}}</h5>
+                    {% else %}
+                    <h5 class = 'question-number-box'>1</h5>
+                    {% endif %}
+                </div>
+                <div></div><!--sub number margin column 2-->
+                <div><!--question section column 3-->
+                    {% for  constant in q.constantList %}
+                    <h4>{{q.constant}}</h4>
+                    {% endfor %}
+                    {% if q.diagram != None %}
+                    <div>
+                        <p class="centered"><img  width="60%" height="auto" src= "{% static q.diagram %}" alt="things"></p>
+                    </div>
+                    {% endif %}
+
+                    {% if q.piclink != None %}
+                    <div>
+                        <p class="centered"><img  width="30%" height="auto" src= "{{q.piclink}}" alt="things"></p>
+                    </div>
+                    {% endif %}
+
+                    <h5>{{q.questionBase}}</h5>
+                    <h5 class = "section-marks-base"><b>[1 mark]</b></h5>
+                    
+                    <div class = "multi-choice-grid">
+                        <div><h5><b>A</b></h5></div>
+                        <div>{{q.a1}}</div>
+                        <div class = 'mc-answer-box'><div class='oval'></div></div>
+                    </div>
+
+                    <div class = "multi-choice-grid">
+                        <div><h5><b>B</b></h5></div>
+                        <div>{{q.a2}}</div>
+                        <div class = 'mc-answer-box'><div class='oval'></div></div>
+                    </div>
+
+                    <div class = "multi-choice-grid">   
+                        <div><h5><b>C</b></h5></div>
+                        <div>{{q.a3}}</div>
+                        <div class = 'mc-answer-box'><div class='oval'></div></div>
+                    </div>
+    
+                    <div class = "multi-choice-grid"> 
+                        <div><h5><b>D</b></h5></div>
+                        <div>{{q.a4}}</div>
+                        <div class = 'mc-answer-box'><div class='oval'></div></div> 
+                    </div>
+                    
+                    
+                    <a class="btn btn-primary" data-toggle="collapse" href="#collapse{{q.questionNumber}}" role="button" aria-expanded="false" aria-controls="collapse">
+                            Answer
+                    </a>
+                    <div class="collapse" id="collapse{{q.questionNumber}}">
+                        <div class="card card-body">        
+                            <h4>{{q.multi_correct}}</h4>
+                            <!--{% if preans != None %}<pre><h4>{{preans}}</h4></pre>{% endif %}-->                                  
+                            {% if q.tips != None %}
+                            <details>
+                                <summary>Not sure where you went wrong?</summary>
+                                <div class="card">
+                                  <div class="card-body">
+                                    <p>{q.tips}</p>
+                                  </div>
+                                </div>
+                            </details>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div><!-- closing question section column three-->    
+            </div><!-- closing section main grid-->  
+
+            
+            {% endfor %}
+
+            {% else %}
+
+
+            <div class = "section-main-grid"><!--three columns-->
+                <div><!--number margin column 1-->
+                    {% if questionNumber != None %}
+                    <h5 class = 'question-number-box'>7</h5>
+                    {% else %}
+                    <h5 class = 'question-number-box'>{{questionNumber}}</h5>
+                    {% endif %}
+                </div>
+                <div></div><!--sub number margin column 2-->
+                <div><!--question section column 3-->
+                    {% for  constant in constantList %}
+                    <h4>{{constant}}</h4>
+                    {% endfor %}
+                    {% if diagram != None %}
+                    <div>
+                        <p class="centered"><img  width="60%" height="auto" src= "{% static diagram %}" alt="things"></p>
+                    </div>
+                    {% endif %}
+
+                    {% if piclink != None %}
+                    <div>
+                        <p class="centered"><img  width="30%" height="auto" src= "{{piclink}}" alt="things"></p>
+                    </div>
+                    {% endif %}
+
+                    <h5>{{questionBase}}</h5>
+                    <h5 class = "section-marks-base"><b>[1 mark]</b></h5>
+                    
+                    <div class = "multi-choice-grid">
+                        <div><h5><b>A</b></h5></div>
+                        <div>{{a1}}</div>
+                        <div class = 'mc-answer-box'><div class='oval'></div></div>
+                    </div>
+
+                    <div class = "multi-choice-grid">
+                        <div><h5><b>B</b></h5></div>
+                        <div>{{a2}}</div>
+                        <div class = 'mc-answer-box'><div class='oval'></div></div>
+                    </div>
+
+                    <div class = "multi-choice-grid">   
+                        <div><h5><b>C</b></h5></div>
+                        <div>{{a3}}</div>
+                        <div class = 'mc-answer-box'><div class='oval'></div></div>
+                    </div>
+    
+                    <div class = "multi-choice-grid"> 
+                        <div><h5><b>D</b></h5></div>
+                        <div>{{a4}}</div>
+                        <div class = 'mc-answer-box'><div class='oval'></div></div> 
+                    </div>
+                    
+                        <a class="btn btn-primary" data-toggle="collapse" href="#collapse{{q.questionNumber}}" role="button" aria-expanded="false" aria-controls="collapse">
+                            Answer
+                        </a>
+                        <div class="collapse" id="collapse{{q.questionNumber}}">
+                            <div class="card card-body">        
+                                <h4>{{multi_correct}}</h4>
+                                <!--{% if preans != None %}<pre><h4>{{preans}}</h4></pre>{% endif %}-->
+                                  
+                                {% if tips != None %}
+                                <details>
+                                    <summary>Not sure where you went wrong?</summary>
+                                    <div class="card">
+                                      <div class="card-body">
+                                        <p>{tips}</p>
+                                      </div>
+                                    </div>
+                                </details>
+                                {% endif %}  
+                            </div>
+                        </div>
+                    </div><!-- closing question section column 3/3-->    
+                </div><!-- closing section main grid-->  
+                {% endif %}
+        </div><!-- closing main section column 2/3-->
+        <div><p class = 'donot'>Do not write outside the box</p></div><!--main section column 3/3-->
+    </div><!--closing section grid-->
+</span>
+
+<script type="text/javascript">
+
+function displayMarkscheme() {
+  var x = document.getElementById("paper");
+  var y = document.getElementById("markscheme");
+  y.style.display = "block";
+  x.style.display = 'none';
+}
+
+function displayPaper() {
+  var x = document.getElementById("paper");
+  var y = document.getElementById("markscheme");
+  x.style.display = "block";
+  y.style.display = 'none';
+}
+
+function displayPaperMarkschemeReveal(paper, ms, reveal) {
+  document.getElementById("paper").style.display = paper;
+  document.getElementById("markscheme").style.display = ms;
+  document.getElementById("reveal").style.display = reveal;
+}
+</script>
+
+{% endblock %}

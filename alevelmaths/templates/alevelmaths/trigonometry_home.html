@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/..">Home</a></li>
+      <li class="breadcrumb-item"><a href="/alevelmaths">A level Maths</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Trigonometry</li>
+    </ol>
+</nav>
+
+<div class="jumbotron">
+    <h1 class="display-4">4. Secant, cosecant, cotangent, arcsin, arccos and arctan</h1>
+    <hr class="my-4">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="algebra_basics" data-toggle="tab" href="#nav-algebra-basics" role="tab" aria-controls="nav-home" aria-selected="true">Basics</a>
+            <a class="nav-item nav-link" id="expanding-brackets" data-toggle="tab" href="#nav-expanding-brackets" role="tab" aria-controls="nav-expanding-brackets" aria-selected="false">Using parallel lines</a>
+            <a class="nav-item nav-link" id="expanding-brackets" data-toggle="tab" href="#nav-problems" role="tab" aria-controls="nav-problems" aria-selected="false">Geometry problems</a>
+
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tab">
+        <div class="tab-pane fade show active" id="nav-algebra-basics" role="tabpanel" aria-labelledby="nav-algebra-basics">
+
+
+            <a class="dropdown-item" href="ea1_angles_in_triangle_no_diagram/" target="_blank">ea1_angles_in_triangle_no_diagram</a>
+            <a class="dropdown-item" href="ea1_angles_in_triangle_diagram/" target="_blank">ea1_angles_in_triangle_diagram</a>
+            <a class="dropdown-item" href="ea1_angles_on_straight_line_diagram/" target="_blank">ea1_angles_on_straight_line_diagram</a>
+            <a class="dropdown-item" href="ea1_angles_in_quadrilateral_diagram/" target="_blank">ea1_angles_in_quadrilateral_diagram</a>
+            <a class="dropdown-item" href="ea1_angles_in_isosceles_triangle_diagram/" target="_blank">ea1_angles_in_isosceles_triangle_diagram</a>
+            <a class="dropdown-item" href="ea1_isosceles_triangle_pair_known_diagram/" target="_blank">ea1_isosceles_triangle_pair_known_diagram</a>
+            <a class="dropdown-item" href="ea1_isosceles_triangle_single_known_diagram/" target="_blank">ea1_isosceles_triangle_single_known_diagram</a>
+    
+        </div>
+        <div class="tab-pane fade" id="nav-expanding-brackets" role="tabpanel" aria-labelledby="nav-expanding-brackets">
+            
+            <a class="dropdown-item" href="ea2_angles_around_parallel_lines/" target="_blank">ea2_angles_around_parallel_lines</a>
+            <a class="dropdown-item" href="ea2_alternate_angles_parallel_lines/" target="_blank">ea2_alternate_angles_parallel_lines</a>
+            <a class="dropdown-item" href="ea2_allied_angles_parallel_lines/" target="_blank">ea2_allied_angles_parallel_lines</a>
+            <a class="dropdown-item" href="ea2_corresponding_angles_parallel_lines/" target="_blank">ea2_corresponding_angles_parallel_lines</a>
+            <a class="dropdown-item" href="ea2_alternate_allied_corresponding/" target="_blank">ea2_alternate_allied_corresponding</a>
+        </div>
+
+        <div class="tab-pane fade" id="nav-problems" role="tabpanel" aria-labelledby="nav-problems">
+            <a class="dropdown-item" href="ea3_problem2/" target="_blank">ea3_problem2</a>
+            <a class="dropdown-item" href="ea3_problem3/" target="_blank">ea3_problem3</a>
+            <a class="dropdown-item" href="ea3_problem4/" target="_blank">ea3_problem4</a>
+            <a class="dropdown-item" href="ea3_problem5/" target="_blank">ea3_problem5</a>
+            <a class="dropdown-item" href="ea3_problem6/" target="_blank">ea3_problem6</a>
+            <a class="dropdown-item" href="ea3_problem7/" target="_blank">ea3_problem7</a>
+            <a class="dropdown-item" href="ea3_problem8/" target="_blank">ea3_problem8</a>
+            <a class="dropdown-item" href="ea3_problem9/" target="_blank">ea3_problem9</a>
+            <a class="dropdown-item" href="ea3_problem10/" target="_blank">ea3_problem10</a>
+        </div>
+
+
+
+    </div>
+</div>
+{% endblock %}

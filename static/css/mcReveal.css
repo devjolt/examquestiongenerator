@@ -1,0 +1,124 @@
+.dash-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+  
+.stats-grid {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: auto;
+}
+
+.reset-grid{
+    display: grid;
+    grid-template-columns: 50% auto;
+}
+
+.dash-item {
+    font-size: 20px;
+    padding: 3px;
+    text-align: center;
+}
+
+.dash-item-r {
+    font-size: 20px;
+    padding: 3px;
+    text-align: right;
+}
+
+.dash-item-l {
+    font-size: 20px;
+    padding: 3px;
+    text-align: left;
+}
+
+.margin-grid{
+    display: grid;
+    grid-template-columns: 15% auto;
+}
+
+.margin-item{
+    padding: 0px;
+}
+
+.margin-item-r{
+    padding: 20px;
+    text-align: right;
+}
+
+.checkbox-grid{
+    display: grid;
+    grid-template-columns: auto auto 75% 10%;
+}
+
+.checkbox-item{
+    font-size: 20px;
+    padding: 4px;
+    text-align: center;
+}
+
+.checkbox-item-text{
+    font-size: 20px;
+    padding: 4px;
+    text-align: left;
+}
+
+.c-radius{
+    width:30px;
+    height:30px;
+}
+
+.lower-grid{
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+}
+
+.drag-grid {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.drag-box-grid {
+    display: grid;
+    grid-template-columns: 70% auto;
+}
+
+.drag-answer-grid {
+    border-radius: 25px;
+    display: grid;
+    grid-template-columns: auto;
+    padding: 10px;
+    object-fit: contain; 
+  }
+
+.drop-box {
+    border-radius: 25px;
+    width: flex;
+    height: 40px;
+    padding: 2px;
+    border: 1px solid #aaaaaa;
+    object-fit: contain;
+    text-align: center;
+}
+.option-box {
+    border-radius: 25px;
+    box-shadow: 2px 2px 5px blue;
+    width: flex;
+    height: flex;
+    padding: 2px;
+    border: 1px solid #aaaaaa;
+    object-fit: contain;    
+    text-align: center;
+  }
+
+.triple-drag-grid {
+    border-radius: 25px;
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    padding: 2px;
+    object-fit: contain;   
+}

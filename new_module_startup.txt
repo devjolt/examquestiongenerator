@@ -1,6 +1,6 @@
 1. django-admin startapp new module
 2. Add new module in main project settings.py
-3. Add home to views.py and update main urls.py and module urls.py
+3. Add home page to views.py, update main urls.py and module urls.py
 4. Create templates/newmodule dirs and home.html
 5. test that all of this works together
 6. create submodule view, urls and template and test
@@ -10,3 +10,4 @@
 8. create section folder containing secion views.py and logic.py files
 9. add tester question logic and view, add tester url, add tester url to submodule html page and test
 10. Develop questions
+

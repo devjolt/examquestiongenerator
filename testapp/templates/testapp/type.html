@@ -1,0 +1,357 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/mcReveal.css" %}">
+<!--<script type="text/javascript" src="{% static "js/mcReveal.js" %}"></script>-->
+
+<div class="drag-grid">
+    
+    <div class="dash-item">
+      <div class = "stats-grid">
+        <div class="dash-item-r"><p>Attempted: </p></div>
+        <div class="dash-item-l"><p id = 'attempted'>0</p></div>
+
+        <div class="dash-item-r"><p>Score: </p></div>
+        <div class="dash-item-l"><p id = 'score'>0</p></div>
+
+        <div class="dash-item-r"><p>Grade: </p></div>
+        <div class="dash-item-l"><p id = 'grade'>Revealed after 90 questions</p></div>
+      </div>
+
+      <div class = "button-grid">
+        <div class="dash-item"></div>
+        <p>
+          <button type="button" class="btn btn-primary" onclick = "resetCookies();resetElements()">Reset</button>
+        </p>
+      </div>
+    </div>
+
+    <div class="dash-item">
+      <div class = "button-grid">
+        {% if qtype == 'type' %}
+        <div class="dash-item"><button onclick="displayQuestion(q_type)">Type</button></div>
+        {% endif %}
+        <div class="dash-item"><button onclick="displayReveal(q_type)">Answer reveal</button></div>
+      </div>
+    </div>
+ 
+</div>
+
+
+
+<div class="margin-grid">
+    <div class="margin-item"></div>
+    <div class="margin-item">
+
+      {% if diagram != None %}
+      <div>
+        <p class="centered"><img  width="60%" height="auto" src= "{% static diagram %}" alt="things"></p>
+      </div>
+      {% endif %}
+
+      {% if piclink != None %}
+      <div>
+        <p class="centered"><img  width="30%" height="auto" src= "{{piclink}}" alt="things"></p>
+      </div>
+      {% endif %}
+      
+      <h4>{{questionBase}}</h4>
+      
+      {% if pre != None %}
+      <div>
+        <pre><h4>{{pre}}</h4></pre>
+      </div>
+      {% endif %}
+      
+      {% if tip != None %}
+      <details>
+        <summary>A little help?</summary>
+          <h5>{{tip}}</h5>
+          {% if video != None %}
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="{{video}}" allowfullscreen></iframe>
+          </div>
+          {% endif %}
+          {% if website != None %}
+          <a href="{{website}}" class="btn btn-secondary" target="_blank" data-toogle="tooltip" title="I didn't make this website, but it might help! (opens in a new tab!)">A little more help?</a>
+          {% endif %}
+      </details>
+      {% endif %}
+
+    </div>
+</div>
+
+<span id = 'type' style="display:block;">
+
+    {% if questionPartList %}
+
+    {% for item in questionPartList %}
+
+    <h4>{{item.subQuestion}}</h4>
+
+    <div class="margin-grid"> 
+      <div class="margin-item"></div>
+      <div class="margin-item">
+          <input type="text" id="type{{questionNumber}}{{item.subNumber}}" name="fname" placeholder="Input your answer here"><br><h4>{{item.subUnit}}</h4>
+      <button type="button" class="btn btn-primary" onclick = "typeAnswer('{{item.subAnswer}}', 'type{{questionNumber}}{{item.subNumber}}'), {{item.subMarks}}">Submit</button> 
+      </div> 
+    </div> 
+
+
+
+
+    {% endfor %}
+
+    {% else %}
+
+    <div class="margin-grid"> 
+        <div class="margin-item"></div>
+        <div class="margin-item">
+            <input type="text" id="fname" name="fname" placeholder="Input your answer here"><br>
+            <button type="button" class="btn btn-primary" onclick = "typeAnswer('{{answerBase}}', 'fname')">Submit</button>   
+        </div> 
+    </div> 
+
+    {% endif %}
+</span>
+
+<div class="margin-grid">   
+  <div class="margin-item"></div>
+  <div class="margin-item-r">
+    <h4>[{{marksBase}} marks]</h4>  
+  </div>
+</div>
+
+<div class = 'button-grid'>
+  <div class="dash-item-r">
+    {% if previousQ != None %}
+    <a href="{{previousQ}}" class="btn btn-secondary">Previous </a>
+    {% endif %}
+  </div>
+  <div class="dash-item">
+    <button class="btn btn-primary" onClick="history.go(0);">Generate another one!</button>
+  </div>
+  <div class="dash-item-l">
+    {% if nextQ != None %}
+    <a href="{{nextQ}}" class="btn btn-secondary">Next</a>
+    {% endif %}
+  </div>
+
+  <div class="dash-item"></div>
+  <div class="dash-item">
+    <a href="/work_on/" class="btn btn-primary" target='_blank'>See what you need to read up on</a>
+  </div>
+  <div class="dash-item"></div>
+
+</div>
+
+<div>
+  <p class="centered">
+    <div class="alert alert-secondary" role="alert">
+      <h5 style="text-align:center;">Close this window to return to the menu</h5>
+    </div>    
+  </p>
+</div>
+
+<script type="text/javascript">
+
+
+//setting cookies if they don't exist: comptia_a_plus_attempts, comptia_a_plus_possible, comptia_a_plus_correct
+if (getCookie('comptia_a_plus_attempts') == 'nope')
+  {
+  setCookie("comptia_a_plus_attempts",'0');
+  console.log("No comptia_a_plus_attempts cookie so we made one");
+  }
+if (getCookie('comptia_a_plus_possible') == 'nope')
+  {
+  setCookie("comptia_a_plus_possible",'0');
+  console.log("No comptia_a_plus_possible cookie so we made one");
+  }
+if (getCookie('comptia_a_plus_correct') == 'nope')
+  {
+  setCookie("comptia_a_plus_correct",'0');
+  console.log("No comptia_a_plus_cookie so we made one");
+  }
+
+document.onload = createWorkOnCookie()
+
+//Allows stats to be reset onclick of button
+function resetCookies(){
+    console.log("Resetting cookies!")
+    setCookie('comptia_a_plus_attempts', '0')
+    setCookie('comptia_a_plus_possible', '0')
+    setCookie('comptia_a_plus_correct', '0')
+}
+
+//Allows reset of visual elements
+function resetElements(){
+  console.log("Visual elements reset");
+  document.getElementById("attempted").innerHTML = '0';
+  //document.getElementById("correct").innerHTML = '0';
+  //document.getElementById("possible").innerHTML = '0';
+  //document.getElementById("percent").innerHTML = '0';
+  document.getElementById("grade").innerHTML = 'Complete 80 marks to get a grade!';
+  document.getElementById("score").innerHTML = '0';
+}
+
+//Displaying to the console to make sure it is working
+console.log(getCookie('comptia_a_plus_attempts') + ' attempts');
+console.log(getCookie('comptia_a_plus_correct') + ' correct');
+console.log(calculatePercentage());
+
+//following variable and function enable workon cookie list to be populated
+var workOn = "{{workOn}}"
+var weblink = "{{weblink}}"
+var helplink = "<a href='"+weblink+"' target='_blank'>" + workOn + "</a>"
+
+function addToCookieList(cName){
+    if (clicks == 0){
+        console.log('trying to add');
+        console.log(helplink);
+        console.log(getCookie("work_on").split(',').includes(helplink));
+        console.log(getCookie("work_on").split(','));
+        if (getCookie("work_on").split(',').includes(helplink)){
+            console.log('No need to add');
+            return
+        }
+        else {
+            console.log('adding');
+            var value = getCookie(cName) + "," + helplink;
+            document.cookie = cName + "=" + value + ";path=/";
+        }
+    }
+}
+
+// get list stored in cookie and put on screen somewhere
+function createWorkOnCookie(){//Creates cookie to record subjects to work on, if not existing
+    if (getCookie("work_on") == 'nope'){
+        document.cookie = "work_on='';path=/;"
+        console.log('set workon cookie')
+    }
+    else{
+      console.log('no need to set')
+    }
+}
+
+//Unused but don't want to get rid of it yet...
+function calculatePercentage(){
+    if (getCookie('comptia_a_plus_attempted') == 0){
+      return 0;
+    }else{
+      var percent = Math.ceil( getCookie('comptia_a_plus_correct') / getCookie('comptia_a_plus_possible') * 100);
+      return percent;
+    }
+}
+
+//All vars reset when each question refreshes
+var correct_required = {{marksBase}};
+var clicks = 0;
+var clicks_correct = 0;
+var possible_marks = {{marksBase}};
+var possible = getCookie('comptia_a_plus_possible');
+var correct_marks = getCookie('comptia_a_plus_correct');
+var out_of = correct_marks.toString() + '/' + possible.toString();//create string to show score
+
+
+function scoreEighty(){
+  if (possible < 90){
+    var grade = (90 - possible).toString() + ' to go';
+  }
+  else {
+    if (calculatePercentage() > 75){
+      grade = 'Pass';
+    }
+    else{
+      grade = 'Fail';
+    }
+  }
+  return grade;
+}
+
+
+//populating attempts, possible score, correct score
+function populateAttemptedScoreGrade(){
+  console.log("Trying to update these on screen...");
+  document.getElementById("grade").innerHTML = scoreEighty();//work out whether grades can be displaye
+  document.getElementById("attempted").innerHTML = parseInt(getCookie('comptia_a_plus_attempts'));
+  document.getElementById("score").innerHTML = out_of;//update score element 
+}
+
+document.onload= populateAttemptedScoreGrade();
+
+//allow changes between main question type and reveal answer perpectives
+var q_type = '{{qtype}}'
+
+function displayQuestion(q_type) {
+  var x = document.getElementById("reveal");
+  var y = document.getElementById(q_type);
+  y.style.display = "block";
+  x.style.display = "none";
+}
+function displayReveal(q_type) {
+  var x = document.getElementById("reveal");
+  var y = document.getElementById(q_type);
+  x.style.display = "block";
+  y.style.display = "none";
+}
+function revealedAnswer(){
+  clicks = 10;
+  submitted = true;
+}
+
+//Type logic
+function typeAnswer(ans, id, marks){
+  var answer =  ans
+  var attempt = document.getElementById(id).value;
+  if(attempt == ans){
+    document.getElementById(id).style.background='lightgreen';
+    attempted = attempted + marks
+  } else {
+    document.getElementById(id).style.background='pink';
+  }
+}
+
+
+
+
+
+// utility functions
+
+//sets a cookie with a given name and value
+function setCookie (cName, cValue){//sets a cookie
+    document.cookie = `${cName}=${cValue};path=/`;
+}
+
+//either returns the value of a cookie or "nope" if cookies doesn't exist
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "nope";
+}
+
+// increases value of any given cookie, default of 1
+function incrementCookie(cName, to_add = 1){
+    var value = parseInt(getCookie(cName)) + to_add;
+    setCookie(cName, value)
+    console.log('Incremented')
+    console.log(cName)
+}
+
+
+
+</script>
+
+{% endblock %}

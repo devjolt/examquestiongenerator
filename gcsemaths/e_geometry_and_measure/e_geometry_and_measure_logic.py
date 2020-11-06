@@ -1,51 +1,31 @@
 from django.shortcuts import render
-from random import randint
+from random import randint, randrange
 from fractions import Fraction
 from decimal import Decimal
 import sys
 import math
 
+from gcsemaths import gcsemaths_classes_functions as cf
+#from gcsemaths import variety_lists as vl
 
-currentFuncName = lambda n=0: sys._getframe(n + 1).f_code.co_name # allows previousNext functionality to work by getting current function's name
-
-def moduleListGen(qtype = None, low = 0, high = None): 
+def list_callable_functions():
+    """returns list of all modules in this file
+    This function MUST remain in this file to work correctly!
+    Used by:
+    modulesList
+    previousNext
+    """
     entireModuleList = []
     for key, value in globals().items():
         if callable(value) and value.__module__ == __name__:
             entireModuleList.append(key)
-    if qtype == None: # use qtype = None to use low high to select slice of list returned in relation to total modules in THIS file, low = -1 for last module only
-        count = -1
-        poop = []
-        for thing in entireModuleList[low:high]:
-            count += 1
-            poop.append(thing)
-    else:
-        count = -1
-        poop = []
-        for thing in entireModuleList:
-            if str(thing)[low:high] == qtype: # use qtype ='anystring', low = int representing start of string, high = int representing end of string for modules selected by name
-                count += 1
-                poop.append(thing)
-    return poop
+    return entireModuleList
 
-def previousNext(qtype = None, low = 0, high = None, name=''):
-    modList = moduleListGen(qtype, low, high)
-    modDict = {}
-    count = -1
-    for thing in modList:
-        count+=1
-        modDict.update({str(thing):count})
-    place = modDict[name]
-    current = modList[place]
-    try:
-        next_q = modList[place+1]
-    except IndexError:
-        next_q = modList[0]
-    try:
-        previous_q = modList[place-1]
-    except IndexError:
-        previous_q = modList[-1]
-    return f"/gcsemaths/geometry/{previous_q}", f"/gcsemaths/geometry/{next_q}"
+def modulesList():#this list is used by views to automatically generate views!
+    return cf.moduleListGen(list_callable_functions(), 'e', 0, 1)
+
+def module_path():
+    return '/gcsemaths/e_geometry_and_measure/'
 
 def triangle():
     shape_list = ["https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs-media-cache-ak0.pinimg.com%2F564x%2Fe4%2F33%2F53%2Fe433536f48dbb7624afe948d118a4bcd.jpg&f=1&nofb=1","https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmemegenerator.net%2Fimg%2Finstances%2F75884024.jpg&f=1&nofb=1","https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs-media-cache-ak0.pinimg.com%2Foriginals%2Fd7%2F3f%2F97%2Fd73f97d8d55c5f78027abc9c8af85971.jpg&f=1&nofb=1", "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.imgflip.com%2Fsdp60.jpg&f=1&nofb=1", "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fi0.kym-cdn.com%2Fphotos%2Fimages%2Fnewsfeed%2F000%2F403%2F150%2Fb01.png&f=1&nofb=1", "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.Xdw7ITdnQcHst926igzqrgHaHa%26pid%3DApi&f=1", "http://undergrad.osu.edu/buckeyes_blog/wp-content/uploads/2015/10/1.jpg", "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.dumpaday.com%2Fwp-content%2Fuploads%2F2016%2F01%2Ffunny-pictures-144.jpg&f=1&nofb=1"]
@@ -88,72 +68,67 @@ def egeometry_problems_random():
 
 #previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video
 
-def ea1_angles_in_triangle_no_diagram():
+def ea1_angles_in_triangle_no_diagram13():
     a = [letterGen(1,10), 40 + randint(0, 40)]
     b = [letterGen(11,18), 40 + randint(0, 40)]
     c = [letterGen(19, 26), 180 - a[1] - b[1]]
     questionBase = f"'{a[0]}{b[0]}{c[0]}', '{c[0]}{a[0]}{b[0]}' and '{b[0]}{c[0]}{a[0]}' are three angles in a triangle. If '{a[0]}{b[0]}{c[0]}' is {b[1]}\u00B0 and '{c[0]}{a[0]}{b[0]}' is {a[1]}\u00B0, what is the value of '{b[0]}{c[0]}{a[0]}'?"
     answer = f"{c[1]}\u00B0"
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    diagram, constant = None, None
-    marks, level = 1, 3
-    pre, preans = None, None
-    tip = None
-    video = None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase = questionBase, answer
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+
     
-def ea1_angles_in_triangle_diagram():
+def ea1_angles_in_triangle_diagram13():
     a = ['x', 40 + randint(0, 40)]
     b = ['y', 40 + randint(0, 40)]
     c = ['z', 180 - a[1] - b[1]]
     questionBase = f"Find the value of {c[0]} if {a[0]} = {a[1]}\u00B0 and {b[0]} = {b[1]}\u00B0"
     answer = f"{c[1]}\u00B0"
-    diagram, constant, marks = '/diagrams/gcsemaths/triangle_scalene_xyz.jpg', None, 1
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    marks, level = 1, 3
-    pre, preans = None, None
-    tip = None
-    video = None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase = questionBase, answer
+    q.diagram = '/diagrams/gcsemaths/triangle_scalene_xyz.jpg'
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
     
-def ea1_angles_on_straight_line_diagram():
+def ea1_angles_on_straight_line_diagram13():
     a = ['x', 40 + randint(0, 40)]
     b = ['y', 40 + randint(0, 40)]
     c = ['z', 180 - a[1] - b[1]]
     questionBase = f"Find the value of {c[0]} if {a[0]} = {a[1]}\u00B0 and {b[0]} = {b[1]}\u00B0"
     answer = f"{c[1]}\u00B0"
     diagram, constant, marks = '/diagrams/gcsemaths/straight_line_xyz.jpg', None, 1
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea1_angles_in_quadrilateral_diagram():
+def ea1_angles_in_quadrilateral_diagram13():
     a = ['k', 50 + randint(0, 40)]
     b = ['l', 50 + randint(0, 40)]
     c = ['m', 50 + randint(0, 40)]
     d = ['n', 360 - a[1] - b[1] - c[1]]
     questionBase = f"{a[0]} = {a[1]}\u00B0, {b[0]} = {b[1]}\u00B0, {c[0]} = {c[1]}\u00B0. Find the value of the angle at x"
     answer = f"{d[1]}\u00B0"
-    diagram, constant, marks = '/diagrams/gcsemaths/quadrilateral_klmn.jpg', None, 1
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, '/diagrams/gcsemaths/quadrilateral_klmn.jpg'
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea1_angles_in_isosceles_triangle_diagram():
+def ea1_angles_in_isosceles_triangle_diagram13():
     a = ['a', 40 + randint(0, 40)]
     b = ['b', a[1]]
     c = ['c', 180 - (a[1]*2)]
     questionBase = f"{a[0]} = {a[1]}\u00B0, {b[0]} = {b[1]}\u00B0. Find the value of the angle at c"
     answer = f"{c[1]}\u00B0"
-    diagram, constant, marks = '/diagrams/gcsemaths/isosceles_abc.jpg', None, 1
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, '/diagrams/gcsemaths/isosceles_abc.jpg'
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea1_isosceles_triangle_pair_known_diagram():
+def ea1_isosceles_triangle_pair_known_diagram13():
     a = ['a', 40 + randint(0, 40)]
     b = ['b', a[1]]
     c = ['c', 180 - (a[1]*2)]
@@ -161,13 +136,10 @@ def ea1_isosceles_triangle_pair_known_diagram():
     choice = randint(1,2)
     questionBase = f"Angle {a[0]} is {a[1]}\u00B0. What is the value of angle {angle[choice][0]}?"
     answer = f"{angle[choice][1]}\u00B0"
-    print(questionBase)
-    print(answer)
-    diagram, constant, marks = '/diagrams/gcsemaths/isosceles_abc.jpg', None, 1
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, '/diagrams/gcsemaths/isosceles_abc.jpg'
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ea1_isosceles_triangle_single_known_diagram():
     a = ['a', 40 + randint(0, 40)]
@@ -177,15 +149,13 @@ def ea1_isosceles_triangle_single_known_diagram():
     choice = randint(0,1)
     questionBase = f"Angle {c[0]} is {c[1]}\u00B0. What is the value of angle b?"
     answer = f"{a[1]}\u00B0"
-    print(questionBase)
-    print(answer)
-    diagram, constant, marks = '/diagrams/gcsemaths/isosceles_abc.jpg', None, 1
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    diagram = '/diagrams/gcsemaths/isosceles_abc.jpg'
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
     
-def ea2_angles_around_parallel_lines():
+def ea2_angles_around_parallel_lines13():
     y = 10 + randint(10, 60)
     x = 180 - y
     values = [['a', x],['d', x], ['e', x],['h', x], ['b',y], ['c',y],['f',y], ['g',y]]
@@ -194,51 +164,49 @@ def ea2_angles_around_parallel_lines():
     while choice2 == choice1: choice2 = randint(0,7)
     questionBase = f"Angle {values[choice1][0]} is {values[choice1][1]}\u00B0. What is the value of angle {values[choice2][0]}?"
     answer = f"{values[choice2][1]}\u00B0"
-    print(questionBase)
-    print(answer)
     diagram, constant, marks = '/diagrams/gcsemaths/parallel_around_abcdefgh.jpg', None, 1
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea2_alternate_angles_parallel_lines():
+def ea2_alternate_angles_parallel_lines13():
     x = 10 + randint(10, 60)
     y = 180 - x
     values = [['a', x],['z', x]]
     questionBase = f"Angle a is {x}\u00B0. What is the value of angle z?"
     answer = f"{x}\u00B0"
     diagram, constant, marks = '/diagrams/gcsemaths/parallel_alternate_side_az.jpg', None, 1
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea2_allied_angles_parallel_lines():
+def ea2_allied_angles_parallel_lines13():
     x = 10 + randint(10, 60)
     y = 180 - x
     values = [['a', x],['z', x]]
     questionBase = f"Angle a is {x}\u00B0. What is the value of angle z?"
     answer = f"{y}\u00B0"
     diagram, constant, marks = '/diagrams/gcsemaths/parallel_allied_az.jpg', None, 1
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea2_corresponding_angles_parallel_lines():
+def ea2_corresponding_angles_parallel_lines13():
     x = 10 + randint(10, 60)
     y = 180 - x
     values = [['a', x],['z', x]]
     questionBase = f"Angle a is {x}\u00B0. What is the value of angle z?"
     answer = f"{x}\u00B0"
     diagram, constant, marks = '/diagrams/gcsemaths/parallel_corresponding_az.jpg', None, 1
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea3_problem2():
+def ea3_problem213():
     a = randint(30, 80)
     b = a
     c = 180 - (a*2)
@@ -252,12 +220,12 @@ def ea3_problem2():
     questionBase = f"On the diagram above, angle {answers[choice1][0]} = {answers[choice1][1]}\u00B0. What is the value of angle {answers[choice2][0]}?"
     answer = f"{answers[choice2][1]}\u00B0"
     diagram, constant, marks = '/diagrams/gcsemaths/geometry_problem2.jpg', None, 1
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea3_problem3():
+def ea3_problem333():
     dab = randint(45, 85)
     bcd = randint(45, 85)
     y = 360 - 90 - dab - bcd
@@ -265,12 +233,12 @@ def ea3_problem3():
     questionBase = f"On the diagram above, DAB = {dab}\u00B0 and BCD = {bcd}\u00B0. Find the values of x and y."
     answer = f"x = {x}\u00B0, y = {y}\u00B0"
     diagram, constant, marks = '/diagrams/gcsemaths/geometry_problem3.jpg', None, 3
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea3_problem4():
+def ea3_problem433():
     fde = randint(10, 40)
     x = randint(10, 30)
     dEf = fde
@@ -292,12 +260,12 @@ def ea3_problem4():
     questionBase = f"On the diagram above, angle {answers[choice1][0]} = {answers[choice1][1]}\u00B0 and {answers[choice2][0]} = {answers[choice2][1]}\u00B0. What is the value of angle {answers[choice3][0]}?"
     answer = f"{answers[choice3][1]}\u00B0"
     diagram, constant, marks = '/diagrams/gcsemaths/geometry_problem4.jpg', None, 3
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea3_problem5():
+def ea3_problem533():
     n = randint(120, 160)
     o = 180 - n
     z = randint(10,30)
@@ -319,24 +287,24 @@ def ea3_problem5():
     choice3 = z
     questionBase = f"On the diagram above, angle {answers1[choice1][0]} = {answers1[choice1][1]}\u00B0 and z = {z}\u00B0. What is the value of angle {answers2[choice2][0]}?"
     answer = f"{answers2[choice2][1]}\u00B0"
+    q = Question(cf.currentFuncName())
     diagram, constant, marks = '/diagrams/gcsemaths/geometry_problem5.jpg', None, 3
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea2_alternate_allied_corresponding():
+def ea2_alternate_allied_corresponding13():
     angleTypes = [['/diagrams/gcsemaths/parallel_alternate_side_az.jpg', "alternate"],['/diagrams/gcsemaths/parallel_allied_az.jpg',"allied"],['/diagrams/gcsemaths/parallel_corresponding_az.jpg',"corresponding"]] 
     choice = randint(0,2)
     questionBase = "What is the name given to angles such as the pair (a and z) in the diagram above?"
     answer = f"{angleTypes[choice][1]} angles"
     diagram, constant, marks = f'{angleTypes[choice][0]}', None, 1
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return [previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None]
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
         
-def ea3_problem6():
+def ea3_problem613():
     x = randint(3,7)*5
     print(x)
     timesX = randint(3, 5)
@@ -351,12 +319,12 @@ def ea3_problem6():
     questionBase = f"{group1[randint(0,1)]} = {x1} and {group2[randint(0,1)]} = {y1}. Calculate x."
     answer = f"x = {x}"
     diagram, constant, marks = '/diagrams/gcsemaths/geometry_problem6.jpg', None, 2
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea3_problem7():
+def ea3_problem724():
     e = randint(50, 80)
     f = randint(110, 160)
     missing1 = f - e 
@@ -365,27 +333,23 @@ def ea3_problem7():
     g = 180 - missing1 - missing2
     questionBase = f"e = {e}, f = {f}, h = {h}. Calculate g."
     answer = f"g = {g}"
-    print(questionBase)
-    print(answer)
     diagram, constant, marks = '/diagrams/gcsemaths/geometry_problem7.jpg', None, 2
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea3_problem8():
+def ea3_problem813():
     x = randint(40, 70)
     questionBase = f"Angle x in the triangle above is {x}. Bob says that angle y is also {x} because the base angles in isoceles triangles are the same. Bob is wrong. Why?"
     answer = "An isoceles triangle is defined by two of its sides and angles being equal. The two equal angles do not have to be at the base of the triangle"
-    print(questionBase)
-    print(answer)
     diagram, constant, marks = '/diagrams/gcsemaths/geometry_problem8.jpg', None, 2
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea3_problem9():
+def ea3_problem923():
     statements = [["e = 180 - f because both angles are on a srtaight line", "e = f because both angles are on a straight line"],
                   ["e = h because they are alternate angles", "e = h because they are allied angles"],
                   ["h = 180 - f because they are allied angles", "g = f because they are allied angles"]]
@@ -400,12 +364,12 @@ def ea3_problem9():
     print(questionBase)
     print(answer)
     diagram, constant, marks = '/diagrams/gcsemaths/geometry_problem6.jpg', None, 2
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def ea3_problem10():
+def ea3_problem1023():
     efd = randint(20, 50)
     bcd = randint(60, 80)
     baf = bcd
@@ -419,10 +383,10 @@ def ea3_problem10():
     print(questionBase)
     print(answer)
     diagram, constant, marks = '/diagrams/gcsemaths/geometry_problem10.jpg', None, 2
-    previousQ, nextQ = previousNext("ea", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ea", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def polygons():
     return ("triangle","square","pentagon","hexagon","heptagon","octagon","nonagon","decagon")
@@ -430,22 +394,20 @@ def polygons():
 def sides():
     return [i+3 for i in range(len(polygons()))]
 
-def eb11_polygon_attributes():
+def eb11_polygon_attributes13():
     polygonList, sidesList = polygons(), sides()
     choice = randint(0, len(polygonList)-1)
     attribute = ("sides", "interior angles", "exterior angles")
     choice2 = randint(0, len(attribute)-1) 
     questionBase = f"How many {attribute[choice2]} does a {polygonList[choice]} have?"
     answer = f"{sidesList[choice]}"
-    print(questionBase)
-    print(answer)
     diagram, constant, marks = None, None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def eb12_polygon_intext_angles():
+def eb12_polygon_intext_angles13():
     polygonList, sidesList = polygons(), sides()
     choice = randint(0, len(polygonList)-1)
     attribute = ("interior angles", "exterior angles")
@@ -453,15 +415,12 @@ def eb12_polygon_intext_angles():
     ans = (sidesList[choice]-2)*180 if choice2 == 0 else 360
     questionBase = f"What the sum of {attribute[choice2]} in a {polygonList[choice]}?"
     answer = f"{ans}"
-    print(questionBase)
-    print(answer)
-    diagram, constant, marks = None, None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer,None
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def eb13_regular_polygon_attributes():
+def eb13_regular_polygon_attributes13():
     polygonList, sidesList = polygons(), sides()
     choice = randint(0, len(polygonList)-1)
     article = "an equilateral" if choice == 0 else "a regular"
@@ -471,30 +430,26 @@ def eb13_regular_polygon_attributes():
     questionBase = f"{attribute[choice2]} in {article} {polygonList[choice]}?"
     answer = f"{sidesList[choice]}"
     if choice2 == 2: answer = f"{360 / sidesList[choice]}"
-    print(questionBase)
-    print(answer)
-    diagram, constant, marks = None, None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer,None
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def eb14_regular_polygon_exterior_angles():
+
+def eb14_regular_polygon_exterior_angles13():
     polygonList, sidesList = polygons(), sides()
     choice = randint(0, len(polygonList)-1)
     article = "an equilateral" if choice == 0 else "a regular"
     if choice == 1: article = "a"
     questionBase = f"What is the value of an exterior angle in {article} {polygonList[choice]}?"
     answer = f"{int(360 / sidesList[choice])}"
-    print(questionBase)
-    print(answer)
-    diagram, constant, marks = None, None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer,None
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def eb25_triangle_attributes():
+
+def eb25_triangle_attributes13():
     #equal sides, equal angles of 60, lines of, rotational
     trilist = ("an equilateral", "a right angled", "an isosceles", "a scalene")
     answerList = ((3, "3 equal angles of 60 degrees", 3, 3),
@@ -506,15 +461,13 @@ def eb25_triangle_attributes():
     choice2 = randint(0, len(answerList)-1)
     questionBase = f"{attribute[choice2]} in {trilist[choice]} triangle?"
     answer = f"{answerList[choice][choice2]}"
-    print(questionBase)
-    print(answer)
-    diagram, constant, marks = None, None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer,None
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
-def eb26_quadrilateral_attributes():
+
+def eb26_quadrilateral_attributes13():
     #sides, parallel, angles, lines of, rotational, diagonal
     polyList = ("a square", "a rectangle", "a rhombus", "a parallelogram", "a trapezium", "an isosceles trapezium", "a kite")
     answerList = (("4 sides of equal length", "2 pairs of parallel sides", "4 equal angles of 90 degrees", 4, 4, "Diagonals are the same length and are at right angles"),
@@ -529,13 +482,11 @@ def eb26_quadrilateral_attributes():
     choice2 = randint(0, len(attribute)-1)
     questionBase = f"{attribute[choice2]} {polyList[choice]}?"
     answer = f"{answerList[choice][choice2]}"
-    print(questionBase)
-    print(answer)
-    diagram, constant, marks = None, None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer,None
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
 
 def peopleGen():
     people = ("Donald Trump", "Stalin", "Jeremy Corbyn", "Madonna", "Posh Spice", "Justajolt", "An intelligent gorilla", "Boris Johnson", "Some pleb", "A man with a dry cough", "An unwilling kung fu student")
@@ -571,10 +522,12 @@ def eb31_circle_radius_tangent():
     print(questionBase)
     print(answer)
     diagram, constant, marks = f'/diagrams/gcsemaths/{currentFuncName()}.jpg', None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 1,3
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
 
 def eb32_circle_two_radi_isosceles():
     people = peopleGen()
@@ -585,13 +538,13 @@ def eb32_circle_two_radi_isosceles():
     statement = true_tuple[randint(0,len(true_tuple)-1)] if answer == "Correct" else false_tuple[randint(0,len(false_tuple)-1)]
     questionBase = f"Radi r1 and r2 meet the circumference are joined by a chord to make a triangle. {people[randint(0,len(people)-1)]} says that {statement}. Is this statement correct or incorrect?"
     tip = "Two radi formed from the ends of a chord which meet in the centre of a circle form an isosceles triangle."
-    print(questionBase)
-    print(answer)
     diagram, constant, marks = f'/diagrams/gcsemaths/{currentFuncName()}.jpg', None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 1,3
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
 
 def eb33_perpendicular_bisector_chord():
     people = peopleGen()
@@ -605,10 +558,12 @@ def eb33_perpendicular_bisector_chord():
     print(questionBase)
     print(answer)
     diagram, constant, marks = f'/diagrams/gcsemaths/{currentFuncName()}.jpg', None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 1,3
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
 
 def eb34_angle_centre_twice_circumference():
     people = peopleGen()    
@@ -622,10 +577,11 @@ def eb34_angle_centre_twice_circumference():
     print(questionBase)
     print(answer)
     diagram, constant, marks = f'/diagrams/gcsemaths/{currentFuncName()}.jpg', None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 1,3
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def eb35_angle_semi_circle():
     people = peopleGen()    
@@ -640,9 +596,11 @@ def eb35_angle_semi_circle():
     print(answer)
     diagram, constant, marks = f'/diagrams/gcsemaths/{currentFuncName()}.jpg', None, 1
     previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 1,3
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def eb36_angle_same_segment_equal():
     people = peopleGen()
@@ -657,10 +615,11 @@ def eb36_angle_same_segment_equal():
     print(questionBase)
     print(answer)
     diagram, constant, marks = f'/diagrams/gcsemaths/{currentFuncName()}.jpg', None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 1,3
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def eb37_opposite_cyclic_quadrilateral():
     people = peopleGen()
@@ -675,10 +634,11 @@ def eb37_opposite_cyclic_quadrilateral():
     print(questionBase)
     print(answer)
     diagram, constant, marks = f'/diagrams/gcsemaths/{currentFuncName()}.jpg', None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 1,3
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def eb38_tangents_point_same_length():
     people = peopleGen()
@@ -693,10 +653,11 @@ def eb38_tangents_point_same_length():
     print(questionBase)
     print(answer)
     diagram, constant, marks = f'/diagrams/gcsemaths/{currentFuncName()}.jpg', None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 1,3
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def eb39_alternate_segment_theorem():
     people = peopleGen()
@@ -711,10 +672,11 @@ def eb39_alternate_segment_theorem():
     print(questionBase)
     print(answer)
     diagram, constant, marks = f'/diagrams/gcsemaths/{currentFuncName()}.jpg', None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 1,3
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def eb3_circle_problem1():
     abc = randint(30, 80)
@@ -730,10 +692,11 @@ def eb3_circle_problem1():
     print(questionBase)
     print(answer)
     diagram, constant, marks = f'/diagrams/gcsemaths/{currentFuncName()}.jpg', None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 1,3
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def eb3_circle_problem2():
     abd = randint(30, 80)
@@ -750,10 +713,11 @@ def eb3_circle_problem2():
     print(questionBase)
     print(answer)
     diagram, constant, marks = f'/diagrams/gcsemaths/{currentFuncName()}.jpg', None, 1
-    previousQ, nextQ = previousNext("eb", 0, 2, currentFuncName())
-    pre, preans, marks, level = None, None, 1, 3
-    tip, video = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 1,3
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"eb", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ec11_congruent_similar():
     people = peopleGen()
@@ -764,12 +728,11 @@ def ec11_congruent_similar():
     statement = true_tuple[randint(0,len(true_tuple)-1)] if answer == "Correct" else false_tuple[randint(0,len(false_tuple)-1)]
     questionBase = f"{people[randint(0,len(people)-1)]} says that {statement}. Is this statement correct or incorrect?"
     tip ="Congruence means two shapes are the same size and shape. Similarity means that two shapes are the same shape, containing the same angles, but a different size"
-    print(questionBase)
-    print(answer)
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, diagram, pre, preans, marks, level = None, None, None, None, 1, 6
-    video = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 1,4
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ec12_congruent_similar_diagrams():
     people = peopleGen()
@@ -786,13 +749,11 @@ def ec12_congruent_similar_diagrams():
     questionBase = f"In the diagram above, do the shapes appear to be congruent, similar or neither?"
     tip ="Congruence means two shapes are the same size and shape. Similarity means that two shapes are the same shape, containing the same angles, but a different size. This is true even if the congruent or similar shape is rotated or reflected"
     diagram = f'/diagrams/gcsemaths/congruence/ec1_{diagram_choice}.jpg'
-    print(questionBase)
-    print(answer)
-    print(diagram)
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, pre, preans, marks, level = None, None, None, 1, 6
-    video = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 1,4
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ec13_congruent_triangle_rules():
     people = peopleGen()
@@ -803,13 +764,11 @@ def ec13_congruent_triangle_rules():
     statement = true_tuple[randint(0,len(true_tuple)-1)] if answer == "Correct" else false_tuple[randint(0,len(false_tuple)-1)]
     questionBase = f"Congruent means the same shape and size. {people[randint(0,len(people)-1)]} says that {statement}. Is this statement correct or incorrect?"
     tip ="Congruence means two shapes are the same size and shape. Similarity means that two shapes are the same shape, containing the same angles, but a different size"
-    level = 6
-    print(questionBase)
-    print(answer)
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, diagram, pre, preans, marks, level = None, None, None, None, 1, 6
-    video = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, None
+    q.marksBase, q.level = 2,4
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ec14_congruent_triangle_rules_diagrams():
     people = peopleGen()
@@ -822,14 +781,11 @@ def ec14_congruent_triangle_rules_diagrams():
     questionBase = f"The triangles above are congruent. What condition proves that this is the case?"
     tip ="A triangle is congruent if: three sides are the same OR two angles and a corresponding side match up OR two sides and the angle between them match up OR a right angle, the hypotenuse and one oter side all match up."
     diagram = f'/diagrams/gcsemaths/congruence/{diagram_choice}.jpg'
-    level = 6
-    print(questionBase)
-    print(answer)
-    print(diagram)
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, pre, preans, marks, level = None, None, None, 1, 6
-    video = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 2,4
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ec21_similar_congruent():
     people = peopleGen()
@@ -839,13 +795,12 @@ def ec21_similar_congruent():
     answer = "Correct" if choice == 1 else "Incorrect"
     statement = true_tuple[randint(0,len(true_tuple)-1)] if answer == "Correct" else false_tuple[randint(0,len(false_tuple)-1)]
     questionBase = f"{people[randint(0,len(people)-1)]} says that {statement}. Is this statement correct or incorrect?"
-    tip ="Congruence means two shapes are the same size and shape. Similarity means that two shapes are the same shape, containing the same angles, but a different size"
-    print(questionBase)
-    print(answer)
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, diagram, pre, preans, marks, level = None, None, None, None, 1, 6
-    video = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.marksBase, q.level = 1,4
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    q.tip ="Congruence means two shapes are the same size and shape. Similarity means that two shapes are the same shape, containing the same angles, but a different size"
+    return q.returnAll()
 
 def ec22_similar_congruent_diagrams():
     people = peopleGen()
@@ -862,13 +817,11 @@ def ec22_similar_congruent_diagrams():
     questionBase = f"In the diagram above, do the shapes appear to be congruent, similar or neither?"
     tip ="Congruence means two shapes are the same size and shape. Similarity means that two shapes are the same shape, containing the same angles, but a different size. This is true even if the congruent or similar shape is rotated or reflected"
     diagram = f'/diagrams/gcsemaths/congruence/ec1_{diagram_choice}.jpg'
-    print(questionBase)
-    print(answer)
-    print(diagram)
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, pre, preans, marks, level = None, None, None, 1, 6
-    video = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint = questionBase, answer, diagram, tip
+    q.marksBase, q.level = 2,4
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ec23_similar_triangle_rules():
     people = peopleGen()
@@ -879,13 +832,11 @@ def ec23_similar_triangle_rules():
     statement = true_tuple[randint(0,len(true_tuple)-1)] if answer == "Correct" else false_tuple[randint(0,len(false_tuple)-1)]
     questionBase = f"Similarity means the same shape, but different size. {people[randint(0,len(people)-1)]} says that {statement}. Is this statement correct or incorrect?"
     tip ="Similarity means shapes are exactly the same shape, but can be different sizes as well as rotated or reflected."
-    level = 6
-    print(questionBase)
-    print(answer)
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, diagram, pre, preans, marks, level = None, None, None, None, 1, 6
-    video = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint = questionBase, answer, None, tip
+    q.marksBase, q.level = 2,4
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ec25_all_angles_match_up():
     a = randint(30, 50)
@@ -893,12 +844,12 @@ def ec25_all_angles_match_up():
     c = 180 - a - b
     questionBase = f"In the diagram above, all angles a are {a} degrees, all angles b are {b} degrees and all angles c are {c} degrees. Are these triangles similar, congruent or neither?"
     answer = "Similar"
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, pre, preans, marks, level = None, None, None, 1, 6
-    video = None
     diagram = f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg'
-    tip = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint = questionBase, answer, diagram, tip
+    q.marksBase, q.level = 1,4
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ec26_all_sides_match_up():
     a = randint(8, 10)
@@ -909,13 +860,12 @@ def ec26_all_sides_match_up():
     z = c * 2
     questionBase = f"In the smaller triangle above, side a is {a}cm, side b is {b}cm and side c is {c}cm. In the larger triangle, side y is {y}cm, side x is {x}cm and side z is {z}cm. Are these triangl similar, congruent or neither?"
     answer = "Similar"
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, pre, preans, marks, level = None, None, None, 1, 6
-    video = None
-    diagram = f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg'
-    tip = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint = questionBase, answer, f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg', None
+    q.marksBase, q.level = 1,6
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+    
 def ec27_two_sides_one_angle():
     n = randint(20,50)
     a = randint(15, 20)
@@ -924,12 +874,11 @@ def ec27_two_sides_one_angle():
     x = b*2
     questionBase = f"In both triangles above, angle n is {n} degrees. Side a is {a}cm, side b is {b}cm, side y is {y}cm and side x is {x}cm. Are these triangles similar, congruent, or neither?"
     answer = "Similar"
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, pre, preans, marks, level = None, None, None, 1, 6
-    video = None
-    diagram = f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg'
-    tip = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint = questionBase, answer, f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg', None
+    q.marksBase, q.level = 1,6
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ec28_all_angles_match_up_proof():
     a = randint(30, 50)
@@ -937,13 +886,13 @@ def ec28_all_angles_match_up_proof():
     c = 180 - a - b
     questionBase = f"In the diagram above, all angles a are {a} degrees, all angles b are {b} degrees and all angles c are {c} degrees. How do you know these triangles are similar?"
     answer = "All three angles match up"
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, pre, preans, marks, level = None, None, None, 1, 6
-    video = None
     diagram = f'/diagrams/gcsemaths/congruence/ec25_all_angles_match_up.jpg'
-    tip = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint = questionBase, answer, diagram, None
+    q.marksBase, q.level = 1,6
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+    
 def ec29_all_sides_match_up_proof():
     a = randint(8, 10)
     b = randint(6, 7)
@@ -953,12 +902,12 @@ def ec29_all_sides_match_up_proof():
     z = c * 2
     questionBase = f"In the smaller triangle above, side a is {a}cm, side b is {b}cm and side c is {c}cm. In the larger triangle, side y is {y}cm, side x is {x}cm and side z is {z}cm. How do you know these triangles are similar?"
     answer = "All three sides are proprtional"
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, pre, preans, marks, level = None, None, None, 1, 6
-    video = None
     diagram = f'/diagrams/gcsemaths/congruence/ec26_all_sides_match_up.jpg'
-    tip = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint = questionBase, answer, diagram, None
+    q.marksBase, q.level = 1,6
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ec210_two_sides_one_angle_proof():
     n = randint(20,50)
@@ -968,45 +917,39 @@ def ec210_two_sides_one_angle_proof():
     x = b*2
     questionBase = f"In both triangles above, angle n is {n} degrees. Side a is {a}cm, side b is {b}cm, side y is {y}cm and side x is {x}cm. How do you know these triangles are similar?"
     answer = "Any two sides are proportional and the angle between them is the same"
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, pre, preans, marks, level = None, None, None, 1, 6
-    video = None
     diagram = f'/diagrams/gcsemaths/congruence/ec27_two_sides_one_angle.jpg'
-    tip = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint = questionBase, answer, f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg', None
+    q.marksBase, q.level = 1,6
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ec1_prove_congruency1():
     questionBase = "AB and AC are tangents to the circle with centre O and touch the circumference at points C and B. Prove that triangles ABO and ACO are congruent."
     answer = "Sides OB and OC are the same length as they are both radii. Both triangles have a right angle because the radii meet tangents AB and AC at right angles. OA is the hypotenuse of both triangles. Therefore, both triangles have a right angle, a matching hypotenuse and one other matching side. the RHS rule holds and triangles ABO and ACO are congruent."
-    level = 7
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, pre, preans, marks, level = None, None, None, 3, 7
-    video = None
-    diagram = f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg'
-    tip = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint = questionBase, answer, f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg', None
+    q.marksBase, q.level = 3,7
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ec1_prove_congruency2():
     questionBase = "Prove that triangles ABD and BCD are congruent."
     answer = "Side BD is the same in both triangles. Angles DAB and DCB are the same im both triangles, because opposite angles in a parallelogram are the same. Angles ABD and CBD are the same because they are made from an angle which is bisected by line BD. ADB and CDB are likewise the same. Therefore, SSS, AAS and SAS rule are all true"
-    level = 7
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, pre, preans, marks, level = None, None, None, 3, 7
-    video = None
-    diagram = f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg'
-    tip = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint = questionBase, answer, f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg', None
+    q.marksBase, q.level = 3,7
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
     
 def ec2_prove_similarity1():
     questionBase = "Prove that triangles ABD and AED are similar."
     answer = "Angles ABC and ADE are alternate angles. BCA and AED are also alternate angles. Third angle in each triangle around point A will be 180 minus the other two angles. Therefore all the angles match up and the triangles are similar"    
-    level = 6
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, pre, preans, marks, level = None, None, None, 2, 6
-    video = None
-    diagram = f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg'
-    tip = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint = questionBase, answer, f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg', None
+    q.marksBase, q.level = 2,6
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
     
 def ec2_use_similarity1():
     pronoun, people = completePeopleGen()
@@ -1025,15 +968,11 @@ def ec2_use_similarity1():
     
     questionBase = f"The diagram above shows {people} {action} in the {place}. Currently, {pronoun} is {object1dist}m (length Y) from a {object1} at A, the top of which is {object1height}m above the ground. There is a {object2} {object2dist}m (length Y) from {people} that is directly behind the {object1}. To them, the top of the {object2} is in line with the {object1}. Find the height of the {object2} (length B)?"
     answer = f"{round(object2height, 2)}m"
-    level = 6
-    print(questionBase)
-    print(answer)
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, pre, preans, marks, level = None, None, None, 2, 6
-    video = None
-    diagram = f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg'
-    tip = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint = questionBase, answer, f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg', None
+    q.marksBase, q.level = 2,6
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ec2_use_similarity2():
     de = randint(15, 20)
@@ -1049,15 +988,11 @@ def ec2_use_similarity2():
         choices.append(num)
     questionBase =f"In the diagram above: {lengths[choices[0]][1]} = {lengths[choices[0]][0]}cm, {lengths[choices[1]][1]} = {lengths[choices[1]][0]}cm and {lengths[choices[2]][1]} = {lengths[choices[2]][0]}cm. Find the length of {lengths[choices[3]][1]}."
     answer =f"{lengths[choices[3]][0]}cm"
-    level = 6
-    print(questionBase)
-    print(answer)
-    previousQ, nextQ = previousNext("ec", 0, 2, currentFuncName())
-    constant, pre, preans, marks, level = None, None, None, 2, 6
-    video = None
-    diagram = f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg'
-    tip = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint = questionBase, answer, f'/diagrams/gcsemaths/congruence/{currentFuncName()}.jpg', None
+    q.marksBase, q.level = 2,6
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ec", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 
 
@@ -1072,13 +1007,10 @@ def ed10_area_triangle_quadrilateral_formulas11():
     else:
         questionBase = f"The following formula will find the area for which shape: {formulas[choice][1]}"
         answer = f"{formulas[choice][0]}"
-    previousQ, nextQ = previousNext("ed", 0, 2, currentFuncName())
-    diagram = None
-    constant, pre, preans = None, None, None
-    marks, level = currentFuncName()[-2], currentFuncName()[-1] 
-    tip = None
-    video, website = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, None)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase = questionBase, answer
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ed11_area_triangles13():
     base = randint(4,12)
@@ -1086,14 +1018,11 @@ def ed11_area_triangles13():
     area = 0.5*base*height
     questionBase = f"The triangle in the diagram (not to scale) has a base of {base}cm and a height of {height}cm. Find the area."
     answer = f"{area}cm\u00b2"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
-    piclink = triangle()
-    diagram, constant = None, None
-    pre, preans, marks, level = None, None, name[-2],name[-1]
-    tip = None
-    video, website = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase = questionBase, answer
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    q.piclink = triangle()
+    return q.returnAll()
 
 def ed12_area_parallelogram13():
     base = randint(4,12)
@@ -1101,15 +1030,12 @@ def ed12_area_parallelogram13():
     area = base*height
     questionBase = f"The parallelogram in the diagram has a base of {base}cm and a height of {height}cm. Find the area."
     answer = f"{area}cm\u00b2"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
-    diagram, constant = None, None
-    pre, preans, marks, level = None, None, name[-2],name[-1]
-    tip = None
-    video, website = None, None
-    piclink = parallelogram()
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase = questionBase, answer
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    q.piclink = parallelogram()
+    return q.returnAll()
+    
 def ed13_area_trapezium23():
     a = randint(3, 12)
     b = randint(3, 12)
@@ -1118,14 +1044,11 @@ def ed13_area_trapezium23():
     area = 0.5*(a+b) * h
     questionBase = f"The trapezium in the diagram has a base of {b}cm and a height of {h}cm. Find the area."
     answer = f"{area}cm\u00b2"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
-    diagram, constant = None, None
-    pre, preans, marks, level = None, None, name[-2],name[-1]
-    tip = None
-    video, website = None, None
-    piclink = trapezium()
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase = questionBase, answer
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    q.piclink = trapezium()
+    return q.returnAll()
     
 def ed14_area_triangles23():
     base = randint(4,12)
@@ -1140,15 +1063,13 @@ def ed14_area_triangles23():
         choices.append(num)    
     questionBase = f"The triangle in the diagram has a {values[choices[0]][0]} of {values[choices[0]][1]}{values[choices[0]][2]} and a {values[choices[1]][0]} of {values[choices[1]][1]}{values[choices[1]][2]}. Find the {values[choices[2]][0]}."
     answer = f"{values[choices[2]][1]}{values[choices[2]][2]}"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
-    diagram, constant = None, None
-    pre, preans, marks, level = None, None, name[-2],name[-1]
-    tip = None
-    video, website = None, None
-    piclink = triangle()
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
-
+    
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase = questionBase, answer
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    q.piclink = triangle()
+    return q.returnAll()
+    
 def ed15_area_parallelogram24():
     base = randint(4,12)
     height = randint(4,12)
@@ -1162,15 +1083,11 @@ def ed15_area_parallelogram24():
         choices.append(num)
     questionBase = f"The parallelogram in the diagram has a {values[choices[0]][0]} of {values[choices[0]][1]}{values[choices[0]][2]} and a {values[choices[1]][0]} of {values[choices[1]][1]}{values[choices[1]][2]}. Find the {values[choices[2]][0]}."
     answer = f"{values[choices[2]][1]}{values[choices[2]][2]}"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
-    diagram, constant = None, None
-    pre, preans, marks, level = None, None, name[-2],name[-1]
-    tip = None
-    video, website = None, None
-    piclink = parallelogram()
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase = questionBase, answer
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    q.piclink = parallelogram()
+    return q.returnAll()
 
 def ed16_area_trapezium24():
     level = currentFuncName()[-1]
@@ -1188,15 +1105,11 @@ def ed16_area_trapezium24():
         choices.append(num)
     questionBase = f"In the trapezium above, {values[choices[0]][0]} = {values[choices[0]][1]}{values[choices[0]][2]}, {values[choices[1]][0]} = {values[choices[1]][1]}{values[choices[1]][2]} and  {values[choices[2]][0]} = {values[choices[2]][1]}{values[choices[2]][2]}. Find the {values[choices[3]][0]}."
     answer = f"{values[choices[3]][1]}{values[choices[3]][2]}"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
-    diagram, constant = None, None
-    pre, preans, marks, level = None, None, name[-2],name[-1]
-    tip = None
-    video, website = None, None
-    piclink = trapezium()
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase = questionBase, answer
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    q.piclink = trapezium()
+    return q.returnAll()
 
 def ed17_area_trapezium_problem25():
     level = currentFuncName()[-1]
@@ -1212,13 +1125,12 @@ def ed17_area_trapezium_problem25():
     questionBase = f"The shape above shows a square with sides of length x cm drawn inside an isosceles trapezium. The base of the trapezium is three times as long as one side of the square. If {values[choices[0]][0]} = {values[choices[0]][1]}{values[choices[0]][2]}, find the value of {values[choices[1]][0]}."
     answer = f"{values[choices[1]][1]}{values[choices[1]][2]}"
     name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
     diagram, constant = f'/diagrams/gcsemaths/area_volume/{name}.jpg', None
-    pre, preans, marks, level = None, None, name[-2],name[-1]
-    tip = None
-    video, website = None, None
-    piclink = None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram = questionBase, answer, diagram
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    q.piclink = parallelogram()
+    return q.returnAll()
 
 
 def ed18_area_triangle_rectangle24():
@@ -1237,14 +1149,12 @@ def ed18_area_triangle_rectangle24():
         choices.append(num)
     questionBase = f"The triangle and rectangle above have the same area. {values[choices[0]][0]} = {values[choices[0]][1]}cm, {values[choices[1]][0]} = {values[choices[1]][1]}cm and {values[choices[2]][0]} = {values[choices[2]][1]}cm. Find the value of {values[choices[3]][0]}"
     answer = f"{values[choices[3]][1]}cm"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
-    diagram, constant = f'/diagrams/gcsemaths/area_volume/{name}.jpg', None
-    pre, preans, marks, level = None, None, name[-2],name[-1]
-    tip = None
-    video, website = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website)
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, diagram = questionBase, answer, f'/diagrams/gcsemaths/area_volume/{name}.jpg'
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    q.piclink = parallelogram()
+    return q.returnAll()
+   
 def list_mangle(values):
     order, num = [], randint(0, len(values)-1)
     for i in range(len(values)):
@@ -1258,15 +1168,14 @@ def ed20_circumference_radius_and_diameter_12():
     choice = randint(0,len(values)-1)
     if randint(0,1) == 0 :questionBase, answer = f"On the diagram above, what does {values[choice][0]} represent?", f"{values[choice][1]}"
     else: questionBase, answer = f"On the diagram above, which letter represents the {values[choice][1]}?", f"{values[choice][0]}"
-    print(questionBase)
-    print(answer)
     name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
     diagram, constant = f'/diagrams/gcsemaths/area_volume/{name}.jpg', None
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "The circumference is the outside of the circle. The radius is a line from the centre of the circle to the circumference. The diameter is the line which passes through the middle of a circle and touches opposide sides of the circumference. It is like two radi going in opposite directions."
     video, website = None, "https://www.emathzone.com/tutorials/geometry/the-circle-and-parts-of-a-circle.html"
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint, q.website = questionBase, answer, diagram, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ed21_formulas_for_area_circumference_arcs_sectors_and_segments13():
     formulas = (("the area of a circle", "\u03c0r\u00b2"),("the circumference of a circle","2\u03c0r or \u03c0d"),("the area of a sector","(sector angle \u00f7 360) \u00d7 area of circle"),("the length of an arc","(arc angle \u00f7 360) \u00d7 circumference"),("area of a segment","area of sector - (\u00bdr\u00b2sin(angle of sector"))
@@ -1277,15 +1186,10 @@ def ed21_formulas_for_area_circumference_arcs_sectors_and_segments13():
     else:
         questionBase = f"The following formula will find the area for what: {formulas[choice][1]}"
         answer = f"{formulas[choice][0]}"
-    print(questionBase)
-    print(answer)
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
-    diagram, constant = None, None
-    pre, preans, marks, level = None, None, name[-2],name[-1]
-    tip = None
-    video, website = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.hint, q.website = questionBase, answer, None, None, None
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 
 def ed22_area_of_a_circle_23():
@@ -1300,14 +1204,13 @@ def ed22_area_of_a_circle_23():
     print(questionBase)
     print(answer)
     name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
     diagram, constant = f'/diagrams/gcsemaths/area_volume/ed20_circumference_radius_and_diameter_12.jpg', "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Area of a circle = \u03c0r\u00b2."
     video, website = None, "https://www.mathsisfun.com/geometry/circle-area.html"
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website)
-
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ed23_circumference_of_a_circle_23():
     pi = 3.1415835898
@@ -1318,15 +1221,14 @@ def ed23_circumference_of_a_circle_23():
     order = list_mangle(values)
     questionBase = f"On the diagram, {values[order[0]][0]} = {values[order[0]][1]}{values[order[0]][2]}. Find {values[order[1]][0]}."
     answer = f"{values[order[1]][0]} = {values[order[1]][1]}{values[order[1]][2]}"
-    print(questionBase)
-    print(answer)
     name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
     diagram, constant = f'/diagrams/gcsemaths/area_volume/ed20_circumference_radius_and_diameter_12.jpg', "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Circumference of a circle = 2\u03c0r OR \u03c0d."
     video, website = None, "https://www.wikihow.com/Calculate-the-Circumference-of-a-Circle"
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 
 def ed24_area_and_circumference_23():
@@ -1345,15 +1247,14 @@ def ed24_area_and_circumference_23():
         order = list_mangle(values)
         questionBase = f"On the diagram, {values[order[0]][0]} = {values[order[0]][1]}{values[order[0]][2]}. Find {values[order[1]][0]}."
         answer = f"{values[order[1]][0]} = {values[order[1]][1]}{values[order[1]][2]}"
-    print(questionBase)
-    print(answer)
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
     diagram, constant = f'/diagrams/gcsemaths/area_volume/ed20_circumference_radius_and_diameter_12.jpg', "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Area of a circle = \u03c0r\u00b2. Circumference of a circle = 2\u03c0r OR \u03c0d."
     video, website = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
        
 
 def ed25_arcs_and_sectors_12():
@@ -1364,27 +1265,29 @@ def ed25_arcs_and_sectors_12():
     print(questionBase)
     print(answer)
     name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
     diagram, constant = f'/diagrams/gcsemaths/area_volume/{name}.jpg', "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "A major arc is a larger part of a circumference. A minor arc is the smaller part. A major sector is the larger area of a circle which is split by two radi. A minor sector is the smaller part."
     video, website = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
 
 def ed26_segments_12():              
     values = (("r", "radius"),("e","chord"),("f","segment"),("h","distance from centre to chord"))
     choice = randint(0,len(values)-1)
     if randint(0,1) == 0 :questionBase, answer = f"On the diagram above, what does {values[choice][0]} represent?", f"{values[choice][1]}"
     else: questionBase, answer = f"On the diagram above, which letter represents the {values[choice][1]}?", f"{values[choice][0]}"
-    print(questionBase)
-    print(answer)
     name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
     diagram, constant = f'/diagrams/gcsemaths/area_volume/{name}.jpg', "\u03c0 = 3.14159"
     pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "A chord is a line which contacts both parts of the circumference but does not pass through the centre. A segment is a part of a cirle divided by a chord."
-    video, website = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
    
 def ed27_segments_arcs_and_sectors13():
     values = (("a", "major arc"),("b","minor arc"),("c","minor sector"),("d","major sector"),("e","chord"),("f","segment"))
@@ -1394,12 +1297,13 @@ def ed27_segments_arcs_and_sectors13():
     print(questionBase)
     print(answer)
     name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
     diagram, constant = f'/diagrams/gcsemaths/area_volume/{name}.jpg', "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "A chord is a line which contacts both parts of the circumference but does not pass through the centre. A segment is a part of a cirle divided by a chord."
-    video, website = None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, None
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
 
     
 def ed28_area_of_a_sector26():
@@ -1412,15 +1316,14 @@ def ed28_area_of_a_sector26():
     order = list_mangle(values)
     questionBase = f"On the diagram (not to scale), x = {x}\u00b0, area = {area}cm\u00b2. Find {values[order[0]][0]}."
     answer = f"{values[order[0]][0]} = {values[order[0]][1]}{values[order[0]][2]}"
-    print(questionBase)
-    print(answer)
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
     diagram, constant = f'/diagrams/gcsemaths/area_volume/ed25_arcs_and_sectors_12.jpg', "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "The area of a sector = (angle of sector/360) x area of the circle."
     video, website = None, "https://www.bbc.co.uk/bitesize/guides/z9hsrdm/revision/1"
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
 
 
 
@@ -1434,15 +1337,14 @@ def ed29_length_of_arc26():
     order = list_mangle(values)
     questionBase = f"On the diagram (not to scale), x = {x}\u00b0, the circumference = {circumference}cm. Find {values[order[0]][0]}."
     answer = f"{values[order[0]][0]} = {values[order[0]][1]}{values[order[0]][2]}"
-    print(questionBase)
-    print(answer)
     name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
     diagram, constant = f'/diagrams/gcsemaths/area_volume/ed25_arcs_and_sectors_12.jpg', "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "The length of an arc = (angle of sector/360) x circumference."
     video, website = None, "https://www.bbc.co.uk/bitesize/guides/z9hsrdm/revision/2"
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 
 def ed210_area_of_segments37():
@@ -1454,16 +1356,16 @@ def ed210_area_of_segments37():
     order = list_mangle(values)
     questionBase = f"On the diagram (not to scale), {values[order[0]][0]} = {values[order[0]][1]}{values[order[0]][2]}, {values[order[1]][0]} = {values[order[1]][1]}{values[order[1]][2]} and {values[order[2]][0]} = {values[order[2]][1]}{values[order[2]][2]}. Find {values[order[3]][0]}."
     answer = f"{values[order[3]][0]} = {values[order[3]][1]}{values[order[3]][2]}"
-    print(questionBase)
-    print(answer)
-    
     name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
     diagram, constant = f'/diagrams/gcsemaths/area_volume/ed26_segments_12.jpg', "\u03c0 = 3.14159"
     pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "The area of a segment = the area of a sector - the area of the triangle made by the two radi and the chord. This triangle = \u00bdr\u00b2sin x."
     video, website = None, "https://www.bbc.co.uk/bitesize/guides/z9hsrdm/revision/5"
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
 
 def ed211_area_of_pacman26():
     a = randint(2,15)
@@ -1473,15 +1375,15 @@ def ed211_area_of_pacman26():
     order = list_mangle(values)
     questionBase = f"On the diagram, {values[order[0]][0]} = {values[order[0]][1]}{values[order[0]][2]} and {values[order[1]][0]} = {values[order[1]][1]}{values[order[1]][2]}. Find {values[order[2]][0]}."
     answer = f"{values[order[2]][0]} = {values[order[2]][1]}{values[order[2]][2]}"
-    print(questionBase)
-    print(answer)
     name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
     diagram, constant = f'/diagrams/gcsemaths/area_volume/{name}.jpg', "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "The area of a sector = (angle of sector/360) x area of the circle. The pacman in the diagram is a major sector."
     video, website = None, "https://www.bbc.co.uk/bitesize/guides/z9hsrdm/revision/1"
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
 
 def ed212_shape_problem26():
     x = randint(100,160)
@@ -1494,15 +1396,15 @@ def ed212_shape_problem26():
     order = randint(0, len(values)-1)
     questionBase = f"On the diagram, x = {x}\u00b0 and a = {a}cm. Find {values[order][0]}."
     answer = f"{values[order][0]} = {values[order][1]}{values[order][2]}"    
-    print(questionBase)
-    print(answer)
     name = currentFuncName()
-    previousQ, nextQ = previousNext("ed", 0, 2, name)
     diagram, constant = f'/diagrams/gcsemaths/area_volume/{name}.jpg', "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "The perimeter of this shape includes the arc AND the two radii, which are also on the outside of the shape. Feel free to go back a few questions if you need help with the others!"
     video, website = None, "https://www.bbc.co.uk/bitesize/guides/z9hsrdm/revision/1"
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ed", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
 
 def prism():
     shape_list = ["http://www.k6-geometric-shapes.com/image-files/prism-rectangle-1.jpg",
@@ -1591,17 +1493,15 @@ def ee10_terminology13():
     choice = randint(0,len(values)-1)
     if randint(0,1) == 0 :questionBase, answer = f"On the diagram above, what does {values[choice][1]} represent?", f"{values[choice][0]}"
     else: questionBase, answer = f"On the diagram above, which letter represents the {values[choice][0]}?", f"{values[choice][1]}"
-    print(questionBase)
-    print(answer)
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ee", 0, 2, name)
     diagram, constant = f"/diagrams/gcsemaths/area_volume/ee10_terminology13/{randint(0,3)}.jpg", "\u03c0 = 3.1415835898"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Vertices are corners, where two or more edges meet. Edges are the lines in between vertices. Faces are the spaces in between edges. Curved faces are sometimes called surfaces."
     video, website = None, "https://www.mathsisfun.com/geometry/vertices-faces-edges.html"
     piclink = None
-    print(diagram)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
 
 def ee11_count_vertices_edges_faces13():
     values = (("cube",8,12,6,("http://memecrunch.com/meme/7WLH/ice-cube/image.png?w=400&c=1","https://ruwix.com/pics/memes/9-rubix-cube-neversolved.jpg","http://img.memecdn.com/don-t-know-if-ice-cube-has-balls-or-ice-cube-and-if-you-kick-him-does-ice-cube-have-crashed-ice_o_842184.jpg","https://pics.onsizzle.com/how-to-solve-a-1x1-rubiks-cube-tag-friends-to-10222173.png")),
@@ -1617,14 +1517,14 @@ def ee11_count_vertices_edges_faces13():
     print(questionBase)
     print(answer)
     name = currentFuncName()
-    previousQ, nextQ = previousNext("ee", 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Vertices are corners, where two or more edges meet. Edges are the lines in between vertices. Faces are the spaces in between edges. Curved faces are sometimes called surfaces."
     video, website = None, "https://www.mathsisfun.com/geometry/vertices-faces-edges.html"
-    piclink = f"{values[choice][4][randint(0,len(values[choice][4])-1)]}"
-    print(website)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
+    q = Question(cf.currentFuncName())
+    q.piclink = f"{values[choice][4][randint(0,len(values[choice][4])-1)]}"
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
    
 
 def ee12_surface_area14():
@@ -1635,15 +1535,13 @@ def ee12_surface_area14():
     answer = "Correct" if choice == 1 else "Incorrect"
     statement = true_tuple[randint(0,len(true_tuple)-1)] if answer == "Correct" else false_tuple[randint(0,len(false_tuple)-1)]
     questionBase = f"{people[randint(0,len(people)-1)]} says that {statement}. Is this statement correct or incorrect?"
-    print(questionBase)
-    print(answer)
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ee", 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Surface area only applies to 3D objects and it's the total area of all the faces when added together."
     video, website, piclink = None, None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
   
 def ee13_surface_area_formulas14():
@@ -1651,16 +1549,14 @@ def ee13_surface_area_formulas14():
     choice = randint(0,len(values)-1)
     if randint(0,1) == 0 :questionBase, answer = f"what is the formula for the surface area of a {values[choice][0]}?", f"{values[choice][1]}"
     else: questionBase, answer = f"The following formula can be used to calculate the surface area of what: {values[choice][1]}?", f"{values[choice][0]}"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ee", 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "All formulas in the link below!"
     video, website = None, "https://www.thoughtco.com/surface-area-and-volume-2312247"
     piclink = None
-    print(questionBase)
-    print(answer)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
     
 def ee14_surface_area_of_a_sphere25():
     r = randint(1,10)
@@ -1668,35 +1564,30 @@ def ee14_surface_area_of_a_sphere25():
     questionBase = f"In the sphere above, the radius = {r}cm. Find the surface area."
     answer = f"{area}cm\u00b2"
     name = currentFuncName()
-    previousQ, nextQ = previousNext("ee", 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Surface area of a sphere = 4\u03c0r\u00B2"
     video, website = None, "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages-na.ssl-images-amazon.com%2Fimages%2FI%2F61WN2k1l5wL._SL1461_.jpg&f=1&nofb=1"
-    piclink = sphere()
-    print(questionBase)
-    print(answer)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
-
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.piclink = sphere()
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+    
 def ee15_surface_area_of_a_cylinder25():
     r = randint(1,10)
     h = randint(1,10)
     area = round(2*3.1415926*r*h + 2*3.1415926*r*r, 2)
     questionBase = f"In the cylinder above, the radius of the cross section = {r}cm and the height is {h}cm. Find the surface area."
     answer = f"{area}cm\u00b2"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ee", 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Surface area of a cylinder = 2\u03c0rh + 2\u03c0r\u00B2"
     video, website = None, "https://mathopenref.com/cylinderareamain.html"
-    piclink = cylinder()
-    print(questionBase)
-    print(answer)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
-
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.piclink = cylinder()
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+    
 
 def ee16_surface_area_of_a_cone25():
     r = randint(1,10)
@@ -1705,16 +1596,15 @@ def ee16_surface_area_of_a_cone25():
     questionBase = f"In the cone above, the radius of the base = {r}cm and the height of the cone = {l}cm. Find the surface area."
     answer = f"{area}cm\u00b2"
     name = currentFuncName()
-    previousQ, nextQ = previousNext("ee", 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Surface area of a cone = \u03c0rl + \u03c0r\u00B2"
     video, website = None, "https://www.web-formulas.com/Math_Formulas/Geometry_Surface_of_Cone.aspx"
-    piclink = cone()
-    print(questionBase)
-    print(answer)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.piclink = cone()
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+    
 def ee17_use_surface_area_formula_to_find_an_unknown_value_in_a_sphere25():
     r = randint(1,10)
     area = round(4*3.1415926*r*r, 2)
@@ -1727,17 +1617,15 @@ def ee17_use_surface_area_formula_to_find_an_unknown_value_in_a_sphere25():
         choices.append(num)
     questionBase = f"In the sphere above, {values[choices[0]][0]} = {values[choices[0]][1]}{values[choices[0]][2]}. Find {values[choices[1]][0]}."
     answer = f"{values[choices[1]][1]}{values[choices[1]][2]}"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ee", 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Surface area of a sphere = 4\u03c0r\u00B2"
     video, website = None, "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages-na.ssl-images-amazon.com%2Fimages%2FI%2F61WN2k1l5wL._SL1461_.jpg&f=1&nofb=1"
-    piclink = sphere()
-    print(questionBase)
-    print(answer)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.piclink = sphere()
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+    
 def ee18_use_surface_area_formula_to_find_an_unknown_value_in_a_cyinder25():
     r = randint(1,10)
     h = randint(1,10)
@@ -1751,17 +1639,15 @@ def ee18_use_surface_area_formula_to_find_an_unknown_value_in_a_cyinder25():
         choices.append(num)
     questionBase = f"In the cylinder above, {values[choices[0]][0]} = {values[choices[0]][1]}{values[choices[0]][2]} and {values[choices[1]][0]} = {values[choices[1]][1]}{values[choices[1]][2]} Find {values[choices[2]][0]}."
     answer = f"{values[choices[2]][1]}{values[choices[2]][2]}"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ee", 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Surface area of a cylinder = 2\u03c0rh + 2\u03c0r\u00B2"
     video, website = None, "https://mathopenref.com/cylinderareamain.html"
     piclink = cylinder()
-    print(questionBase)
-    print(answer)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.piclink = sphere()
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
    
 def ee19_use_surface_area_formula_to_find_an_unknown_value_in_a_cone25():
     r = randint(1,10)
@@ -1775,23 +1661,15 @@ def ee19_use_surface_area_formula_to_find_an_unknown_value_in_a_cone25():
             num = randint(0, len(values)-1)
         choices.append(num)
     questionBase = f"In the cone above, {values[choices[0]][0]} = {values[choices[0]][1]}{values[choices[0]][2]} and {values[choices[1]][0]} = {values[choices[1]][1]}{values[choices[1]][2]} Find the {values[choices[2]][0]}."
-    answer = f"{values[choices[2]][1]}{values[choices[2]][2]}"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ee", 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Surface area of a cone = \u03c0rl + \u03c0r\u00B2"
     video, website = None, "https://www.web-formulas.com/Math_Formulas/Geometry_Surface_of_Cone.aspx"
-    piclink = cone()
-    print(questionBase)
-    print(answer)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
-
-
-
-
-
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.piclink = cone()
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+    
 def ee110_problem_hemisphere36():
     r = randint(1,10)
     area = round((4*3.1415926*r*r)/2 + 3.1415926*r*r, 2)
@@ -1804,43 +1682,27 @@ def ee110_problem_hemisphere36():
         choices.append(num)
     questionBase = f"In the hemisphere above, {values[choices[0]][0]} = {values[choices[0]][1]}{values[choices[0]][2]}. Find {values[choices[1]][0]}."
     answer = f"{values[choices[1]][1]}{values[choices[1]][2]}"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext("ee", 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "A hemisphere is exactly half of a sphere, and don't forget that a hemisphere also has a flat face. So: 4\u03c02r\u00B2 \u00f7 2 + 2\u03c0r\u00B2. This can be simplified to 3\u03c0r\u00B2"
     video, website = None, "http://mathcentral.uregina.ca/QQ/database/QQ.09.07/h/nicholas4.html"
-    piclink = hemisphere()
-    print(questionBase)
-    print(answer)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
-    
-
-
-
-
-
-
-
-
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.piclink = hemisphere()
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ee20_identify_the_3D_shape13():
     options = ((prism(), "prism"),(sphere(),"sphere"),(pyramid(), "pyramid"),(sphere(),"sphere"),(cone(),"cone"),(frustum(),"frustum"),(hemisphere(),"hemisphere"))
     choice = randint(0,len(options)-1)
     answer = f"{options[choice][1]}"
     questionBase = "What is the name of the 3D shape in the image above?"
-    print(questionBase)
-    print(answer)
-    name = currentFuncName()
-    previousQ, nextQ = previousNext(name[:2], 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Surface area only applies to 3D objects and it's the total area of all the faces when added together."
     video, website, piclink = None, "https://revisionmaths.com/gcse-maths/geometry-and-measures/3d-shapes", f"{options[choice][0]}"
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink) 
-
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ee21_definitions_of_3D_shapes13():
     people = peopleGen()
@@ -1867,15 +1729,13 @@ def ee21_definitions_of_3D_shapes13():
     answer = "Correct" if choice == 1 else "Incorrect"
     statement = true_tuple[randint(0,len(true_tuple)-1)] if answer == "Correct" else false_tuple[randint(0,len(false_tuple)-1)]
     questionBase = f"{people[randint(0,len(people)-1)]} says that {statement}. Is this statement correct or incorrect?"
-    print(questionBase)
-    print(answer)
-    name = currentFuncName()
-    previousQ, nextQ = previousNext(name[:2], 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Surface area only applies to 3D objects and it's the total area of all the faces when added together."
     video, website, piclink = None, None, None
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink) 
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ee22_volume_formulas13():
     values = (("prism", "cross-sectional area \u00d7 length"),
@@ -1888,17 +1748,13 @@ def ee22_volume_formulas13():
     choice = randint(0,len(values)-1)
     if randint(0,1) == 0 :questionBase, answer = f"what is the formula for the volume of a {values[choice][0]}?", f"{values[choice][1]}"
     else: questionBase, answer = f"The following formula can be used to calculate the surface area of what: {values[choice][1]}?", f"{values[choice][0]}"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext(name[:2], 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "All formulas in the link below!"
     video, website = None, "https://byjus.com/maths/three-dimensional-shapes/"
-    piclink = None
-    print(questionBase)
-    print(answer)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)    
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 '''
 Volume of:
 prisms
@@ -1918,32 +1774,28 @@ def ee23_volume_of_a_prism_with_cross_sectional_area_known13():
     volume = area * length
     questionBase = f"In the diagram above (not to scale) the cross sectional area of the prism is {area}cm\u00b2 and the length is {length}cm. Find the volume of the prism"
     answer = f"{volume} cm\u00b3"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext(name[:2], 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Volume of a prism = cross sectional area \u00d7 length"
     video, website = None, "https://www.wikihow.com/Calculate-the-Volume-of-a-Prism"
-    piclink = prism()
-    print(questionBase)
-    print(answer)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.piclink = prism()
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
     
 def ee24_volume_of_a_sphere_with_radius_known25():
     r = randint(8,80)
     volume = round(4/3 * 3.14159 * r * r * r, 2)
     questionBase = f"In the diagram above (not to scale) the radius of the sphere is {r}cm. Find the volume of the sphere."
     answer = f"{volume} cm\u00b3"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext(name[:2], 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Volume of a sphere = 4\u20443\u03c0r\u00b3"
     video, website = None, "https://www.onlinemathlearning.com/volume-of-a-sphere.html"
-    piclink = sphere()
-    print(questionBase)
-    print(answer)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)    
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.piclink = sphere()
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ee25_volume_of_a_pyramid_with_base_and_height_known25():
     base = randint(10,40)
@@ -1951,16 +1803,14 @@ def ee25_volume_of_a_pyramid_with_base_and_height_known25():
     volume = round(1/3 * base * height, 2)
     questionBase = f"In the diagram above (not to scale) the verticle height of the pyramid is {height}cm and area of the base is {base}cm\u00b2. Find the volume of the pyramid."
     answer = f"{volume} cm\u00b3"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext(name[:2], 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "volume of pyramid = \u2153 \u00d7 area of base \u00d7 height"
     video, website = None, "https://www.bbc.co.uk/bitesize/guides/zcnb8mn/revision/6"
-    piclink = pyramid()
-    print(questionBase)
-    print(answer)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.piclink = pyramid()
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ee25_volume_of_a_cone_with_radius_and_height_known25():
     r = randint(5,20)
@@ -1968,16 +1818,14 @@ def ee25_volume_of_a_cone_with_radius_and_height_known25():
     volume = round(1/3 * (3.1415 * r * r) * height, 2)
     questionBase = f"In the diagram above (not to scale) the verticle height of the cone is {height}cm and radius the base is {r}cm\u00b2. Find the volume of the pyramid."
     answer = f"{volume} cm\u00b3"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext(name[:2], 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "volume of pyramid = \u2153 \u00d7 area of base \u00d7 height"
     video, website = None, "https://www.bbc.co.uk/bitesize/guides/zcnb8mn/revision/6"
-    piclink = cone()
-    print(questionBase)
-    print(answer)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.piclink = cone()
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ee26_volume_of_a_frustrum_with_volume_of_original_cone_known46():
     oc = randint(700, 1000)
@@ -1986,31 +1834,28 @@ def ee26_volume_of_a_frustrum_with_volume_of_original_cone_known46():
     volume = round(oc - (1/3 * (3.1415 * r * r) * height), 2)
     questionBase = f"In the diagram above (not to scale) the volume of the original cone is {oc}cm\u00b3, the height of the removed cone is {height}cm and radius of the base of the removed cone is {r}cm. Find the volume of the pyramid."
     answer = f"{volume} cm\u00b3"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext(name[:2], 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "volume of frustum of a cone = volume of original cone - volume of removed cone (volume of cone = \u2153 \u00d7 \u03c0r\u00d7\u00b2 \u00d7 height)"
     video, website = None, "https://www.bbc.co.uk/bitesize/guides/zcnb8mn/revision/6"
-    piclink = cone()
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.piclink = cone()
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 def ee27_volume_of_a_hemisphere_with_radius_known35():
     r = randint(8,80)
     volume = round(2/3 * 3.14159 * r * r * r, 2)
     questionBase = f"In the diagram above (not to scale) the radius of the hemisphere is {r}cm. Find the volume of the hemispheresphere."
     answer = f"{volume} cm\u00b3"
-    name = currentFuncName()
-    previousQ, nextQ = previousNext(name[:2], 0, 2, name)
     diagram, constant = None, "\u03c0 = 3.14159"
-    pre, preans, marks, level = None, None, name[-2],name[-1]
     tip = "Volume of a sphere = \u2154\u03c0r\u00b3"
     video, website = None, "https://www.onlinemathlearning.com/volume-of-a-sphere.html"
-    piclink = sphere()
-    print(questionBase)
-    print(answer)
-    return (previousQ, nextQ, diagram, constant, questionBase, answer, pre, preans, marks, level, tip, video, website, piclink)  
-
+    q = Question(cf.currentFuncName())
+    q.questionBase, q.answerBase, q.diagram, q.constant, q.hint, q.website = questionBase, answer, diagram, constant, tip, website
+    q.piclink = sphere()
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ee", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 
 

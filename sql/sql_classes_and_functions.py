@@ -101,7 +101,6 @@ def moduleListGen(entireModuleList, qtype = None, low = 0, high = None): #genera
             if str(thing)[low:high] == qtype: # use qtype ='anystring', low = int representing start of string, high = int representing end of string for modules selected by name
                 count += 1
                 poop.append(thing)
-    print(poop)
     return poop
 
 
@@ -125,7 +124,6 @@ def allArgumentsSection(passed):
     for thing in passed:
         for i in range(len(passed)):
             template_dict.update({template_strings[i] + f"{i}" : thing[i]})
-    print(template_dict)
     return template_dict
 
 '''

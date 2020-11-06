@@ -8,3 +8,6 @@ from random import randint
 
 def home(request):
     return render(request,"home.html")
+
+def work_on(request):
+    return render(request, "work_on.html")

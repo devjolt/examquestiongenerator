@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/testapp.css" %}">
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">dev</li>
+    </ol>
+</nav>
+
+
+
+<div class="jumbotron text-left bg-light">
+    <div class="container">
+      <h1>A-Level Physics it is... pick a module!</h1>
+      <p>There's also a map of the entire A-level just underneath if you like that sort of thing.</p>
+      <hr>
+
+      <div class="row">
+        
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">1. Printable section A</h5>
+              <div class="alert alert-danger" role="alert">
+                These skills are covered in all of the other modules. 
+              </div>
+              <a href="random_printable_A_question/" class="btn btn-primary">random_printable_sectionA</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">2. Printable section B</h5>
+              <div class="alert alert-warning" role="alert">
+                Under construction
+              </div>
+              <a href="random_printable_B_question/" class="btn btn-primary">Take me there!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">3. Interactive section A</h5>
+              <div class="alert alert-danger" role="alert">
+                No sight nor sound
+              </div>
+              <a href="random_interactive_A_question/" class="btn btn-primary">Check back later</a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">4. Interactive section B</h5>
+              <div class="alert alert-danger" role="alert">
+                Preparing elastic bands
+              </div>
+              <a href="random_interactive_B_question/" class="btn btn-primary">Check back later</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">5. Printable whole section A</h5>
+              <div class="alert alert-danger" role="alert">
+                No sight nor sound
+              </div>
+              <a href="random_printable_A_section/" class="btn btn-primary">Check back later</a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">6. 5. Printable whole section B</h5>
+              <div class="alert alert-danger" role="alert">
+                Preparing elastic bands
+              </div>
+              <a href="random_interactive_B_section/" class="btn btn-primary">Check back later</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <details>
+        <summary>Map of the entire A-level</summary>
+        <div class="card">
+            <div class="card-body">
+                <ul>
+                    <li>Particles and radiation</li>
+                      <ul>
+                          <li>Matter and radiation</li>
+                          <li>Quarks and leptons</li>
+                          <li>Quantum phenomena</li>
+                      </ul>
+                    <li>Waves and optics</li>
+                      <ul>
+                          <li>Waves</li>
+                          <li>Optics</li>
+                          <li>Quantum phenomena</li>
+                      </ul>
+                    <li>Mechanics and materials</li>
+                      <ul>
+                          <li>Forces in equilibrium</li>
+                          <li>On the move</li>
+                          <li>Newton's laws of motion</li>
+                          <li>Force and momentum</li>
+                          <li>Work, energy and power</li>
+                          <li>Materials</li>
+                        </ul>
+                    <li>Electricity</li>
+                      <ul>
+                          <li>Electric current</li>
+                          <li>DC circuits</li>
+                      </ul>
+                    <li>Further mechanics</li>
+                        <ul>
+                            <li>Motion in a circle</li>
+                            <li>Simple harmonic motion</li>
+                        </ul>
+                    <li>Thermal Physics</li>
+                        <ul>
+                            <li>Thermal physics</li>
+                            <li>Gases</li>
+                        </ul>
+                    <li>Fields</li>
+                        <ul>
+                            <li>Gravitational fields</li>
+                            <li>Electric fields</li>
+                            <li>Capacitors</li>
+                            <li>Magnetic fields</li>
+                            <li>Electromagnetic induction</li>
+                        </ul>
+                    <li>Nuclear physics</li>
+                        <ul>
+                            <li>Radioactivity</li>
+                            <li>Nuclear energy</li>
+                            <li>Capacitors</li>
+                            <li>Magnetic fields</li>
+                            <li>Electromagnetic induction</li>
+                        </ul>
+                    <li>Skills for A-level physics</li>
+                        <ul>
+                            <li>Practical work</li>
+                            <li>Maths</li>
+                        </ul>
+
+                </ul>
+            </div>
+          </div>
+
+
+        </details>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

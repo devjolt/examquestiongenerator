@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/..">Home</a></li>
+      <li class="breadcrumb-item"><a href="/physics">A-level physics</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Electricity</li>
+    </ol>
+</nav>
+
+
+<div class="jumbotron">
+    <h1 class="display-4">Electrical current</h1>
+    <hr class="my-4">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-charge" role="tab" aria-controls="nav-home" aria-selected="true">Charge</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-energy" role="tab" aria-controls="nav-energy" aria-selected="false">Energy</a>
+          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-resistance" role="tab" aria-controls="nav-resistance" aria-selected="false">Resistance</a>
+          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-components" role="tab" aria-controls="nav-components" aria-selected="false">Components and their characteristics</a>
+        </div>
+    </nav>
+    
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-charge" role="tabpanel" aria-labelledby="nav-charge-tab">
+            {% for item in daa %}
+            <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="nav-energy" role="tabpanel" aria-labelledby="nav-energy-tab">
+            {% for item in dab %}
+            <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="nav-resistance" role="tabpanel" aria-labelledby="nav-resistance-tab">
+            {% for item in dac %}
+            <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="nav-components" role="tabpanel" aria-labelledby="nav-components-tab">
+            {% for item in dad %}
+            <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+            {% endfor %}
+        </div>
+
+    </div>
+  </div>
+
+  <div class="jumbotron">
+    <h1 class="display-4">Direct current circuits</h1>
+    <hr class="my-4">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-circuit-rules" role="tab" aria-controls="nav-circuit-rules" aria-selected="true">Circuit rules</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-circuit-resistance" role="tab" aria-controls="nav-circuit-resistance" aria-selected="false">Resistance in circuits</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-emf-internal-resistance" role="tab" aria-controls="nav-emf-internal-resistance" aria-selected="false">EMF and internal resistance</a>
+        
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-circuit-rules" role="tabpanel" aria-labelledby="nav-circuit-rules-tab">
+        
+            {% for item in dba %}
+            <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="nav-circuit-resistance" role="tabpanel" aria-labelledby="nav-circuit-resistance-tab">
+            {% for item in dbb %}
+            <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="nav-emf-internal-resistance" role="tabpanel" aria-labelledby="nav-emf-internal-resistance">
+            {% for item in dbc %}
+            <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+            {% endfor %}
+        </div>
+    </div>
+  </div>
+{% endblock %}

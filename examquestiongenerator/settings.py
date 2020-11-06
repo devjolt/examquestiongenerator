@@ -33,13 +33,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'alevelmaths.apps.AlevelmathsConfig',
+    'comptia_a_plus.apps.ComptiaAPlusConfig',
     'sql.apps.SqlConfig',
-    'testapp.apps.TestappConfig',
     'pcep.apps.PcepConfig',
     'pcap.apps.PcapConfig',
     'gcsebiology.apps.GcsebiologyConfig',
     'gcsemaths.apps.GcsemathsConfig',
     'physics.apps.PhysicsConfig',
+    'testapp.apps.TestappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

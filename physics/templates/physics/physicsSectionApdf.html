@@ -1,0 +1,211 @@
+
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/physics.css" %}">
+
+<style>
+.section-grid{
+    display: grid;
+    grid-template-columns: 5% auto 5%;
+    padding: 10px;   
+}
+
+.section-main-grid{
+    display: grid;
+    grid-template-columns: 5% 5% auto;
+    border:1px solid grey;
+    padding: 20px;
+}
+
+.paper-markscheme-buttons-grid{
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+}
+
+.paper{
+    cursor:pointer;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px blue;
+    border: 1px solid #aaaaaa;
+    width: 200px;
+    justify-content: right;
+    text-align: center;
+    padding: 10px;
+    margin: 10px
+}
+
+.markscheme{
+    cursor:pointer;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px blue;
+    border: 1px solid #aaaaaa;
+    width: 200px;
+    justify-content: left;
+    text-align: center;
+    padding: 10px;
+    margin: 10px
+}
+
+.section-header-box{
+    border:1px solid grey;
+    text-align: center;
+    padding: 20px;
+}
+
+.question-number-box{
+    border:1px solid black;
+    text-align: center;
+}
+
+.section-marks-base{
+    padding: 10px;
+    text-align: right;
+}
+
+.donot{
+    font-size: small;
+    text-align: center;
+    padding: 5px;
+}
+
+.markscheme-grid{
+    display: grid;
+    grid-template-columns: 110px auto 100px;
+    break-inside: avoid;
+}
+
+.markscheme-box{
+    border:1px solid black;
+    text-align: center;
+    padding: 10px;
+}
+
+.answer-box{
+    border:1px solid black;
+    text-align: left;
+    padding: 10px;
+}
+
+</style>
+
+
+<span id='paper' style="display:block;">
+        <div class = 'section-grid'><!--three columns-->
+            <div></div><!--margin column 1-->
+            <div><!--main section column 2-->
+                
+                <div class = 'section-header-box'>
+                    <h5><b>Section A</b></h5>
+                    </br>
+                    <h5>Answer <b>all</b> questions in this section.</h5>
+                </div>
+                
+                <div class = "section-main-grid"><!--three columns-->
+                    <div><!--number margin column 1-->
+                        <h5 class = 'question-number-box'>{{questionNumber}}</h5>
+                    </div>
+                    <div></div><!--sub number margin column 2-->
+                    <div><!--question section column 3-->
+                        {% for  constant in constantList %}
+                        <h4>{{constant}}</h4>
+                        {% endfor %}
+                        {% if diagram != None %}
+                        <div>
+                            <p class="centered"><img  width="60%" height="auto" src= "{% static diagram %}" alt="things"></p>
+                        </div>
+                        {% endif %}
+
+                        {% if piclink != None %}
+                        <div>
+                            <p class="centered"><img  width="30%" height="auto" src= "{{piclink}}" alt="things"></p>
+                        </div>
+                        {% endif %}
+
+                        <h5>{{questionBase}}</h5>
+                        {% if marksBase != 1 %}
+                        <h5 class = "section-marks-base"><b>[{{marksBase}} marks]</b></h5>
+                        {% else %}
+                        <h5 class = "section-marks-base"><b>[{{marksBase}} mark]</b></h5>
+                        {% endif %}
+                    </div>
+    
+
+                    {% if questionPartList != None %}
+                    {% for item in questionPartList %}
+                
+                    <div><!--number margin column 1-->
+                        <h5 class = 'question-number-box'>{{questionNumber}}.{{item.sub_number}}</h5>
+                    </div>
+                    <div></div><!--sub number margin column 2-->
+                    <div><!--question section column 3-->
+                        <h5>{{item.sub_question}}</h5>
+                        {% if item.sub_mark != 1 %}
+                        <h5 class = "section-marks-base"><b>[{{item.sub_mark}} marks]</b></h5>
+                        {% else %}
+                        <h5 class = "section-marks-base"><b>[{{item.sub_mark}} mark]</b></h5>
+                        {% endif %}
+                    </div>
+
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div><p class = 'donot'>Do not write outside the box</p></div><!--margin-->
+        </div>
+</span>
+
+<span id='markscheme' style="display:block;">
+    <div class = 'section-grid'>
+        <div></div>
+        <div>
+            <div class = 'markscheme-grid'>
+                <div class = 'markscheme-box'><h5><b>Question</b></h5></div>
+                <div class = 'markscheme-box'><h5><b>Answers</b></h5></div>
+                <div class = 'markscheme-box'><h5><b>Mark</b></h5></div>
+            </div>
+            <br>
+
+            {% if questionPartList != None %}
+            {% for item in questionPartList %}
+            <div class = 'markscheme-grid'>
+                <div class = 'markscheme-box'><h5>{{questionNumber}}.{{item.sub_number}}</h5></div>
+                <div class = 'answer-box'><h6>{{item.sub_answer}}</h6></div>
+                <div class = 'markscheme-box'><h5>{{item.sub_mark}}</h5></div>
+            </div>
+            <br>
+            {% endfor %}
+            {% else %}
+            <div class = 'markscheme-grid'>
+                <div class = 'markscheme-box'><h5>{{questionNumber}}</h5></div>
+                <div class = 'answer-box'><h6>{{answerBase}}</h6></div>
+                <div class = 'markscheme-box'><h5>{{marksBase}}</h5></div>
+            </div>
+            {% endif %}
+
+        </div>
+        <div></div>
+    </div>
+</span>
+
+
+
+
+<script type="text/javascript">
+
+function displayMarkscheme() {
+  var x = document.getElementById("paper");
+  var y = document.getElementById("markscheme");
+  y.style.display = "block";
+  x.style.display = 'none';
+}
+
+function displayPaper() {
+  var x = document.getElementById("paper");
+  var y = document.getElementById("markscheme");
+  x.style.display = "block";
+  y.style.display = 'none';
+}
+</script>

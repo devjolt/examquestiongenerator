@@ -1,0 +1,345 @@
+.interactive-reveal-buttons-grid{
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    break-inside: avoid;
+}
+
+.interactive-button-item{
+    cursor:pointer;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px blue;
+    border: 1px solid #aaaaaa;
+    width: 200px;
+    justify-content: right;
+    text-align: center;
+    padding: 10px;
+    margin: 10px
+}
+
+.reveal-button-item{
+    cursor:pointer;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px blue;
+    border: 1px solid #aaaaaa;
+    width: 200px;
+    justify-content: left;
+    text-align: center;
+    padding: 10px;
+    margin: 10px
+}
+
+/*Dashboard*/
+/*Lower buttons*/
+/*Multiple choice questions*/
+/*Select and submit questions*/
+/*Drag and drop questions*/
+
+.dash-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+  
+.stats-grid {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: auto;
+}
+
+.reset-grid{
+    display: grid;
+    grid-template-columns: 50% auto;
+}
+
+.dash-item {
+    font-size: 20px;
+    padding: 3px;
+    text-align: center;
+}
+
+.dash-item-r {
+    font-size: 20px;
+    padding: 3px;
+    text-align: right;
+}
+
+.dash-item-l {
+    font-size: 20px;
+    padding: 3px;
+    text-align: left;
+}
+
+.margin-grid{
+    display: grid;
+    grid-template-columns: 5% auto 5%;
+}
+
+.margin-item-left{
+    padding: 0px;
+}
+
+.margin-item-main{
+    border-radius: 25px;
+    box-shadow: 2px 2px 5px black;
+    padding: 2px;
+    border: 1px solid #aaaaaa;
+    padding: 20px;
+}
+
+.margin-item-r{
+    padding: 10px;
+    text-align: right;
+}
+
+.question{
+    padding : 30px;
+}
+
+.checkbox-grid{
+    display: grid;
+    grid-template-columns: auto auto 75% 10%;
+}
+.checkbox-item{
+    font-size: 20px;
+    padding: 4px;
+    text-align: center;
+}
+.checkbox-item-text{
+    font-size: 20px;
+    padding: 4px;
+    text-align: left;
+}
+.c-radius{
+    width: 30px;
+    height: 30px;
+    border-radius: 25px;
+}
+
+.drag-grid {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.drag-box-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 10px
+}
+
+.drag-answer-grid {
+    border-radius: 25px;
+    display: grid;
+    grid-template-columns: auto;
+    padding: 10px;
+    object-fit: contain; 
+  }
+.drop-box {
+    border-radius: 25px;
+    width: flex;
+    height: 40px;
+    padding: 2px;
+    border: 1px solid #aaaaaa;
+    object-fit: contain;
+    text-align: center;
+}
+.option-box {
+    border-radius: 25px;
+    box-shadow: 2px 2px 5px blue;
+    padding: 2px;
+    border: 1px solid #aaaaaa;
+    width: flex;
+    height: flex;
+    object-fit: contain;    
+    text-align: center;
+  }
+
+.triple-drag-grid {
+    border-radius: 25px;
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    padding: 2px;
+    object-fit: contain;   
+}
+
+.parts-grid{
+    display: grid;
+    padding: 2px;
+    grid-template-columns: 15% 75% 10%;
+}
+
+.parts_number{
+    padding: 2px;
+    text-align: right;
+}
+
+.parts-main{
+    padding: 2px;
+    text-align: left
+}
+
+.parts-marks{
+    padding: 2px;
+}
+
+.lower{
+    width:100%;
+    text-align: center;
+    padding : 10 
+}
+
+.lower-item{
+    display: inline-block;
+}
+
+
+/*SectionA*/
+.section-grid{
+    display: grid;
+    grid-template-columns: 5% auto 5%;
+    padding: 10px;   
+}
+
+.section-main-grid{
+    display: grid;
+    grid-template-columns: 5% 5% auto;
+    border-left:1px solid grey;
+    border-right:1px solid grey;
+    padding: 20px;
+    break-inside: avoid;
+}
+
+.paper-markscheme-buttons-grid{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    break-inside: avoid;
+}
+
+.paper-markscheme-reveal-buttons-grid{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    break-inside: avoid;
+}
+
+.paper{
+    cursor:pointer;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px blue;
+    border: 1px solid #aaaaaa;
+    width: 200px;
+    justify-content: right;
+    text-align: center;
+    padding: 10px;
+    margin: 10px
+}
+
+.markscheme{
+    cursor:pointer;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px blue;
+    border: 1px solid #aaaaaa;
+    width: 200px;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    margin: 10px
+}
+
+.reveal{
+    cursor:pointer;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px blue;
+    border: 1px solid #aaaaaa;
+    width: 200px;
+    justify-content: left;
+    text-align: center;
+    padding: 10px;
+    margin: 10px
+}
+
+
+.section-header-box{
+    border:1px solid grey;
+    text-align: center;
+    padding: 20px;
+    break-inside: avoid;
+}
+
+.question-number-box{
+    border:1px solid black;
+    text-align: center;
+    break-inside: avoid;
+}
+
+.section-marks-base{
+    padding: 10px;
+    text-align: right;
+    break-inside: avoid;
+}
+
+.multi-choice-grid{
+    display: grid;
+    grid-template-columns: 50px 80% 50px;
+    margin: 10px;
+    break-inside: avoid;
+}
+
+.interactive-multi-choice-grid{
+    display: grid;
+    grid-template-columns: 50px 80% 50px 10%;
+    margin: 10px;
+    break-inside: avoid;
+}
+
+.mc-answer-box{
+    cursor:pointer;
+    width: 40px;
+    height: 30px;
+    border:1px solid black;
+    padding: 9px;
+    break-inside: avoid;
+    
+}
+
+.oval {
+    cursor:pointer;
+    width: 20px;
+    height: 10px;
+    border:1px solid black;
+    border-radius: 50%;
+    
+    
+
+  }
+
+.donot{
+    font-size: small;
+    text-align: center;
+    padding: 5px;
+}
+
+.markscheme-grid{
+    display: grid;
+    grid-template-columns: 110px auto 100px;
+    break-inside: avoid;
+    break-inside: avoid;
+}
+
+.markscheme-box{
+    border:1px solid black;
+    text-align: center;
+    padding: 10px;
+    break-inside: avoid;
+}
+
+.answer-box{
+    border:1px solid black;
+    text-align: left;
+    padding: 10px;
+    break-inside: avoid;
+}

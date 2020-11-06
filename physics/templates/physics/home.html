@@ -2,6 +2,9 @@
 
 {% block content %}
 
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/physics.css" %}">
 
 
 <nav aria-label="breadcrumb">
@@ -12,116 +15,153 @@
 </nav>
 
 
-
-<div class="jumbotron text-left bg-light">
-    <div class="container">
-      <h1>A-Level Physics it is... pick a module!</h1>
-      <p>There's also a map of the entire A-level just underneath if you like that sort of thing.</p>
-      <hr>
-
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Particles and radiation</h5>
-              <div class="alert alert-warning" role="alert">
-                Under construction
-              </div>
-              <a href="matter_and_radiation/" class="btn btn-primary">Take me there!</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Waves and optics</h5>
-              <div class="alert alert-danger" role="alert">
-                Not built yet
-              </div>
-              <a href="#" class="btn btn-primary.disabled">Check back later</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Mechanics and materials</h5>
-              <div class="alert alert-danger" role="alert">
-                Not built yet
-              </div>
-              <a href="#" class="btn btn-primary.disabled">Check back later</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Electricity</h5>
-              <div class="alert alert-warning" role="alert">
-                Under construction
-              </div>
-              <a href="electricity/" class="btn btn-primary">Take me there!</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Further mechanics and thermal physics</h5>
-              <div class="alert alert-warning" role="alert">
-                Under construction
-              </div>
-              <a href="further_mechanics_and_thermal_physics/" class="btn btn-primary">Take me there!</a>
-              <a href="further_mechanics_and_thermal_physics/random/" class="btn btn-primary">Give me a random question</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Fluid dynamics</h5>
-              <div class="alert alert-danger" role="alert">
-                Not built yet
-              </div>
-              <a href="#" class="btn btn-primary.disabled">Check back later</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Nuclear Physics</h5>
-              <div class="alert alert-danger" role="alert">
-                Not built yet
-              </div>
-              <a href="#" class="btn btn-primary.disabled">Check back later</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Skills for A-level physics</h5>
-              <div class="alert alert-danger" role="alert">
-                Not built yet
-              </div>
-              <a href="#" class="btn btn-primary.disabled">Check back later</a>
-            </div>
-          </div>
-        </div>
-      </div>
+<div class = "exam-grid">
+  <div class = "exam-item">
+    <h4>Paper 1</h4>
+    <p>Particles and radiation, waves and optics, mechanics and materials, electricity, further mechanics (periodic motion)</p>
+    <p>60 marks of short and long answer questions</p>
+    <p>25 multiple choice questions</p>
+  </div>
+  <div class = "exam-item">
+    <h4>Paper 2</h4>
+    <p>Thermal physics, fluid dynamics, nuclear physics</p>
+    <p>Assumed knowledge from paper 1 content</p>
+    <p>60 marks of short and long answer questions</p>
+    <p>25 multiple choice questions</p>
+  </div>
+  <div class = "exam-item">
+    <h4>Paper 3</h4>
+    <p>Section A: Compulsory section: Practical skills and data analysis</p>
+    <p>Section B: Students enter for one of astrophysics, medical physics, engineering physics, turning points in physics, electronics</p>
+    <p>45 marks of short and long answer questions on practical experiments and data analysis.</p>
+    <p>35 marks of short and long answer questions on optional topic.</p>
+  
+  
+  </div>
+</div>
 
 
+<div class = 'module-double-grid'>
+  <div></div>
+  <div class='module-box'>
+    <h4>1. Measurements and their errors</h4>
+    <div class="alert alert-danger" role="alert">These skills are covered in all of the other modules.</div>
+    <a href="#" class="btn btn-primary.disabled">Check back later</a>
+  </div>
+  <div></div>
 
+  <div></div>
+  <div class='module-box'>
+    <h4>2. Particles and radiation</h4>
+    <div class="alert alert-warning" role="alert">Under construction</div>
+    <div class = 'module-button-grid'>
+      <div><h5>Section</h5></div>
+      <div><h5>Generate printable, whiteboardable...</5></div>
+      <div><h5>Generate...</5></div>
+
+      <div><h5>A</h5></div>
+      <div><a href="particles_and_radiation/particles_and_radiation_printable_A_section/" class="btn btn-primary" target="_blank">whole section</a><a href="particles_and_radiation/particles_and_radiation_printable_A_question/" class="btn btn-primary" target="_blank">random question</a></div>
+      <div><a href="particles_and_radiation/particles_and_radiation_interactive_A_question/" class="btn btn-primary" target="_blank">graded questions</a></div>
+      
+      <div><h5>B</h5></div>
+      <div><a href="particles_and_radiation/particles_and_radiation_printable_B_section/" class="btn btn-primary" target="_blank">whole section</a><a href="particles_and_radiation/particles_and_radiation_printable_B_question/" class="btn btn-primary" target="_blank">random question</a></div>
+      <div><a href="particles_and_radiation/particles_and_radiation_interactive_B_question/" class="btn btn-primary" target="_blank">graded questions</a></div>
+    </div>
+    <div class='specific-question-button'><a href="particles_and_radiation/" class="btn btn-primary">Find a specific particles and radiation question</a></div>
+  </div>
+
+  <div></div>
+  <div></div>
+
+  <div class='module-box'>
+    <h4>3. Waves and optics</h4>
+    <div class="alert alert-danger" role="alert">No sight nor sound</div>
+    <a href="#" class="btn btn-primary.disabled">Check back later</a>
+  </div>
+
+  <div></div>
+  <div></div>
+  
+  <div class='module-box'>
+    <h4>4. Mechanics and materials</h4>
+    <div class="alert alert-danger" role="alert">Preparing elastic bands</div>
+    <a href="#" class="btn btn-primary.disabled">Check back later</a>
+  </div>
+
+  <div></div>
+  <div></div>
+
+  <div class='module-box'>
+    <h4>5. Electricity</h4>
+    <div class="alert alert-warning" role="alert">Under construction</div>
+    <div class = 'module-button-grid'>
+      <div><h5>Section</h5></div>
+      <div><h5>Generate printable, whiteboardable...</5></div>
+      <div><h5>Generate...</5></div>
+
+      <div><h5>A</h5></div>
+      <div><a href="electricity/electricity_printable_A_section/" class="btn btn-primary" target="_blank">whole section</a><a href="electricity/electricity_printable_A_question/" class="btn btn-primary" target="_blank">random question</a></div>
+      <div><a href="electricity/electricity_interactive_A_question/" class="btn btn-primary" target="_blank">graded questions</a></div>
+      
+      <div><h5>B</h5></div>
+      <div><a href="electricity/electricity_printable_B_section/" class="btn btn-primary" target="_blank">whole section</a><a href="electricity/electricity_printable_B_question/" class="btn btn-primary" target="_blank">random question</a></div>
+      <div><a href="electricity/electricity_interactive_B_question/" class="btn btn-primary" target="_blank">graded questions</a></div>
+    </div>
+    <div class='specific-question-button'><a href="electricity/" class="btn btn-primary">Find a specific particles and radiation question</a></div>
+  </div>
+
+  <div></div>
+  <div></div>
+
+  <div class='module-box'>
+    <h4>6.1 Further mechanics (periodic motion)</h4>
+    <div class="alert alert-warning" role="alert">Under construction</div>
+    <div class = 'module-button-grid'>
+      <div><h5>Section</h5></div>
+      <div><h5>Generate printable, whiteboardable...</5></div>
+      <div><h5>Generate...</5></div>
+
+      <div><h5>A</h5></div>
+      <div><a href="further_mechanics/further_mechanics_printable_A_section/" class="btn btn-primary" target="_blank">whole section</a><a href="further_mechanics/further_mechanics_printable_A_question/" class="btn btn-primary" target="_blank">random question</a></div>
+      <div><a href="further_mechanics/further_mechanics_interactive_A_question/" class="btn btn-primary" target="_blank">graded questions</a></div>
+      
+      <div><h5>B</h5></div>
+      <div><a href="further_mechanics/further_mechanics_printable_B_section/" class="btn btn-primary" target="_blank">whole section</a><a href="further_mechanics/further_mechanics_printable_B_question/" class="btn btn-primary" target="_blank">random question</a></div>
+      <div><a href="further_mechanics/further_mechanics_interactive_B_question/" class="btn btn-primary" target="_blank">graded questions</a></div>
+    </div>
+    <div class='specific-question-button'><a href="further_mechanics/" class="btn btn-primary">Find a specific further mechanics question</a></div>
+  </div>
+
+  <div></div>
+  <div></div>
+  
+  <div class='module-box'>
+    <h4>6.2 Thermal physics</h4>
+    <div class="alert alert-danger" role="alert">Still warming up</div>
+    <a href="#" class="btn btn-primary.disabled">Check back later</a>
+  </div>
+
+  <div></div>
+  <div></div>
+  
+  <div class='module-box'>
+    <h4>7. Fluid dynamics</h4>
+    <div class="alert alert-danger" role="alert">Finding the flow</div>
+    <a href="#" class="btn btn-primary.disabled">Check back later</a>
+  </div>
+  
+  <div></div>
+  <div></div>
+  
+  <div class='module-box'>
+    <h4>8. Nuclear Physics</h4>
+    <div class="alert alert-danger" role="alert">Negotiating with Libyan nationalists for plutonium</div>
+    <a href="#" class="btn btn-primary.disabled">Check back later</a>
+  </div>
+
+  <div></div>
+  <div></div>
+  
 
       <details>
         <summary>Map of the entire A-level</summary>
@@ -154,10 +194,13 @@
                           <li>Electric current</li>
                           <li>DC circuits</li>
                       </ul>
-                    <li>Further mechanics and thermal physics</li>
+                    <li>Further mechanics</li>
                         <ul>
                             <li>Motion in a circle</li>
                             <li>Simple harmonic motion</li>
+                        </ul>
+                    <li>Thermal Physics</li>
+                        <ul>
                             <li>Thermal physics</li>
                             <li>Gases</li>
                         </ul>
