@@ -43,7 +43,7 @@ def test_do():
 
 
 #start here...
-def ada1_cloud_attributes():	
+def ad_aa_cloud_attributes():	
     items = (
         ("allows scalable services to be provided to the client", "Rapid elasticity"),
         ("means that you only pay for what you use", 'Metered'),
@@ -59,3 +59,19 @@ def ada1_cloud_attributes():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ad", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
+def ad_aa_cloud_services():	
+    items = (
+        ("use a web-based calendar application", "SaaS"),
+        ("use a remote server owned by another firm", "IaaS"),
+        ("gain access to detailed weather statistics for the past 100 years through the cloud", "DaaS"),
+        ("use a cloud based software development and deployment environment", "PaaS"),
+    )
+    fillers = ('SPSS', 'SQL', 'MS', 'Azure', 'AWS', 'Isaac', 'Pass',)
+    if randint(0,1) == 0:
+        q = cf.selectMcDrag(None, None, None, items, fillers, 1, 1, randint(4,7))
+        q.questionBase = f"An {q.item(vl.users)} has signed up to {items[q.choice][0]}. Which of the following solutions has the user purchased?"
+    else:
+        q = cf.selectMcDrag('drag', None, None, items, fillers, 1, randint(2,4), randint(4,7))
+        q.questionBase = f"Match the following descriptions with their respective services?"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ad", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()

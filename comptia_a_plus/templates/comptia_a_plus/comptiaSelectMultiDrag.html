@@ -31,7 +31,9 @@
 
     <div class="dash-item">
       <div class = "button-grid">
-        {% if qtype == 'multi' %}
+        {% if qtype == 'type' %}
+        <div class="dash-item"><button onclick="displayQuestion(q_type)">Type and submit</button></div>
+        {% elif qtype == 'multi' %}
         <div class="dash-item"><button onclick="displayQuestion(q_type)">Multi-choice</button></div>
         {% elif qtype == 'select' %}
         <div class="dash-item"><button onclick="displayQuestion(q_type)">Select and submit</button></div>
@@ -81,6 +83,14 @@
           <a href="{{website}}" class="btn btn-secondary" target="_blank" data-toogle="tooltip" title="I didn't make this website, but it might help! (opens in a new tab!)">A little more help?</a>
           {% endif %}
       </details>
+      {% endif %}
+
+      {% if qtype == 'type' %}
+      <span id='type' style="display:block;">
+        <h5>{% if beforeType %}{{beforeType}}{% endif %}<input type="text" id="fname" name="fname" placeholder="Input your answer here">{% if answerUnits != None %}{{answerUnits}}{% endif %}{% if afterType %}{{afterType}}{% endif %}</h5>
+        <br>
+        <button type="button" class="btn btn-primary" onclick = "typeAnswer('{{answerBase}}')">Submit</button>
+      </span>
       {% endif %}
 
       {% if qtype == 'multi' %}
@@ -543,7 +553,11 @@
         </div>
       </span>
       <div class="margin-item-r">
-        <h4>[{{marks}} marks]</h4>  
+        {% if marksBase %}
+        <h4>[{{marksBase}} marks]</h4>
+        {% else %}
+        <h4>[1 mark]</h4>
+        {% endif %} 
       </div>
     </div>
   
@@ -670,7 +684,7 @@ function calculatePercentage(){
 var correct_required = {{correctRequired}};
 var clicks = 0;
 var clicks_correct = 0;
-var possible_marks = {{marks}};
+var possible_marks = {{marksBase}};
 var possible = getCookie('comptia_a_plus_possible');
 var correct_marks = getCookie('comptia_a_plus_correct');
 var out_of = correct_marks.toString() + '/' + possible.toString();//create string to show score
@@ -764,6 +778,36 @@ function revealedAnswer(){
   clicks = 10;
   submitted = true;
 }
+
+
+//Type logic
+function typeAnswer(answer){
+  var attempt = document.getElementById('fname').value;
+  if(clicks<1){
+    if(attempt == answer){
+      document.getElementById('fname').style.background='lightgreen';
+      incrementCookie('comptia_a_plus_correct', possible_marks);//increase correct cookie
+    } else {
+      document.getElementById('fname').style.background='pink';
+      addToCookieList('work_on');   
+      }
+  }  
+  clicks = clicks + 1
+  incrementCookie('comptia_a_plus_attempts');//when clicked increment attempts
+  document.getElementById("attempted").innerHTML = parseInt(getCookie('comptia_a_plus_attempts'));//update attempted element with cookie value
+  incrementCookie('comptia_a_plus_possible', possible_marks);//increase possible cookie
+  var possible = getCookie('comptia_a_plus_possible');
+  var correct_marks = getCookie('comptia_a_plus_correct');
+  var out_of = correct_marks.toString() + '/' + possible.toString();//create string to show score 
+  document.getElementById("score").innerHTML = out_of//update score element
+  document.getElementById("grade").innerHTML = scoreEighty()//work out whether grades can be displayed
+}
+  
+
+
+  
+
+
 //Checkbox logic... on submit button:
 var final_mark = 0
 var submitted = false

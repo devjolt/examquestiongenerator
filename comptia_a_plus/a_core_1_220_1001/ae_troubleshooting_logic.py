@@ -29,7 +29,7 @@ def test_mc():
     q = cf.MultipleChoice(good, bad, 1, randint(1,3),randint(5,10))
     return q.returnAll()
 
-def aea1_ram_cmos_issue_symptom():
+def ae_aa_ram_cmos_issue_symptom():
     ram = ('Continuous reboots','Blue Screen of death', 'The amount of RAM displays incorrectly', 'Sporadic freezes','Corrupted files', 'Attemps to install new programs fail','Video card fails to load', 'Ram not recognised by computer')
     cmos = ('Incorrect date or time displayed','Wrong BIOS time', 'Missing drivers for external devices such as printers', 'Unable to start programs')
     other = ('disdented capacitors', 'Computer starts in safe mode')
@@ -49,7 +49,7 @@ def aea1_ram_cmos_issue_symptom():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def aea2_spillage_on_hardware():
+def ae_ab_spillage_on_hardware():
     correct = ('Remove the case and organise the parts','Document the screw locations')
     incorrect = ('Search the internet for repair tutorials', 'Google the liquid and device', 'Consult colleagues for advice', f'Place the device in rice for a few days', 'Ask what time it happened', 'Ask what the brand of the liquid was')
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 2, randint(5,6))
@@ -57,7 +57,7 @@ def aea2_spillage_on_hardware():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def aeb1_slow_workstation_mc():
+def ae_ba_slow_workstation_mc():
     correct = ('Check the event log for any cache issues',)
     incorrect = ('Replace the write cache battery', 'Clear the RAID configuration file and restart the PC', 'Replace the RAID controller write cache module', f'recommend changing to RAID 5')
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
@@ -65,7 +65,7 @@ def aeb1_slow_workstation_mc():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def aec1_broken_display_mc():
+def ae_ca_broken_display_mc():
     correct = ('Document and label the cable and screw locations',)
     incorrect = ('Replace the screen with a non-OEM', 'Update the firmware on the device before repairing it', 'Replace the screen with an OEM', 'Immediately place the screen in a container to prevent liquid crystal leakage', 'Consult colleagues for advice', 'Remove the screen and inspect connectors for faults', 'Verify the settings in IPConfig','Research the problem based on symptoms', 'Tell the user to stay off the internet', "Wait for the vendor to provide more information")
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, randint(5,len(incorrect)))
@@ -73,7 +73,7 @@ def aec1_broken_display_mc():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def aec2_dim_laptop_display_mc():
+def ae_cb_dim_laptop_display_mc():
     items = (
         ("laptop display has suddenly become very dim. The image of the display can only be seen with a bright, externallight, as adjusting the brightness/contrast controls does not cause much change",'Inverter'),
         ("laptop screen appears to have dead pixels and a line of black pixels continuously at the same place.", "LCD panel"),
@@ -90,7 +90,7 @@ def aec2_dim_laptop_display_mc():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def aec3_projector_artefacts_mc():	
+def ae_cc_projector_artefacts_mc():	
 	correct =('Increase the projector contrast.','Modify the laptop™s display resolution.')
 	incorrect = ('Update the video drivers on the laptop.','Replace the original laptop.','Change the aspect ratio on the projector.','Replace the bulb in the projector.',)
 	q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 2, randint(5,6))
@@ -98,7 +98,7 @@ def aec3_projector_artefacts_mc():
 	q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
 	return q.returnAll()
 
-def aed1_smartphone_repair_mc():
+def ae_da_smartphone_repair_mc():
     correct = ('Airplane mode',)
     incorrect = ('Tethering', 'Disabled hotspot', 'VPN', 'WiFi switched off', "SIM card faulty", "SIM card missing")
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, randint(5,6))
@@ -106,7 +106,17 @@ def aed1_smartphone_repair_mc():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def aee1_network_printer_not_working_mc():	
+
+def ae_db_laptop_shuts_down_mc():	
+    correct =('CMOS battery failure',)
+    incorrect = ('Residual energy on the motherboard','System overheating','Distended capacitors','Loose battery connection',)
+    q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
+    q.questionBase = f" 39A user™s laptop is shutting down unexpectedly. The technician discovers the shutdowns only happen when the laptop ismoved from one room to another. The technician reseated the hard drive, memory, battery, and LCD cable, but the laptop continues to shut down.Which of the following is the MOST probable cause of the issue?"
+    q = cf.MultipleChoice(correct, incorrect, 1, 1, 4)
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+def ae_ea_network_printer_not_working_mc():	
     items =(
         ('their network printer, which is connected through the print server, is not printing.', 'Clear the print queue.'),
         ('their printouts contain random characters.', "Reinstall the drivers on users' PCs."),
@@ -122,7 +132,7 @@ def aee1_network_printer_not_working_mc():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def aef1_malware_mc():
+def ae_fa_malware_mc():
     correct = ('Document findings, actions, and outcomes','Run a virus scan.')
     incorrect = ('Reboot the device to verify the fix', 'Reconnect the device to the network', 'Consult colleagues for advice', f'Place the device in rice for a few days', 'Ask what time it happened', 'Verify the settings in IPConfig','Research the problem based on symptoms', 'Tell the user to stay off the internet', "set up teamviewer with the device to monitor the situation")
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 2, randint(5,6))
@@ -130,7 +140,7 @@ def aef1_malware_mc():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def aef1_no_internet_after_holiday_mc():
+def ae_fb_no_internet_after_holiday_mc():
     correct = ('ipconfig /flushdns',)
     incorrect = ('ipconfig /all', 'ipconfig /release', 'ipconfig /setclassid','Ipconfig /renew', 'ipconfig /registerdns',  'ipconfig /displaydns',)
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, randint(5,6))
@@ -138,7 +148,7 @@ def aef1_no_internet_after_holiday_mc():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def aef2_ipconfig_commands_dr():
+def ae_fc_ipconfig_commands_dr():
     items = (
         ('display all of your current IP information for all adapters', 'ipconfig /all'),
         ('forget your current IP information and obtain a new IP Address from the DHCP server', 'ipconfig /release'),
@@ -157,7 +167,7 @@ def aef2_ipconfig_commands_dr():
     q.workon, q.weblink = 'ipconfig commands', 'https://stickystatic.com/tech/ipconfig-commands'
     return q.returnAll()
 
-def aef3_windows_network_commands_dr():
+def ae_fc_windows_network_commands_dr():
     items = (
         ('identify server problems and latency by tracing the path of packets across the internet', 'tracert site.com'),
         ('get the IP address for a domain name', 'nslookup site.com'),
@@ -181,7 +191,7 @@ def aef3_windows_network_commands_dr():
     q.workon, q.weblink = 'Windows network commands', 'https://stickystatic.com/tech/ipconfig-commands'
     return q.returnAll()
 
-def aef4_ping_commands_dr():
+def ae_fd_ping_commands_dr():
     items = (
         ('ping an ip address', 'ping xxx.xxx.xxx.xxx'),
         ('ping a website', 'ping site.com'),
@@ -201,7 +211,7 @@ def aef4_ping_commands_dr():
     q.workon, q.weblink = 'Ping commands', 'https://stickystatic.com/tech/ipconfig-commands'
     return q.returnAll()
 
-def aef5_ip_in_use_mc():
+def ae_fe_ip_in_use_mc():
     correct = ('Set the laptop configuration to DHCP to prevent conflicts',)
     incorrect = ('Remove the static IP configuration from the desktop', 'Replace the network card in the laptop, as it may be defective', 'Bridge the LAN connection between the laptop and the desktop',)
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
@@ -209,10 +219,18 @@ def aef5_ip_in_use_mc():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def aef6_network_printer_mc():	
+def ae_ff_network_printer_mc():	
 	correct =('Confirm that the laptop wireless card is turned on.',)
 	incorrect = ('Confirm that the laptop is in range for the access point.','Confirm that the correct wireless network is selected.','Confirm the user™s network login ID and password.',)
 	q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
 	q.questionBase = f"A {q.item(vl.users)} reports that a laptop is not connecting to the corporate wireless network. A {q.item(vl.technitians)} technician confirms with a smartphone that the corporate wireless network is available and can be accessed. The technician observes that the Ethernet connection to the corporate network is working. The technician disconnects the Ethernet cable.Which of the following should the technician do NEXT to troubleshoot this problem?"
 	q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
+	return q.returnAll()
+
+def ae_fg_proprietory_data_mc():	
+	correct =('Check corporate policies for guidance.',)
+	incorrect = ('Get authorization from the manager.','Delete proprietary data before leaving the building.','Remove the HDD and send the device for repair.',)
+	q = cf.MultipleChoice(correct, incorrect, 1, 1, 4)
+	q.questionBase = f" 43A company has very strict rules regarding proprietary information leaving the premises. All computers host proprietaryinformation. A technician is called to repair a computer on-site at the company™s corporate office. The technician identifies theproblem and goes through the troubleshooting steps to create a plan of action. The technician determines the computer needs to be taken off-site for repair. Which of the following should the {q.item(vl.technitians)} technician do NEXT?"
+	q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"aX", 0, 2, cf.currentFuncName(), module_path())
 	return q.returnAll()

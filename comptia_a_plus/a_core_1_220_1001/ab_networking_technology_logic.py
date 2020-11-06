@@ -59,7 +59,41 @@ def test_do():
 
 
 
-def abc1_cable_type_soho_mc():
+
+def ab_aa_network_ports():
+    items = (
+        ('File Transfer Protocol, data transfer', 20),
+        ('File Transfer Protocol, command and control', 21),
+        ('Secure Shell', 22),
+        ('Time protocol', 37),
+        ('WHOIS', 43),
+        ('Domain Name Service', 53),
+        ('Hypertext Transfer Protocol', '80 and 443'),
+        ('Trivial File Transfer Protocol', 69),
+    )
+    fillers = (501, 404, 99, 127, 8080)
+    if randint(0,1) == 0:
+        q = cf.SelectMcDrag(None, None, None, items, fillers, 1, 1, randint(4, 8))
+        q.questionBase = f"Which of the following ports deals with {items[q.choice][0]}?"
+    else:
+        q = cf.SelectMcDrag('drag', None, None, items, fillers, 1, randint(4, 6), randint(6, 10))
+        q.questionBase = f"Match the ports with their functions."
+        q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+def ab_ab_network_ports():
+    items = (
+        ('close to block remote logins to a server', 21),
+        ('change to another port because it is the default SSL port well known to hackers', 22),
+    )
+    fillers = (43, 53, 80, 443, 69)
+    if randint(0,1) == 0:
+        q = cf.SelectMcDrag(None, None, None, items, fillers, 1, 1, randint(4, 5))
+        q.questionBase = f"Which of the following ports should a technitian {items[q.choice][0]}?"
+        q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+def ab_ca_cable_type_soho_mc():
     correct = ("Ethernet",)
     incorrect = ("Coaxial", "USB", "Thunderbolt", "Lightning", "Bluetooth")
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, randint(4, len(incorrect)))
@@ -67,7 +101,7 @@ def abc1_cable_type_soho_mc():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def abd1_networking_numbers():
+def ab_da_networking_numbers():
     items = (
         ("a channel commonly used on an 802.11 wireless network","6"),
         ("an ip address known as local host", "127.0.0.1"),
@@ -85,7 +119,7 @@ def abd1_networking_numbers():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def abe1_internal_external_networking_mc():
+def ab_ea_internal_external_networking_mc():
     correct = ("MAN","LAN")
     incorrect = ("WAN", "PAN", "SAN", "WLAN", "VPN", "Enterprise Internal Private Network", "System Area Network", "Skynet", "Mobile Network")
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 2, randint(4, len(incorrect)))
@@ -93,7 +127,7 @@ def abe1_internal_external_networking_mc():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def abe2_networking_acronyms_dr():
+def ab_eb_networking_acronyms_dr():
     items = (
         ('a computer network that interconnects users with computer resources in a geographic region of the size of a metropolitan area', 'MAN'),
         ('a computer network that interconnects computers within a limited area such as a residence, school, laboratory, university campus or office building', 'LAN'),
@@ -112,7 +146,7 @@ def abe2_networking_acronyms_dr():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def abe1_internal_external_networking_mc():
+def ab_ea_internal_external_networking_mc():
     items = (
         ("office to office networking within a city", "MAN"),
         ("computer network within the office", "LAN"),
@@ -131,7 +165,7 @@ def abe1_internal_external_networking_mc():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def abe2_reducing_password_tickets_mc():
+def ab_eb_reducing_password_tickets_mc():
     items = (
         ("Several company users are frequently forgetting passwords for their mobile devices and applications. Which of the following should the systems administrator do to reduce the number of help desk tickets submitted?",'Implement single sign-on.'),
         ("A business owner requires a high level of security on all of their devices. Which of the following could be implemented at the lowest cost to achieve this?", 'Enable multifactor authentication.'),

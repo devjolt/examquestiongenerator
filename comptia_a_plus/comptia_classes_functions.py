@@ -10,10 +10,13 @@ class Question():
     hint, workon, weblink, video = None, None, None, None
     qtype, correctRequired, answerReveal = None, None, None
     constantList = None
-    constnat = None
+    constant = None
 
     #variables for main question
-    questionNumber, questionBase, codeBase, answerBase, answerCodeBase, marksBase = None, None, None, None, None, None
+    questionNumber, questionBase, codeBase, answerBase, answerCodeBase, answerUnits, marksBase = None, None, None, None, None, None, 1
+
+    #variables for type questions
+    beforeType, afterType = None, None
 
     #variables for parts of a question for use with main question
     questionPartList = None # this list needs to dicts including items questionNumber, question, questionCode, answer, answerCode, answerValue, answerUnits, marks]
@@ -44,7 +47,9 @@ class Question():
         'constantList':self.constantList,
         'constant':self.constant,
 
-        'questionNumber':self.questionNumber, 'questionBase': self.questionBase, 'codeBase': self.codeBase, 'answerBase': self.answerBase, 'answerCodeBase': self.answerBase, 'marksBase': self.marksBase,
+        'questionNumber':self.questionNumber, 'questionBase': self.questionBase, 'codeBase': self.codeBase, 'answerBase': self.answerBase, 'answerCodeBase': self.answerCodeBase, 'answerUnits':self.answerUnits, 'marksBase': self.marksBase,
+
+        'beforeType':self.beforeType, 'afterType':self.afterType,#for placing text either side of text to be entered
 
         'questionPartList': self.questionPartList,#list of dictionaries containing: sub_number, sub_question, sub_answer, sub_mark
 
