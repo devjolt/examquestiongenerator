@@ -23,11 +23,6 @@ def module_path():
     return '/comptia_a_plus/core_1_220_1001/'
 
 #paper, series, question, name, marks in names
-def test_mc():
-    good = ('correct1', 'correct2', 'correct3', 'correct4', 'correct5', 'correct6', 'correct7', 'correct8', 'correct9', 'correct10')
-    bad = ('incorrect1', 'incorrect2', 'incorrect3', 'incorrect4', 'incorrect5', 'incorrect6', 'incorrect7', 'incorrect8', 'incorrect9', 'incorrect10')
-    q = cf.MultipleChoice(good, bad, 1, randint(1,3),randint(5,10))
-    return q.returnAll()
 
 def ae_aa_ram_cmos_issue_symptom():
     ram = ('Continuous reboots','Blue Screen of death', 'The amount of RAM displays incorrectly', 'Sporadic freezes','Corrupted files', 'Attemps to install new programs fail','Video card fails to load', 'Ram not recognised by computer')
@@ -56,6 +51,22 @@ def ae_ab_spillage_on_hardware():
     q.questionBase = f"A {q.item(vl.users)} accidentally spills {q.item(vl.liquids)} on a laptop and, naturally, wants the device to be fixed and would like to know how much it will cost. Which of the following steps should the technician take NEXT to verify if the device is repairable before committing to a price?"
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
+
+
+
+def ae_ac_dropped_laptop():
+    items = (
+        ('the laptop will not turn on','DC jack'),
+        ('the laptop will not turn on unless plugged into the mains', 'Battery'),
+        ('the laptop makes unusual clicking and scratching sounds','Hard drive'),
+        ('the laptop emits a strange smell whilst charging','Power adapter'),
+        ('the laptop randomly shuts down after period of use','Cooling fan'),
+    )
+    q = cf.SelectMcDrag(None, None, None, items, (), 1, 1, 4)
+    q.questionBase = f"A customer accidentally drops a laptop while it is charging. The next day, the customer notices {items[q.choice][0]} andcalls a technician to investigate. The technician confirms the laptop will not turn on even though it is connected to the power adapter. Which of the following components is the MOST likely cause of this behavior?"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
 
 def ae_ba_slow_workstation_mc():
     correct = ('Check the event log for any cache issues',)
@@ -111,8 +122,7 @@ def ae_db_laptop_shuts_down_mc():
     correct =('CMOS battery failure',)
     incorrect = ('Residual energy on the motherboard','System overheating','Distended capacitors','Loose battery connection',)
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
-    q.questionBase = f" 39A user™s laptop is shutting down unexpectedly. The technician discovers the shutdowns only happen when the laptop ismoved from one room to another. The technician reseated the hard drive, memory, battery, and LCD cable, but the laptop continues to shut down.Which of the following is the MOST probable cause of the issue?"
-    q = cf.MultipleChoice(correct, incorrect, 1, 1, 4)
+    q.questionBase = f" A user's laptop is shutting down unexpectedly. The technician discovers the shutdowns only happen when the laptop ismoved from one room to another. The technician reseated the hard drive, memory, battery, and LCD cable, but the laptop continues to shut down.Which of the following is the MOST probable cause of the issue?"
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
@@ -230,7 +240,23 @@ def ae_ff_network_printer_mc():
 def ae_fg_proprietory_data_mc():	
 	correct =('Check corporate policies for guidance.',)
 	incorrect = ('Get authorization from the manager.','Delete proprietary data before leaving the building.','Remove the HDD and send the device for repair.',)
-	q = cf.MultipleChoice(correct, incorrect, 1, 1, 4)
-	q.questionBase = f" 43A company has very strict rules regarding proprietary information leaving the premises. All computers host proprietaryinformation. A technician is called to repair a computer on-site at the company™s corporate office. The technician identifies theproblem and goes through the troubleshooting steps to create a plan of action. The technician determines the computer needs to be taken off-site for repair. Which of the following should the {q.item(vl.technitians)} technician do NEXT?"
-	q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"aX", 0, 2, cf.currentFuncName(), module_path())
+	q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
+	q.questionBase = f"A {q.item(vl.businesses)}company has very strict rules regarding proprietary information leaving the premises. All computers host proprietaryinformation. A technician is called to repair a computer on-site at the company™s corporate office. The technician identifies theproblem and goes through the troubleshooting steps to create a plan of action. The technician determines the computer needs to be taken off-site for repair. Which of the following should the {q.item(vl.technitians)} technician do NEXT?"
+	q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
 	return q.returnAll()
+
+def ae_fb_new_wireless_network():
+    correct =('Ensure the options are configured to provide a DNS server.',)
+    incorrect = ('Verify the Windows Firewall is turned off.','Configure the wireless network™s SSID to be hidden.','Enable file and printer sharing in the OS.',)
+    q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
+    q.questionBase = f"A {q.item(vl.technitians)} technician is setting up a new wireless network at a branch office that previously had only wired connectivity with statically assigned IP addresses. After setting up the network, the technician configures a server to provide IP addresses to wireless clients. During testing, they are unable to access the Internet or named network resources, although they receive a valid IP address from the DHCP server and can ping the default gateway. Which of the following should be technician check NEXT to resolve this issue?"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+def ae_fc_wired_computers_mc():	
+    correct =('Check the DHCP server.',)
+    incorrect = ('Check the closest AP for the area.','Check each wireless adapter switch.','Check the group™s network switch.',)
+    q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
+    q.questionBase = f"Several computers are having network connectivity issues. Two of the computers are wired and are not having any issues.The technician verifies that none of the computers having issues have been assigned a static IP.Which of the following should the technician check NEXT?"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()

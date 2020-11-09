@@ -59,7 +59,7 @@ def ad_aa_cloud_attributes():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ad", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def ad_aa_cloud_services():	
+def ad_ab_cloud_services():	
     items = (
         ("use a web-based calendar application", "SaaS"),
         ("use a remote server owned by another firm", "IaaS"),
@@ -68,10 +68,27 @@ def ad_aa_cloud_services():
     )
     fillers = ('SPSS', 'SQL', 'MS', 'Azure', 'AWS', 'Isaac', 'Pass',)
     if randint(0,1) == 0:
-        q = cf.selectMcDrag(None, None, None, items, fillers, 1, 1, randint(4,7))
+        q = cf.SelectMcDrag(None, None, None, items, fillers, 1, 1, randint(4,7))
         q.questionBase = f"An {q.item(vl.users)} has signed up to {items[q.choice][0]}. Which of the following solutions has the user purchased?"
     else:
-        q = cf.selectMcDrag('drag', None, None, items, fillers, 1, randint(2,4), randint(4,7))
-        q.questionBase = f"Match the following descriptions with their respective services?"
+        q = cf.SelectMcDrag('drag', None, None, items, fillers, 1, randint(2,4), randint(4,7))
+        q.questionBase = f"Match the following descriptions with their respective services:"
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ad", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
+
+def ad_ac_cloud_storage():
+    items =(
+        ("The feature that allows users to store files in cloud-based storage when necessary, but can be removed when space is freedup",'on-demand'),
+        ("The provider's computing resources to serve multiple consumers using a multi-tenant model, with different physical and virtual resources dynamically assigned and reassigned according to consumer demand,", 'a resource pool'),
+        ("Data, information or hardware devices that can be easily accessed from a remote computer", 'shared resources'),
+    )    
+    fillers = ('synchronization application', 'product elasticity')
+    if randint(0,1)==0:
+        q = cf.SelectMcDrag(None, None, None, items, fillers, 1, 1, 4)
+        q.questionBase = f"{items[q.choice][0]} is known as:"
+    else:
+        q = cf.SelectMcDrag('drag', None, None, items, fillers, 1, randint(2,3), randint(4,5))
+        q.questionBase = f"Match the following descriptions with their respective names:"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ad", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+

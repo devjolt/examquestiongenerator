@@ -29,7 +29,9 @@ def aca1_coaxial_cables_termination_mc():
     incorrect = ("DB9", "RJ45", "RS-232")
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
     q.questionBase = "Which of the following terminates a coaxial cable?"
-    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+    q.previousQ, q.nextQ = cf.previousNext(
+        list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path()
+        )
     return q.returnAll()
 
 def aca2_network_cables_and_terminations_dr():
@@ -40,12 +42,18 @@ def aca2_network_cables_and_terminations_dr():
     )
     fillers = ('DB9', 'RS-232')
     if randint(0,1) ==0:
-        q = cf.SelectMcDrag(None, None, None, items, fillers, 1, 1, 4)
-        q.questionBase = f"Which of these describes {conditions[q.choice][0]}?"
+        q = cf.SelectMcDrag(
+            None, None, None, items, fillers, 1, 1, 4
+            )
+        q.questionBase = f"Which of these describes {items[q.choice][0]}?"
     else:
-        q = cf.SelectMcDrag('drag', None, None, items, fillers, 1, randint(3,4), 5)
+        q = cf.SelectMcDrag(
+            'drag', None, None, items, fillers, 1, randint(3,4), 5
+            )
         q.questionBase = f"Match the descriptions with their names."  
-    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+    q.previousQ, q.nextQ = cf.previousNext(
+        list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path()
+        )
     return q.returnAll()
 
 def aca2_ethernet_cables_mc():
@@ -56,14 +64,20 @@ def aca2_ethernet_cables_mc():
         ("10 Gbit/s","Cat 7"),
         ("25 Gbit/s","Cat 8"),
     )
-    fillers = ('Cat 3')
+    fillers = ('Cat 3',)
     if randint(0,1) ==0:
-        q = cf.SelectMcDrag(None, None, None, items, fillers, 1, 1, randint(4,6))
+        q = cf.SelectMcDrag(
+                None, None, None, items, fillers, 1, 1, randint(4,6)
+                )
         q.questionBase = f"Which of the following would allow Ethernet at {items[q.choice][0]} at the lowest cost?"
     else:
-        q = cf.SelectMcDrag('drag', None, None, items, fillers,1, randint(3,4), randint(5,6))
+        q = cf.SelectMcDrag(
+                'drag', None, None, items, fillers,1, randint(3,4), randint(5,6)
+                )
         q.questionBase = f"Match the speeds with the ethernet cable classifications."  
-    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+    q.previousQ, q.nextQ = cf.previousNext(
+        list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path()
+        )
     return q.returnAll()
 
 def aca2_ethernet_cables_dr():
@@ -77,12 +91,18 @@ def aca2_ethernet_cables_dr():
         ('shielded cable allowing data transmission over Ethernet at 25 Gb/s at 2 Ghz', 'Cat 8'),
     )
     if randint(0,1) ==0:
-        q = cf.SelectMcDrag(None, None, None, items, (), 1, 1, randint(4,6))
+        q = cf.SelectMcDrag(
+                None, None, None, items, (), 1, 1, randint(4,6)
+                )
         q.questionBase = f"Which of the following fits the following description at the lowest cost: {items[q.choice][0]}"
     else:
-        q = cf.SelectMcDrag('drag', None, None, items, (),1, randint(3,5), randint(5,7))
+        q = cf.SelectMcDrag(
+                'drag', None, None, items, (),1, randint(3,5), randint(5,7)
+                )
         q.questionBase = f"Match the descriptions of different types with Ethernet cable with their names."
-    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+    q.previousQ, q.nextQ = cf.previousNext(
+            list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path()
+            )
     return q.returnAll()
 
 def acb1_usb_connectors_mc():
@@ -93,12 +113,18 @@ def acb1_usb_connectors_mc():
     )
     fillers = ("Micro-USB", "Mini-USB")
     if randint(0,1) ==0:
-        q = cf.SelectMcDrag(None, None, None, items, fillers, 1, 1, randint(4,5))
+        q = cf.SelectMcDrag(
+                None, None, None, items, fillers, 1, 1, randint(4,5)
+                )
         q.questionBase = f"Which of the following charging and data ports has a {items[q.choice][0]}?"
     else:
-        q = cf.SelectMcDrag('drag', None, None, items, fillers,1, randint(1,3), 5)
+        q = cf.SelectMcDrag(
+                'drag', None, None, items, fillers,1, randint(1,3), 5
+                )
         q.questionBase = "Match the descriptions of different types of USB connectors with their names."
-    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+    q.previousQ, q.nextQ = cf.previousNext(
+            list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path()
+            )
     return q.returnAll()
 
 def acb2_usb_connectors_dr():
@@ -110,11 +136,37 @@ def acb2_usb_connectors_dr():
         ('11.5 by 10.5 mm with a near square cross-section with the top exterior corners beveled, ', 'USB-B'),
     )
     if randint(0,1) ==0:
-        q = cf.SelectMcDrag(None, None, None, items, (), 1, 1, randint(4,5))
+        q = cf.SelectMcDrag(
+                None, None, None, items, (), 1, 1, randint(4,5)
+                )
         q.questionBase = f"Which of the following is a {items[q.choice][0]}?"
     else:
-        q = cf.SelectMcDrag('drag', None, None, items, (),1, randint(3,5), 5)
+        q = cf.SelectMcDrag(
+                'drag', None, None, items, (),1, randint(3,5), 5
+                )
         q.questionBase = "Match the descriptions of different types of USB connectors with their names."
+    q.previousQ, q.nextQ = cf.previousNext(
+            list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path()
+            )
+    return q.returnAll()
+
+def ac_ca_ram_upgrade():
+    items = (
+        ('A server needs a RAM upgrade','DDR'), 
+        ('A laptop needs a RAM upgrade', 'SoDIMM'),
+        ('The RAM in a router is faulty', 'SRAM'),
+        ('Imagine that the RAM on a graphics card exploded', 'GDDR SDRAM'),
+        )
+    q = cf.SelectMcDrag(None, None, None, items, (), 1, 1, 4)
+    q.questionBase = f"{items[q.choice][0]}, and a {q.item(vl.technitians)} technician has been tasked with retrieving the RAM from storage and then installing it. Which of the following is the BEST RAM type for the technician to retrieve?"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+def ac_da_storage():
+    correct =('3TB HDD',)
+    incorrect = ('500TB SAN','2GB USB drive' '50GB NAS','512GB SSD',)
+    q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
+    q.questionBase = f"A {q.item(vl.users)} wants to upgrade a PCs internal storage to have more room to store backups, photos, and videos. The newstorage should be large enough to avoid expanding again next year. Which of the following BEST meets these needs at the lowest cost?"
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
@@ -123,29 +175,48 @@ def acf1_inventory_update_tags_mc():
     incorrect = ("Label printer", "KVM switch", "NFC device", "Flatbed scanner", "Webcam", "CMOS")
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 2, randint(4,6))
     q.questionBase = f"Which of the following peripherals would a {q.item(vl.businesses)} company use to take inventory quickly and update price tags for products? (Choose two.)"
-    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+    q.previousQ, q.nextQ = cf.previousNext(
+        list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path()
+        )
     return q.returnAll()
 
 def acf2_second_laptop_screena_mc():
 	correct =('Adjust the monitor display settings.',)
-	incorrect = ('Plug an external monitor into the USB port.','Use the Fn and function key combination','Enable DisplayPort',"ipconfid/display","change BIOS settings")
+	incorrect = (
+        'Plug an external monitor into the USB port.',
+        'Use the Fn and function key combination',
+        'Enable DisplayPort',"ipconfid/display",
+        "change BIOS settings")
 	q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, randint(4,6))
 	q.questionBase = f"An {q.item(vl.users)} wants to have a second monitor installed on a laptop. Which of the following would allow a technician to configurethe laptop to show both screens once the cable is connected?"
-	q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+	q.previousQ, q.nextQ = cf.previousNext(
+        list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path()
+        )
 	return q.returnAll()
 
 def ach1_custom_video_editing_mc():
-    correct = ("SSD", "Dual monitors", "6 core processor", "discrete graphics card")
-    incorrect = ("Gigabit NIC", "Hypervisor", "Docking station", "Flatbed scanner", "Webcam", "DVD drive")
+    correct = (
+        "SSD", "Dual monitors", 
+        "6 core processor", "discrete graphics card"
+        )
+    incorrect = (
+        "Gigabit NIC", "Hypervisor", "Docking station", 
+        "Flatbed scanner", "Webcam", "DVD drive"
+        )
     choice = randint(1,3)
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, choice, randint(4,6))
     q.questionBase = f"A {q.item(vl.users)} asks a {q.item(vl.users)} technician to help set up a specialized computing system for video editing. Which of the following should the technician install on the workstation to BEST meet the customer’s specifications? (Choose {choice})"
-    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+    q.previousQ, q.nextQ = cf.previousNext(
+        list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path()
+        )
     return q.returnAll()
 
 def ack1_print_settings_mc():
     single,double = ('Simplex',), ('Duplex',)
-    other = ('Collate', 'Orientation', 'Transparency', 'Destination', 'Scale', 'Margins')
+    other = (
+        'Collate', 'Orientation', 'Transparency', 
+        'Destination', 'Scale', 'Margins'
+        )
     choice = randint(0,1)
     if choice == 1:
         correct, incorrect, component = double, single + other, 'both the front and back sides'
@@ -153,7 +224,9 @@ def ack1_print_settings_mc():
         correct, incorrect, component = single, double + other, 'one side'
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, randint(4,6))
     q.questionBase = f"A {q.item(vl.users)} wants to print a large job of {q.item(vl.printables)} on {component} of the paper. {q.item(vl.comments)} Which of the following settings should the technician advise the user to select in the printer settings?"
-    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+    q.previousQ, q.nextQ = cf.previousNext(
+        list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path()
+        )
     return q.returnAll()
 
 def ach1_custom_power_mc():
@@ -161,19 +234,35 @@ def ach1_custom_power_mc():
     incorrect = ("Efficiency rating","12V rail amperage","Number of SATA connectors")
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
     q.questionBase = f"A technician is determining the specifications for a desktop computer that will be used at trade shows all over the world. The computer will have the maximum amount of RAM. The CPU, GPU, and storage will be typical of a business workstation. Which of the following system parameters is the MOST important for the technician to consider when choosing a power supply?"
-    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+    q.previousQ, q.nextQ = cf.previousNext(
+        list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path()
+        )
     return q.returnAll()
 
 def ach2_intermediate_use_gaming_mc():
     correct = ("Four-core processor","16GB DDR3 memory")
-    incorrect = ("80mm case fans","12V rail amperage","Number of SATA connectors", "RAID 5 array","Encrypted hard drive")
-    q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 2, randint(5,7))
+    incorrect = (
+        "80mm case fans","12V rail amperage",
+        "Number of SATA connectors", "RAID 5 array",
+        "Encrypted hard drive"
+        )
+    q = cf.SelectMcDrag(
+        None, correct, incorrect, None, (), 1, 2, randint(5,7)
+        )
     q.questionBase = f"A {q.item(vl.users)} wants to purchase a new home computer. The machine will mainly be used for {q.item(vl.online_activities)}, except on weekends when the customer’s {q.item(vl.relations)} will use it to play games with friends. Which of the following should the technician focus on to meet these requirements? (Choose two)"
-    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+    q.previousQ, q.nextQ = cf.previousNext(
+        list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path()
+        )
     return q.returnAll()
 
 
-
+def ac_ka_trouble_printing_document_type():
+    correct = ('Verify the user is sending the document to the correct printer queue.',)
+    incorrect = ('Stop and restart the PC print spooler service.','Have each user send the same document to the correct printer queue.','Stop and restart the print server queues, and then have the user resend the document.',)
+    q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
+    q.questionBase = f"A {q.item(vl.users)} is having a problem with printing a specific document type. The network printer OCP shows that the printer is online with no errors. Other users are not having the same issue. The usersends the document to another printer and the document prints. Which of the following should a technician do FIRST in troubleshooting the problem?"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
 
 
 

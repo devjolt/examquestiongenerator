@@ -58,12 +58,16 @@ def e4a_dfinitions():
         ('cosecant', ' length of the hypotenuse divided by the length of the opposite side.')
         ()
     )
-    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),cf.currentFuncName()[:2], 0, 2, cf.currentFuncName(), module_path())
+    
     q.questionBase = f" {atom}"
     q.questionPartList = [
        {'sub_number': 1, 'sub_question': question1, 'sub_answer': answer1, 'sub_mark': 1}, 
        {'sub_number': 2, 'sub_question': question2, 'sub_answer': answer2, 'sub_mark': 1}, 
     ]
+    q.previousQ, q.nextQ = cf.previousNext(
+                                list_callable_functions(),
+                                cf.currentFuncName()[:2], 0, 2, 
+                                cf.currentFuncName(), module_path())
     return q.returnAll()
 
 def a1b_name_part_of_the_atom1():
@@ -77,6 +81,10 @@ def a1b_name_part_of_the_atom1():
     q.questionBase = f'Name the part of the atom which {answers[nuclide][1][qu]}.'
     q.answerBase= f'The {answers[nuclide][0]} {answers[nuclide][1][qu]}.'
     q.constant = None
+    q.previousQ, q.nextQ = cf.previousNext(
+                                list_callable_functions(),
+                                cf.currentFuncName()[:2], 0, 2, 
+                                cf.currentFuncName(), module_path())
     return q.returnAll()
 
 def a1c_ionised6():

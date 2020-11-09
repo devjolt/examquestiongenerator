@@ -131,8 +131,8 @@ class SelectMcDrag(Question):
     def make_correct_incorrect(self):
         self.choice = randint(0, len(self.pairs)-1)
         self.correct = (self.pairs[self.choice][1],)
-        self.incorrect = tuple([i[1] for i in self.pairs if self.pairs.index(i)!= self.choice]) + self.fillers
-    
+        self.incorrect = tuple([i[1] for i in self.pairs if self.pairs.index(i)!= self.choice]) + tuple(self.fillers)
+
     def answers_mangle(self):
         """Assign self.ax mc option variables to correct and incorrect answers
         assign self.answerx correct answer variables with correct answers"""

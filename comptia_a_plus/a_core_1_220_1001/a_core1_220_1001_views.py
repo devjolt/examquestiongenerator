@@ -20,27 +20,53 @@ def list_callable_functions():
 def modulesList():#this list is used by views to automatically generate views!
     return cf.moduleListGen(list_callable_functions(), 'e', 0, 1)
 
-def test(request):
-    return render(request, "comptia_a_plus/comptiaSelectMultiDrag.html", cf.view_builder('aa_mobile_devices_logic', cf.currentFuncName()))
-
 def type_test(request):
     return render(request, "comptia_a_plus/type.html", cf.view_builder('aa_mobile_devices_logic', cf.currentFuncName()))
 
+#generates every logic function as a view, depending on their required template
+for module in aa_mobile_devices_logic.modulesList():
+    exec(f'''def {module}(request):
+            \n\treturn render(
+                    request, 'comptia_a_plus/comptiaSelectMultiDrag.html', 
+                    cf.view_builder('aa_mobile_devices_logic', cf.currentFuncName())
+                    )'''
+        )
 
-for module in aa_mobile_devices_logic.modulesList():#generates every logic function as a view, depending on their required template
-    exec(f"def {module}(request):\n\treturn render(request, 'comptia_a_plus/comptiaSelectMultiDrag.html', cf.view_builder('aa_mobile_devices_logic', cf.currentFuncName()))")
+#generates every logic function as a view, depending on their required template
+for module in ab_networking_technology_logic.modulesList():
+    exec(f'''def {module}(request):
+            \n\treturn render(
+                    request, 'comptia_a_plus/comptiaSelectMultiDrag.html', 
+                    cf.view_builder('ab_networking_technology_logic', cf.currentFuncName())
+                    )'''
+        )
 
-for module in ab_networking_technology_logic.modulesList():#generates every logic function as a view, depending on their required template
-    exec(f"def {module}(request):\n\treturn render(request, 'comptia_a_plus/comptiaSelectMultiDrag.html', cf.view_builder('ab_networking_technology_logic', cf.currentFuncName()))")
-    
-for module in ac_hardware_logic.modulesList():#generates every logic function as a view, depending on their required template
-    exec(f"def {module}(request):\n\treturn render(request, 'comptia_a_plus/comptiaSelectMultiDrag.html', cf.view_builder('ac_hardware_logic', cf.currentFuncName()))")
+#generates every logic function as a view, depending on their required template
+for module in ac_hardware_logic.modulesList():
+    exec(f'''def {module}(request):
+            \n\treturn render(
+                    request, 'comptia_a_plus/comptiaSelectMultiDrag.html', 
+                    cf.view_builder('ac_hardware_logic', cf.currentFuncName())
+                    )'''
+        )
 
-for module in ad_virtualisation_cloud_computing_logic.modulesList():#generates every logic function as a view, depending on their required template
-    exec(f"def {module}(request):\n\treturn render(request, 'comptia_a_plus/comptiaSelectMultiDrag.html', cf.view_builder('ad_virtualisation_cloud_computing_logic', cf.currentFuncName()))")
+#generates every logic function as a view, depending on their required template
+for module in ad_virtualisation_cloud_computing_logic.modulesList():
+    exec(f'''def {module}(request):
+            \n\treturn render(
+                    request, 'comptia_a_plus/comptiaSelectMultiDrag.html', 
+                    cf.view_builder('ad_virtualisation_cloud_computing_logic', cf.currentFuncName())
+                    )'''
+        )
 
-for module in ae_troubleshooting_logic.modulesList():#generates every logic function as a view, depending on their required template
-    exec(f"def {module}(request):\n\treturn render(request, 'comptia_a_plus/comptiaSelectMultiDrag.html', cf.view_builder('ae_troubleshooting_logic', cf.currentFuncName()))")
+#generates every logic function as a view, depending on their required template
+for module in ae_troubleshooting_logic.modulesList():
+    exec(f'''def {module}(request):
+            \n\treturn render(
+                    request, 'comptia_a_plus/comptiaSelectMultiDrag.html',
+                    cf.view_builder('ae_troubleshooting_logic', cf.currentFuncName())
+                    )'''
+        )
 
 
 '''

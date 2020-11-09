@@ -87,10 +87,9 @@ def ab_ab_network_ports():
         ('change to another port because it is the default SSL port well known to hackers', 22),
     )
     fillers = (43, 53, 80, 443, 69)
-    if randint(0,1) == 0:
-        q = cf.SelectMcDrag(None, None, None, items, fillers, 1, 1, randint(4, 5))
-        q.questionBase = f"Which of the following ports should a technitian {items[q.choice][0]}?"
-        q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
+    q = cf.SelectMcDrag(None, None, None, items, fillers, 1, 1, randint(4, 5))
+    q.questionBase = f"Which of the following ports should a technitian {items[q.choice][0]}?"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
 def ab_ca_cable_type_soho_mc():
@@ -100,6 +99,9 @@ def ab_ca_cable_type_soho_mc():
     q.questionBase = f"Which of the following cable types should be used to connect a cable modem to a SOHO router?"
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
+
+
+
 
 def ab_da_networking_numbers():
     items = (
@@ -116,6 +118,14 @@ def ab_da_networking_numbers():
     else:
         q = cf.SelectMcDrag('drag', None, None, items, (), 1, randint(1,4), randint(4, len(items)))
         q.questionBase = f"Match the description with the number."
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+def ab_db_wireless_printer():
+    correct =('Connect the printer to the company wireless network.',)
+    incorrect = ("Set up the user's computer to act as a print server.",'Configure the printer to use the Internet printing protocol.',"Ensure the user's computer is set to DHCP.",)
+    q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
+    q.questionBase = f"A {q.item(vl.users)} purchases a wireless printer and sets it up in an office. They install all necessary software for the printer on thecomputer and connects the printer to the guest wireless network. However, when they attempt to print to the printer, nothing happens. Which of the following will resolve the issue?"
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
@@ -180,3 +190,27 @@ def ab_eb_reducing_password_tickets_mc():
         q.questionBase = f"Match the described problems with solutions."
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
+
+
+def ab_fa_hosting_virtual_machines():
+    correct =('Hypervisor',)
+    incorrect = ('Disk management','Terminal services','Device Manager','Virtual LAN',)
+    q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
+    q.questionBase = f"A {q.item(vl.technitians)} systems administrator is configuring a server to host several virtual machines. The administrator configures the server andis ready to begin provisioning the virtual machines. Which of the following features should the administrator utilize to complete the task?"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+
+def ab_fb_lan_security():
+    items = (
+        ('install a device that will proactively stop outside attacks from reaching the LAN', 'IPS'),
+        ('install some software which will alert them when attempts are made to compromise their system','IDS'),
+        ('identify something to act as a firewall and web filter','Proxy server'),
+        ("identify something to verify users' identities before they access applications", 'Authentication server')
+    )
+    q = cf.SelectMcDrag(None, None, None, items, (), 1, 1, 4)
+    q.questionBase = f"A {q.item(vl.technitians)} network administrator must install {items[q.choice][0]}. Which of the following devices would BEST meet the organization's needs?"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+

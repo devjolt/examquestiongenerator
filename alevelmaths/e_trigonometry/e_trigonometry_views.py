@@ -17,19 +17,18 @@ def list_callable_functions():
             entireModuleList.append(key)
     return entireModuleList
 
-def modulesList():#this list is used by urls to automatically generate paths based on what's in this file
+def modulesList():#used by urls to generate paths for funcs in this file
     return cf.moduleListGen(list_callable_functions(), 'e', 0, 1)
-
-def mc_modulesList():#this list is used by urls to automatically generate paths based on what's in this file
-    return cf.moduleListGen2(list_callable_functions(), 'mc', -2, -1)
 
 def current_module():
     return "e_trigonometry"
 
 
 for module in e4_co_arc_logic.modulesList(): #generates every logic function as a view, depending on their required template
-    exec(f"def {module}(request):\n\treturn render(request, 'alevelmaths/alevelmathsPaperMSReveal.html', cf.view_builder('e4_co_arc_logic', cf.currentFuncName()))")
-    
+    exec(f'''def {module}(request):\n\treturn render(
+                request,     
+                'alevelmaths/alevelmathsPaperMSReveal.html', 
+                cf.view_builder('e4_co_arc_logic', cf.currentFuncName()))''')
 
 #for module in e1b_simple_harmonic_motion_logic.modulesList(): #generates every logic function as a view, depending on their required template
 #    exec(f"def {module}(request):\n\treturn render(request, 'physics/physicsSectionABReveal.html', cf.view_builder2('e1b_simple_harmonic_motion_logic', cf.currentFuncName()))")
