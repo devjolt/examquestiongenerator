@@ -54,8 +54,10 @@
 
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <a class="nav-item nav-link active" id="inside_the_atom" data-toggle="tab" href="#nav-inside_the_atom" role="tab" aria-controls="nav-home" aria-selected="true">Oscillations</a>
-          <a class="nav-item nav-link" id="stable_and_unstable_nuclei" data-toggle="tab" href="#nav-stable_and_unstable_nuclei" role="tab" aria-controls="nav-stable_and_unstable_nuclei" aria-selected="false">Stable and unstable nuclei</a>
+            <a class="nav-item nav-link active" id="inside_the_atom" data-toggle="tab" href="#nav-inside_the_atom" role="tab" aria-controls="nav-home" aria-selected="true">Oscillations</a>
+            <a class="nav-item nav-link" id="stable_and_unstable_nuclei" data-toggle="tab" href="#nav-stable_and_unstable_nuclei" role="tab" aria-controls="nav-stable_and_unstable_nuclei" aria-selected="false">Principles of simple harmonic motion</a>
+            <a class="nav-item nav-link" id="more-about-sine-waves" data-toggle="tab" href="#nav-more-about-sine-waves" role="tab" aria-controls="nav-more-about-sine-waves" aria-selected="false">More about sine waves</a>
+        
         </div>
     </nav>
     <div class="tab-content" id="nav-tab">
@@ -65,7 +67,14 @@
           {% endfor %}
         </div>
         <div class="tab-pane fade" id="nav-stable_and_unstable_nuclei" role="tabpanel" aria-labelledby="nav-stable_and_unstable_nuclei-tab">
-             <a class="dropdown-item" href="#">Coming soon</a>
+            {% for item in e1bb %}
+            <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="nav-more-about-sine-waves" role="tabpanel" aria-labelledby="nav-more-about-sine-waves">
+            {% for item in e1bc %}
+            <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+            {% endfor %}
         </div>
 
         

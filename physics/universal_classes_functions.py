@@ -1,9 +1,10 @@
 from random import randint, shuffle
 import sys
-from physics.a_particles_and_radiation import a1_matter_and_radiation_logic
+from physics.a_particles_and_radiation import aa_matter_and_radiation_logic
 from physics.d_electricity import daa_currentAndCharge, dab_pd_and_power, dac_resistance, dad_components_and_their_characteristics, dba_circuit_rules, dbb_more_about_resistance, dbc_emf_and_internal_resistance
 from physics.e1_further_mechanics import e1a_motion_in_a_circle_logic, e1b_simple_harmonic_motion_logic
-
+from physics.f_fields import fb_electric_fields_logic
+from physics.g_nuclear_physics import *
 
 currentFuncName = lambda n=0: sys._getframe(n + 1).f_code.co_name # allows previousNext functionality to work by getting current function's name
 
@@ -472,3 +473,4 @@ def view_builder(module, name):
     """ 
     passed = eval(f"{module}.{name}()")#gets tuple from named function in logic file
     return passed
+

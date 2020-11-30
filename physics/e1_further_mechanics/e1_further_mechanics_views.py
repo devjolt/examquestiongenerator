@@ -22,7 +22,7 @@ def modulesList():#this list is used by urls to automatically generate paths bas
 
 
 def further_mechanics_home(request):
-    e1aa, e1ab, e1ac, e1ad, e1ba = [], [], [], [], []
+    e1aa, e1ab, e1ac, e1ad, e1ba, e1bb, e1bc = [], [], [], [], [], [], []
     for url in ucf.moduleListGen(list_callable_functions(), 'e1aa', 0, 4):
         name = url.replace("_", " ")[4:-5]
         e1aa.append({'url':url, 'name':name})
@@ -38,7 +38,17 @@ def further_mechanics_home(request):
     for url in ucf.moduleListGen(list_callable_functions(), 'e1ba', 0, 4):
         name = url.replace("_", " ")[4:-5]
         e1ba.append({'url':url, 'name':name})
-    return render(request, 'physics/e1_further_mechanics.html', {'e1aa':e1aa, 'e1ab':e1ab, 'e1ac':e1ac, 'e1ad':e1ad,'e1ba':e1ba})
+    for url in ucf.moduleListGen(list_callable_functions(), 'e1bb', 0, 4):
+        name = url.replace("_", " ")[4:-5]
+        e1bb.append({'url':url, 'name':name})
+    for url in ucf.moduleListGen(list_callable_functions(), 'e1bc', 0, 4):
+        name = url.replace("_", " ")[4:-5]
+        e1bc.append({'url':url, 'name':name})
+    context = {
+        'e1aa':e1aa, 'e1ab':e1ab, 'e1ac':e1ac, 'e1ad':e1ad,
+        'e1ba':e1ba, 'e1bb':e1bb, 'e1bc':e1bc
+        }   
+    return render(request, 'physics/e1_further_mechanics.html', context)
 
 def module_shortcut(selected):
     if selected[0:3] == 'e1a':

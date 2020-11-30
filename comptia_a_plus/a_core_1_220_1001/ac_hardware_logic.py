@@ -24,7 +24,7 @@ def module_path():
     return '/comptia_a_plus/core_1_220_1001/'
 
 #paper, series, question, name, marks in names
-def aca1_coaxial_cables_termination_mc():
+def ac_aa_coaxial_cables_termination_mc():
     correct = ("RG-59",)
     incorrect = ("DB9", "RJ45", "RS-232")
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
@@ -34,7 +34,7 @@ def aca1_coaxial_cables_termination_mc():
         )
     return q.returnAll()
 
-def aca2_network_cables_and_terminations_dr():
+def ac_ab_network_cables_and_terminations_dr():
     items = (
         ('a type of coaxial cable used for low-power video and radio frequency signal connections', 'RG-59/U'),
         ('a connector commonly used for video output and Controller Area Network', 'DE-9'),
@@ -56,7 +56,7 @@ def aca2_network_cables_and_terminations_dr():
         )
     return q.returnAll()
 
-def aca2_ethernet_cables_mc():
+def ac_ab_ethernet_cables_mc():
     items = (
         ("100 Mbit/s","Cat 5"),
         ("125 Mbit/s","Cat 5e"),
@@ -80,7 +80,7 @@ def aca2_ethernet_cables_mc():
         )
     return q.returnAll()
 
-def aca2_ethernet_cables_dr():
+def ac_ab_ethernet_cables_dr():
     items = (
         ('used for data networks employing frequencies up to 16 MHz with up to 10 Mbps Ethernet networks', 'Cat 3'),
         ('allows data transmission over Ethernet at 100 Mbit/s and above at 100 MHz, uses twisted pairs', 'Cat 5'),
@@ -105,7 +105,7 @@ def aca2_ethernet_cables_dr():
             )
     return q.returnAll()
 
-def acb1_usb_connectors_mc():
+def ac_ba_usb_connectors_mc():
     items = (
         ("a non-directional connector","USB-C"),
         ("an almost square-shaped connector","USB-B"),
@@ -127,7 +127,7 @@ def acb1_usb_connectors_mc():
             )
     return q.returnAll()
 
-def acb2_usb_connectors_dr():
+def ac_bb_usb_connectors_dr():
     items = (
         ('24-pin USB connector system with a rotationally symmetrical connector.', 'USB-C'),
         ('6.85 by 1.8 mm connector intended for use with mobile devices', 'Micro-USB'),
@@ -162,6 +162,7 @@ def ac_ca_ram_upgrade():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
+
 def ac_da_storage():
     correct =('3TB HDD',)
     incorrect = ('500TB SAN','2GB USB drive' '50GB NAS','512GB SSD',)
@@ -170,7 +171,38 @@ def ac_da_storage():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def acf1_inventory_update_tags_mc():
+def ac_db_raid_solution():
+    items = (
+        ('want to prioritise performance due to the use of a large application with an enormous amout of data. They are prepared to accept the risk of data loss in case of failure.', 'RAID 0')
+        ('want a fault tolerant system in case of failure, and can afford to purchase an additional storage device if needed.', 'RAID 1'),
+        ('require consistent access to all data, high reliability and performance. They can afford to purchase two additional storage devices.', 'RAID 5'),
+        ('insist on fast recovery in case of failure and high performance. Money is no object, and they can afford to purchase as many storage devices as needed.', 'RAID 10'),
+    )
+    fillers = ('RAID 2', 'RAID 3', 'RAID 4', 'RAID 6', 'RAID 7', 'RAID 8', 'RAID 9', 'RAID 11', 'RAID 15')
+    q = cf.SelectMcDrag(None, None, None, items, fillers, 1, 1, randint(4, 7))
+    q.questionBase = f"A {q.item(vl.technitians)} technician is talking to a {q.item(vl.users)} about the specifications for an upgraded application server. The users {items[q.choice][0]}. Which of the following solutions should the technitian recommend?"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+def ac_dc_raid_description():
+    items = (
+        ('dividing data evenly across who or more storage devices.', 'RAID 0')
+        ('simultaneously writing the same data to two storage devices.', 'RAID 1'),
+        ('dividing data evenly across three or more storage devices, with parity spread across all drives.', 'RAID 5'),
+        ('dividing data evenly across two or more devices, and duplicating the data on the same number of other devices.', 'RAID 10'),
+        )
+    fillers = ('RAID 2', 'RAID 3', 'RAID 4', 'RAID 6', 'RAID 7', 'RAID 8', 'RAID 9', 'RAID 11', 'RAID 15')
+    if randint(0, 1) == 0:
+        q = cf.SelectMcDrag(None, None, None, items, fillers, 1, 1, randint(4, 7))
+        q.questionBase = f"Which of the following options best fits this description: {items[q.choice][0]}?"
+    else:
+        q = cf.SelectMcDrag('drag', None, None, items, fillers, 1, randint(2,4), randint(4, 7))
+        q.questionBase = f"Match the following solutions with their descriptions:"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+
+def ac_fa_inventory_update_tags_mc():
     correct = ("Barcode scanner", "Magnetic Reader")
     incorrect = ("Label printer", "KVM switch", "NFC device", "Flatbed scanner", "Webcam", "CMOS")
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 2, randint(4,6))
@@ -180,7 +212,7 @@ def acf1_inventory_update_tags_mc():
         )
     return q.returnAll()
 
-def acf2_second_laptop_screena_mc():
+def ac_fb_second_laptop_screena_mc():
 	correct =('Adjust the monitor display settings.',)
 	incorrect = (
         'Plug an external monitor into the USB port.',
@@ -194,8 +226,24 @@ def acf2_second_laptop_screena_mc():
         )
 	return q.returnAll()
 
-def ach1_custom_video_editing_mc():
-    correct = (
+def ac_fc_projector_flickering():
+    items = (
+        ("A projector's image begins to flicker during a presentation. The laptop display does not produce this issue. When a technitian changes the resolution on the laptop, the issue persists.", "Check the connectivity of the VGA cable"),
+        ("A projector sometimes seems to switch on and off during a presentation. The laptop is on throughout, as is the display.", "Check the connectivity of the power cable"),
+        ("The image on a projector appears stretched, whilst the sides of the image are cut off compare to the laptop display.", "Change the aspect ratio on the laptop"),
+    )
+    fillers = ('Change the settings of the projector', 'Clean the projector\'s lens')
+    q = cf.SelectMcDrag(
+                None, None, None, items, fillers, 1, 1, randint(4,5)
+                )
+    q.questionBase = f"{items[q.choice][0]} Which of the following is the NEXT step the technitian should take?"
+    q.previousQ, q.nextQ = cf.previousNext(
+            list_callable_functions(),"ac", 0, 2, cf.currentFuncName(), module_path()
+            )
+    return q.returnAll()
+
+def ac_ha_custom_video_editing_mc():
+    correct = ( 
         "SSD", "Dual monitors", 
         "6 core processor", "discrete graphics card"
         )

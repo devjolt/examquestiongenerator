@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/..">Home</a></li>
+      <li class="breadcrumb-item"><a href="/physics">A-level physics</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Fields</li>
+    </ol>
+</nav>
+
+
+<div class="jumbotron">
+  <h1 class="display-4">Electric Fields</h1>
+  <p>Pick your favourite...</p>
+  <hr class="my-4">
+  <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-uniform-circular-motion" data-toggle="tab" href="#nav-uniform" role="tab" aria-controls="nav-uniform" aria-selected="true">Field patterns</a>
+            <a class="nav-item nav-link" id="nav_centripetal_acceleration" data-toggle="tab" href="#nav-centripetal" role="tab" aria-controls="nav-centripetal" aria-selected="false">Centripetal acceleration</a>
+        </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-uniform" role="tabpanel" aria-labelledby="nav_uniform_circular_motion">
+          {% for item in fba %}
+          <a class="dropdown-item" href="{{item.url}}/" target="_blank">{{item.name}}</a>
+          {% endfor %}
+      </div>
+
+
+    </div>
+</div>
+
+
+{% endblock %}

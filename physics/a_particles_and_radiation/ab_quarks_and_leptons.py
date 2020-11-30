@@ -35,11 +35,8 @@ def generateAtom():
     atom = f"{mass}{element}{proton}".translate(SUP)
     return atom, mass, element, proton
 
-def electronCharge():
-    return 1.6E-19
 
-def nucleonMass():
-    return 1.67e-27
+
 
 '''
 multiple questions?
@@ -102,39 +99,3 @@ def a1a_Counting_protons_and_neutronspxax2():
     ]
     return q.returnAll()
 
-def a1b_Naming_parts_of_the_atompiab1():
-    q = ucf.Question(cf.currentFuncName())
-    q.qtype = 'type'
-    q.previousQ, q.nextQ = cf.previousNext2(list_callable_functions(),cf.currentFuncName()[:2], 0, 2, cf.currentFuncName(), module_path())
-    answers = [["neutron",["have zero charge", "have the largest mass", "when removed create a different isotope"]],
-           ["proton", ["have positive charge", "have second to largest mass", " have the second to largest specific charge", "dictate what element an atom is"]],
-           ["electron", ["have negative charge", "have the highest specific charge", "dictate whether the atom is an ion"]]]
-    nuclide = randint(0, len(answers)-1)
-    qu = randint(0, len(answers[nuclide][1])-1)
-    q.questionBase = f'Name the sub-atomic particle in the atom which {answers[nuclide][1][qu]}.'
-    q.answerBase= f'{answers[nuclide][0]}'
-    q.constant = None
-    return q.returnAll()
-
-def a1c_Ionised_atoms_and_specific_chargepxax6():
-    q = ucf.Question(cf.currentFuncName())
-    q.previousQ, q.nextQ = cf.previousNext2(list_callable_functions(),cf.currentFuncName()[:2], 0, 2, cf.currentFuncName(), module_path())
-    atom, mass, element, proton = generateAtom()   
-    losesGains = "loses" if randint(0,1)==0 else "gains"
-    electrons = randint(1,4)
-    electron = -electrons if losesGains == "loses" else electrons
-    q.questionBase = f"An {atom} atom {losesGains} {electrons} electrons."
-    question1 = "What is the charge of the atom in Coulombs?"
-    answer1= f"{(-electron * electronCharge())} C"
-    question2 = "State the number of nucleons the atom contains."
-    answer2 = f"{mass}"
-    question3 = "Calculate its specific charge in Ckg-1. "
-    specificCharge = round((-electron * float(electronCharge())) / (mass * float(nucleonMass())), 2)
-    if specificCharge < 0: specificCharge *= -1
-    answer3 = f"{specificCharge}"
-    q.questionPartList = [
-       {'sub_number': 1, 'sub_question': question1, 'sub_answer': answer1, 'sub_mark': 2}, 
-       {'sub_number': 2, 'sub_question': question2, 'sub_answer': answer2, 'sub_mark': 1}, 
-       {'sub_number': 3, 'sub_question': question3, 'sub_answer': answer3, 'sub_mark': 3}, 
-    ]
-    return q.returnAll()

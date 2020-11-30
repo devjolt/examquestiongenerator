@@ -81,7 +81,7 @@ def test_do():
     print('Trying')
     return q.returnAll()
 
-def aaa1_grounding_hardware():
+def aa_aa_grounding_hardware():
     correct =('Multimeter',)
     incorrect = ('Cable tester','Tone generator','Voltmeter',
                 'grounding meter', 'Ethernet tester')
@@ -94,7 +94,7 @@ def aaa1_grounding_hardware():
         )
     return q.returnAll()
 
-def aac1_device_choice_mc():
+def aa_ca_device_choice_mc():
     items = (
         ("chart activity while keeping in contact with the home office", "Smart watch"),
         ("count the number of footsteps she takes every day", "Fitness monitor"),
@@ -108,7 +108,15 @@ def aac1_device_choice_mc():
         )
     return q.returnAll()
 
-def aad1_device_power():
+def aa_cb_trouble_reading_text():
+    correct =('Use the magnifier.',)
+    incorrect = ('Increase the resolution.','Use haptic feedback.','Utilize text-to-speech.',)
+    q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
+    q.questionBase = f"A technician is setting up a Windows mobile device for a user who had trouble reading text on a previous device, especially at night. Which of the following adjustments would be MOST appropriate?"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"aa", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+def aa_da_device_power():
     items = (
         ("They are concerned about wall outlet availability at the conferences and needs to continuously use the device for important updates whilst moving easilly between workshops.", "Wireless charging pad"),
         ("It is expected that wall outlets will be readilly available.", "An extra charging cord"),
@@ -131,20 +139,20 @@ def aad1_device_power():
         )
     return q.returnAll()
 
-def aae1_mobile_technology_dr():
+def aa_ea_mobile_technology_dr():
     items = (
         ('Devices use haptic confirmation for sharing data wirelessly.', 'IR'),
         ('Devices are paired using a code for sharing data wirelessly.', 'Bluetooth'),
         ('Devices are placed in close proximity within line of sight for sharing data wirelessly', 'NFC'),
         ('Devices are connected via a wire for sharing data or connectivity', 'Tethering'),
-    )
+        )
     fillers = ('Lightning', 'Digital Speech', 'Email', 'Microwaves', 'Ethernet', 'Hotspot', 'Cellular')
-    q = cf.SelectMcDrag('drag', None, None, items, fillers)
+    q = cf.SelectMcDrag('drag', None, None, items, fillers, 1, randint(1,3), randint(3,6))
     q.questionBase = "Drag each mobile technology to the description of its use. Some answers will not be used."
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"aa", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
-def aae2_laptop_security_mc():
+def aa_eb_laptop_security_mc():
     correct = ("Docking station",)
     incorrect = ("Port replicator", "Thunderbolt", "USB hub", "Lightning", "wireless hub",)
     q = cf.SelectMcDrag(
@@ -156,7 +164,7 @@ def aae2_laptop_security_mc():
         )
     return q.returnAll()
 
-def aae3_hotspot_mc():
+def aa_ec_hotspot_mc():
     correct = ("The connection is throttled",)
     incorrect = (
         "There is a low RFID signal", "SSID is not found", 

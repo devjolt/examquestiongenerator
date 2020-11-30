@@ -92,6 +92,19 @@ def ab_ab_network_ports():
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
+def ab_ba_network_devices():
+    items = (
+        ('can be used to connect multiple devices within a network without broadcasting to every network port', 'Unmanaged switch'),
+        ('connects multiple computers or other network devices together without the need for an IP address', 'Hub',),
+        ('is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules.', 'Firewall'),
+        ('provides bi-directional data communication via radio frequency channels on a hybrid fibre-coaxial', 'Cable modem'),
+        ('allows a personal computer or a router to receive Internet access via a mobile broadband connection', 'Wireless modem')
+    )
+    q = cf.SelectMcDrag(None, None, None, items, (), 1, 1, 4)
+    q.questionBase = f"Which of the following {items[q.choice][0]}?"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
 def ab_ca_cable_type_soho_mc():
     correct = ("Ethernet",)
     incorrect = ("Coaxial", "USB", "Thunderbolt", "Lightning", "Bluetooth")
@@ -148,10 +161,10 @@ def ab_eb_networking_acronyms_dr():
         ('a service which extends a private network across a public network and enables users to send and receive data across shared or public networks as if their computing devices were directly connected to the private network', 'VPN'),
     )
     if randint(0,1) ==0:
-        q = cf.SelectMcDrag(None, None, None, items, (), 1, 1, randint(4, len(items)))
+        q = cf.SelectMcDrag(None, None, None, items, (), 1, 1, randint(4, len(items)-1))
         q.questionBase = f"Which one of the following is {items[q.choice][0]}?"
     else:
-        q = cf.SelectMcDrag('drag', None, None, items, (), 1, randint(4,5), randint(5, len(items)))
+        q = cf.SelectMcDrag('drag', None, None, items, (), 1, randint(4,5), randint(5, len(items)-1))
         q.questionBase = f"Match the definitions with their acronyms."
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ab", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()

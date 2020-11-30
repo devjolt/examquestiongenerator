@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from random import randint
-from . import a1_matter_and_radiation_logic
+from . import aa_matter_and_radiation_logic
 import sys
-from physics import physics_classes_functions as cf
+
 from physics import universal_classes_functions as ucf
 
 def list_callable_functions():
@@ -35,12 +35,12 @@ def particles_and_radiation_home(request):
 
 def random_printable_A_question(request):
     eligible = [i for i in modulesList() if i[-5] == 'p' and i[-3] == 'a']
-    context = ucf.view_builder('a1_matter_and_radiation_logic', eligible[randint(0, len(eligible)-1)])
+    context = ucf.view_builder('aa_matter_and_radiation_logic', eligible[randint(0, len(eligible)-1)])
     return render(request, "physics/printablePaperMSRevealAB.html", context)
 
 def random_printable_B_question(request):
     eligible = [i for i in modulesList() if i[-5] == 'p' and i[-2] == 'b']
-    context = ucf.view_builder('a1_matter_and_radiation_logic', eligible[randint(0, len(eligible)-1)])
+    context = ucf.view_builder('aa_matter_and_radiation_logic', eligible[randint(0, len(eligible)-1)])
     return render(request, "physics/printablePaperMSRevealAB.html", context)
 
 def random_printable_A_section(request):
@@ -50,7 +50,7 @@ def random_printable_A_section(request):
     question_number = 1
     qlist = []
     while total_marks < target_marks:
-        context = ucf.view_builder('a1_matter_and_radiation_logic', eligible[randint(0, len(eligible)-1)])
+        context = ucf.view_builder('aa_matter_and_radiation_logic', eligible[randint(0, len(eligible)-1)])
         total_marks += int(context['marksBase'])
         context['questionNumber'] = question_number
         question_number += 1
@@ -65,7 +65,7 @@ def random_printable_B_section(request):
     question_number = 7
     qlist = []
     while total_marks < target_marks:
-        context = ucf.view_builder('a1_matter_and_radiation_logic', eligible[randint(0, len(eligible)-1)])
+        context = ucf.view_builder('aa_matter_and_radiation_logic', eligible[randint(0, len(eligible)-1)])
         total_marks += int(context['marksBase'])
         context['questionNumber'] = question_number
         question_number += 1
@@ -75,22 +75,22 @@ def random_printable_B_section(request):
 
 def random_interactive_A_question(request):
     eligible = [i for i in modulesList() if i[-4] == 'i' and i[-3] == 'a']
-    context = ucf.view_builder('a1_matter_and_radiation_logic', eligible[randint(0, len(eligible)-1)])
+    context = ucf.view_builder('aa_matter_and_radiation_logic', eligible[randint(0, len(eligible)-1)])
     return render(request, "physics/interactiveTypeDragSelectMultiReveal.html", context)
 
 def random_interactive_B_question(request):
     eligible = [i for i in modulesList() if i[-4] == 'i' and i[-2] == 'b']
-    context = ucf.view_builder('a1_matter_and_radiation_logic', eligible[randint(0, len(eligible)-1)])
+    context = ucf.view_builder('aa_matter_and_radiation_logic', eligible[randint(0, len(eligible)-1)])
     print(eligible)
     return render(request, "physics/interactiveTypeDragSelectMultiReveal.html", context)
 
 
 
 files = (
-    (a1_matter_and_radiation_logic, 'a1_matter_and_radiation_logic'),
+    (aa_matter_and_radiation_logic, 'aa_matter_and_radiation_logic'),
 )
 
-for module in a1_matter_and_radiation_logic.modulesList(): #generates every logic function as a view, depending on their required template
+for module in aa_matter_and_radiation_logic.modulesList(): #generates every logic function as a view, depending on their required template
     exec(f"def {module}(request):\n\treturn render(request, 'physics/physicsSectionABReveal.html', ucf.view_builder('a1_matter_and_radiation_logic', ucf.currentFuncName()))")
     
 

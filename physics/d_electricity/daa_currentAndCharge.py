@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from random import randint, randrange
-from physics import physics_classes_functions as cf
 from physics import variety_lists as vl
 from physics import universal_classes_functions as ucf
 

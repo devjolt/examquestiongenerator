@@ -68,6 +68,15 @@ def ae_ac_dropped_laptop():
     return q.returnAll()
 
 
+def ac_cb_server_ram_upgrade():
+    correct = ('The server needs DDR4 memory, and DDR3 is installed',)
+    incorrect = ('The power supply is not supplying enogh power for the memory','The memory has too many ECC errors and is shutting down', 'The server is overheating when all of the mmeory is installed')
+    q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
+    q.questionBase = f"A technician upgraded the memory on a server from two 8GB sticks to eight 32GB sticks. The server memory is now at full capacity per the user guide. When the technician powers on the system, only 128GB of memory is recognized by the OS and the BIOS. The technician decides to upgrade to the latest version of the firmware on the system, which does not help. Next, the technician installs the memory in sets of 64GB at a time. Each individual set of 64GB is fully recognized by the server. Which of the following will not allow the server to recognize all of the memory installed at the same time?"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+
 def ae_ba_slow_workstation_mc():
     correct = ('Check the event log for any cache issues',)
     incorrect = ('Replace the write cache battery', 'Clear the RAID configuration file and restart the PC', 'Replace the RAID controller write cache module', f'recommend changing to RAID 5')
@@ -122,7 +131,7 @@ def ae_db_laptop_shuts_down_mc():
     correct =('CMOS battery failure',)
     incorrect = ('Residual energy on the motherboard','System overheating','Distended capacitors','Loose battery connection',)
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
-    q.questionBase = f" A user's laptop is shutting down unexpectedly. The technician discovers the shutdowns only happen when the laptop ismoved from one room to another. The technician reseated the hard drive, memory, battery, and LCD cable, but the laptop continues to shut down.Which of the following is the MOST probable cause of the issue?"
+    q.questionBase = f" A user's laptop is shutting down unexpectedly. The technician discovers the shutdowns only happen when the laptop is moved from one room to another. The technician reseated the hard drive, memory, battery, and LCD cable, but the laptop continues to shut down. Which of the following is the MOST probable cause of the issue?"
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
@@ -139,6 +148,14 @@ def ae_ea_network_printer_not_working_mc():
     else:
         q = cf.SelectMcDrag('drag', None, None, items, fillers, 1, randint(1,3), randint(4,5))
         q.questionBase = f"Match the symptoms with a course of action likely to resolve the issue."
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+def ae_eb_printer_to_share():
+    correct =('Create a share on the manager\'s computer and give the users rights to the share.',)
+    incorrect = ('Install the printer on the users\' desktops and point it to the IP address of the manager\'s computer.','Purchase a wireless printer so the users can access the printer via the network.','Provide flash drives to the users so they can transfer data to the manager\'s computer for printing.',)
+    q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
+    q.questionBase = f"A printer stops working in the {q.item(vl.businesses)} department and cannot be repaired. A new printer has been ordered and a {q.item(vl.technitians)} technician is tasked with allowing other users to print to the manager's printer until the new printer arrives. The manager's printer is currently used via USB connection, and there are no network jacks available for use. Which of the following is the BEST way for the technician to allow access to the printer?"
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
 
@@ -171,7 +188,7 @@ def ae_fc_ipconfig_commands_dr():
         q = cf.SelectMcDrag(None, None, None, items, (), 1, 1, randint(4,5))
         q.questionBase = f"which command can be used to {items[q.choice][0]}?"
     else:
-        q = cf.SelectMcDrag('drag', None, None, items, (), 1, randint(2,4), randint(4,5))
+        q = cf.SelectMcDrag('drag', None, None, items, (), 1, randint(1,3), randint(4,5))
         q.questionBase = "Match the descriptions with their commands."
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     q.workon, q.weblink = 'ipconfig commands', 'https://stickystatic.com/tech/ipconfig-commands'
@@ -231,9 +248,9 @@ def ae_fe_ip_in_use_mc():
 
 def ae_ff_network_printer_mc():	
 	correct =('Confirm that the laptop wireless card is turned on.',)
-	incorrect = ('Confirm that the laptop is in range for the access point.','Confirm that the correct wireless network is selected.','Confirm the user™s network login ID and password.',)
+	incorrect = ('Confirm that the laptop is in range for the access point.','Confirm that the correct wireless network is selected.','Confirm the user\'s network login ID and password.',)
 	q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
-	q.questionBase = f"A {q.item(vl.users)} reports that a laptop is not connecting to the corporate wireless network. A {q.item(vl.technitians)} technician confirms with a smartphone that the corporate wireless network is available and can be accessed. The technician observes that the Ethernet connection to the corporate network is working. The technician disconnects the Ethernet cable.Which of the following should the technician do NEXT to troubleshoot this problem?"
+	q.questionBase = f"A {q.item(vl.users)} reports that a laptop is not connecting to the corporate wireless network. A {q.item(vl.technitians)} technician confirms with a smartphone that the corporate wireless network is available and can be accessed. The technician observes that the Ethernet connection to the corporate network is working. The technician disconnects the Ethernet cable. Which of the following should the technician do NEXT to troubleshoot this problem?"
 	q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
 	return q.returnAll()
 
@@ -258,5 +275,13 @@ def ae_fc_wired_computers_mc():
     incorrect = ('Check the closest AP for the area.','Check each wireless adapter switch.','Check the group™s network switch.',)
     q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
     q.questionBase = f"Several computers are having network connectivity issues. Two of the computers are wired and are not having any issues.The technician verifies that none of the computers having issues have been assigned a static IP.Which of the following should the technician check NEXT?"
+    q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
+    return q.returnAll()
+
+def ae_fd_wired_computers_mc():	
+    correct =('Virtual CPU',)
+    incorrect = ('Virtual security','Virtual storage','Virtual switch', 'Virtual RAM',)
+    q = cf.SelectMcDrag(None, correct, incorrect, None, (), 1, 1, 4)
+    q.questionBase = f"A {q.item(vl.technitians)} technitian is setting up a VM for use in testing software deployments. The VM is offline, but the hypervisor is not. Which of the following settings should they change to resolve the issue?"
     q.previousQ, q.nextQ = cf.previousNext(list_callable_functions(),"ae", 0, 2, cf.currentFuncName(), module_path())
     return q.returnAll()
