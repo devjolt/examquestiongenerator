@@ -58,7 +58,8 @@
                         <br>
                         <hr class = 'response-line'>
                         <br>
-                        <hr class = 'response-line'>                     
+                        <hr class = 'response-line'>
+                        <br>                    
                         {% endif %}
                         
                     </div>
@@ -74,23 +75,21 @@
                     <div><!--question section column 3-->
                         <h5>{{item.sub_question}}</h5>
 
-                    
-                    
-                        <br>
-                        <hr class = 'response-line'>
-                        <br>
-                        <hr class = 'response-line'>
-                        <br>
-                        <hr class = 'response-line'>
-                        <br>
-                        <hr class = 'response-line'>
-                        
-
                         {% if item.sub_mark != 1 %}
                         <h5 class = "section-marks-base"><b>[{{item.sub_mark}} marks]</b></h5>
                         {% else %}
                         <h5 class = "section-marks-base"><b>[{{item.sub_mark}} mark]</b></h5>
                         {% endif %}
+                    
+                        <br>
+                        <hr class = 'response-line'>
+                        <br>
+                        <hr class = 'response-line'>
+                        <br>
+                        <hr class = 'response-line'>
+                        <br>
+                        <hr class = 'response-line'>
+                        <br>
                     </div>
 
                     {% endfor %}
@@ -136,13 +135,19 @@
                         {% endfor %}
                         {% if diagram != None %}
                         <div>
-                            <p class="centered"><img  width="60%" height="auto" src= "{% static diagram %}" alt="things"></p>
+                            <p class="centered"><img  width="60%" height="auto" src= "{% static diagram %}" alt="a helpful diagram"></p>
+                        </div>
+                        {% endif %}
+
+                        {% if chart != None %}
+                        <div>
+                            <p class="centered"><img src="data:image/png;base64,{{chart}}" alt = 'a helpful chart' height = 'auto', width = '60%'></p>
                         </div>
                         {% endif %}
 
                         {% if piclink != None %}
                         <div>
-                            <p class="centered"><img  width="30%" height="auto" src= "{{piclink}}" alt="things"></p>
+                            <p class="centered"><img  width="30%" height="auto" src= "{{piclink}}" alt="a helpful picture"></p>
                         </div>
                         {% endif %}
 
@@ -156,16 +161,11 @@
                         <hr class = 'response-line'>
                         <br>
                         <hr class = 'response-line'>
+                        <br>
                         {% endif %}
 
 
-                        {% if marksBase == None %}
-                        <h5 class = "section-marks-base"><b>[1 mark]</b></h5>
-                        {% elif marksBase == 1 %}
-                        <h5 class = "section-marks-base"><b>[{{marksBase}} mark]</b></h5>
-                        {% else %}
-                        <h5 class = "section-marks-base"><b>[{{marksBase}} marks]</b></h5>
-                        {% endif %}
+                        
                     </div>
     
 
@@ -179,24 +179,37 @@
                     <div><!--question section column 3-->
                         <h5>{{item.sub_question}}</h5>
 
-                        <br>
-                        <hr class = 'response-line'>
-                        <br>
-                        <hr class = 'response-line'>
-                        <br>
-                        <hr class = 'response-line'>
-                        <br>
-                        <hr class = 'response-line'>
-
                         {% if item.sub_mark != 1 %}
                         <h5 class = "section-marks-base"><b>[{{item.sub_mark}} marks]</b></h5>
                         {% else %}
                         <h5 class = "section-marks-base"><b>[{{item.sub_mark}} mark]</b></h5>
                         {% endif %}
+
+                        <br>
+                        <hr class = 'response-line'>
+                        <br>
+                        <hr class = 'response-line'>
+                        <br>
+                        <hr class = 'response-line'>
+                        <br>
+                        <hr class = 'response-line'>
+                        <br>
                     </div>
 
                     {% endfor %}
                     {% endif %}
+
+                    <div></div>
+                    <div></div>
+
+                    {% if marksBase == None %}
+                    <h5 class = "section-marks-base"><b>[1 mark]</b></h5>
+                    {% elif marksBase == 1 %}
+                    <h5 class = "section-marks-base"><b>[{{marksBase}} mark]</b></h5>
+                    {% else %}
+                    <h5 class = "section-marks-base"><b>[{{marksBase}} marks]</b></h5>
+                    {% endif %}
+
                 </div>
                 {% endif %}
                 

@@ -205,7 +205,7 @@ def fbad_charging_an_insulated_metal_conductorpxax3():
        {'sub_number': 2, 'sub_question': 'The conductor is then briefly earthed. The charged object is then removed from the vicinity of the conductor. Explain why the conductor is left with an overall positive charge. ', 'sub_answer': f'When the conductor is earthed, electrons are able to flow out of the conductor to earth, resulting in less electrons in the conductor and an overall positive charge.', 'sub_mark': 2 }, 
     ]
     return q.returnAll()
-
+'''
 def fbba_electric_field_strength():
     q = ucf.Question(ucf.currentFuncName())
     q.previousQ, q.nextQ = ucf.previousNext(list_callable_functions(),ucf.currentFuncName()[:2], 0, 2, ucf.currentFuncName(), module_path())
@@ -218,6 +218,6 @@ def fbba_electric_field_strength():
        {'sub_number': 2, 'sub_question': 'b 	 0 1 is moved to a different position in the electric field. The force on O at this position is 1.6 x 10-3 N. Calculate the magnitude of the 1 electric field strength at this position. ', 'sub_answer': f'When the conductor is earthed, electrons are able to flow out of the conductor to earth, resulting in less electrons in the conductor and an overall positive charge.', 'sub_mark': 2 }, 
     ]
     return q.returnAll()
-
+'''
 
 #358

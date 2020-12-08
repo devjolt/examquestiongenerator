@@ -21,11 +21,11 @@ def modulesList():#this list is used by urls to automatically generate paths bas
     return ucf.moduleListGen(list_callable_functions(), 'g', 0, 1)
 
 
-def fields_home(request):
+def nuclear_physics_home(request):
     gx = []
     for url in ucf.moduleListGen(list_callable_functions(), 'gx', 0, 2):
         name = url.replace("_", " ")[2:-5]
-        .append({'url':url, 'name':name})
+        gx.append({'url':url, 'name':name})
     context = {
         'gx':gx
         }   

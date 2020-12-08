@@ -70,7 +70,7 @@ urlpatterns = [
     path('fields/', f_fields_views.fields_home, name = "f_fields"),
     path('fields/', include(f_fields_patterns)),
 
-    path('nuclear_physics/', g_nuclear_physics.fields_home, name = "g_nuclear_physics"),
+    path('nuclear_physics/', g_nuclear_physics_views.nuclear_physics_home, name = "g_nuclear_physics"),
     path('nuclear_physics/', include(g_nuclear_physics)),
 
 

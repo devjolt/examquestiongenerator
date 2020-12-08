@@ -4,14 +4,14 @@ from physics.a_particles_and_radiation import aa_matter_and_radiation_logic
 from physics.d_electricity import daa_currentAndCharge, dab_pd_and_power, dac_resistance, dad_components_and_their_characteristics, dba_circuit_rules, dbb_more_about_resistance, dbc_emf_and_internal_resistance
 from physics.e1_further_mechanics import e1a_motion_in_a_circle_logic, e1b_simple_harmonic_motion_logic
 from physics.f_fields import fb_electric_fields_logic
-from physics.g_nuclear_physics import *
+from physics.g_nuclear_physics import gx_nuclear_physics_logic
 
 currentFuncName = lambda n=0: sys._getframe(n + 1).f_code.co_name # allows previousNext functionality to work by getting current function's name
 
 class Question():
     #variables for utility in template
     previousQ, nextQ = None, None
-    diagram, piclink = None, None
+    diagram,chart, piclink = None, None, None
     hint, workon, weblink, video = None, None, None, None
     qtype, correctRequired, answerReveal = None, None, None
     constantList = None # containing {name, value, units}
@@ -56,7 +56,7 @@ class Question():
         return{
         'currentQ': None, 'previousQ': self.previousQ, 'nextQ': self.nextQ, #previous and next question links
         'hint': self.hint, 'workon': self.workon, 'weblink': self.weblink, 'video': self.video, #string containing instruction, string describing skill demonstrated in question, link to useful resource, link to youtube video
-        'diagram': self.diagram, 'piclink': self.piclink, #link to static file, url if image from web
+        'diagram': self.diagram, 'chart':self.chart, 'piclink': self.piclink, #link to static file, url if image from web
         'qtype': self.qtype, 'correctRequired': self.correctRequired, 'answerReveal': self.answerReveal,
         'constantList':self.constantList,
         'constant':self.constant,
