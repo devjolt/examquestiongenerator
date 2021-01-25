@@ -2,7 +2,10 @@
 
 {% block content %}
 
-<main role="main">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
+
+<main role="main" style='display:none'>
 
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
     <p><strong>Cookie alert!</strong> This site uses cookies so that you can track how many questions you've done, how many you've got right and which questions you've got wrong so you can go and work on them.</p>
@@ -31,23 +34,21 @@
     </div>
   </section>
 
-  <section class="jumbotron navbar-dark text-center bg-light">
-    <div class="container">
-      <h1 class="text-primary">What do you want to work on?</h1>
 
-      <div class="card mb-3" style="max-width: 100%;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <a href="comptia_a_plus/" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">
-              <h1 class="display-4">Comptia A+ exams</h1>
-            </a>
-          </div>
-          <div class="col-md-8">
+
+  <div>
+    <div class = 'menu-grid' >
+
+      <div class = 'menu-item' id='one' style='display:none'>
+        <div class="card" style="width: 18rem;">
+          <a href="comptia_a_plus/" class="btn btn-warning btn-lg btn-block" role="button" aria-pressed="true">
+            <h1 class="display-4">Comptia A+ exams</h1>
+          </a>
+          <div class="card-body">
             <div class="card-body text-left">
-              <p class="lead"><b>Interactive</b> questions for Comptia A+ exam candidates, including multiple choice, drag and drop, select and submit and filt in the blank</p>
-
-              <details>
-                <summary>Click for full list of features</summary>
+              <p class="lead"><b>Interactive</b> questions for Comptia A+ exam candidates, including multiple choice, drag and drop, select and submit and fill in the blank</p>
+              <details id = 'det-one'>
+                <summary id = 'sum-one'>Click for full list of features</summary>
                 <ul>
                   <li>Instant feedback</li>
                   <li>Automatic score tracking</li>
@@ -59,20 +60,17 @@
           </div>
         </div>
       </div>
-      
-      <div class="card mb-3" style="max-width: 100%;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <a href="physics/" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">
-              <h1 class="display-4">A-Level Physics</h1>
-            </a>
-          </div>
-          <div class="col-md-8">
+
+      <div class = 'menu-item' id='two' style='display:none'>
+        <div class="card" style="width: 18rem;">
+          <a href="physics/" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">
+            <h1 class="display-4">A-Level Physics</h1>
+          </a>
+          <div class="card-body">
             <div class="card-body text-left">
               <p class="lead"><b>Printable</b>, <b>whiteboardable</b> questions for teachers and interactive, <b>self grading</b> questions for students</p>
-
               <details>
-                <summary>Click for full features</summary>
+                <summary>Click for full list of features</summary>
                 <ul>
                   <li>Generate printable exam questions and markschemes</li>
                   <li>Printable resources similarly formatted to exams</li>
@@ -83,59 +81,43 @@
                   <li>Instant feedback for students</li>
                   <li>Interactive input, multiple choice, select and submit question types</li>
                   <li>Automatic section grading</li>
-              </ul>
+                </ul>
               </details>
+              
+              
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="card mb-3" style="max-width: 100%;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <a href="gcsemaths/" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">
-              <h1 class="display-4">GCSE Mathematics</h1>
-            </a>
-          </div>
-          <div class="col-md-8">
+      </div>
+      <div class = 'menu-item' id='three' style='display:none'>
+        <div class="card" style="width: 18rem;">
+          <a href="gcsemaths/" class="btn btn-success btn-lg btn-block" role="button" aria-pressed="true">
+            <h1 class="display-4">GCSE Maths</h1>
+          </a>
+          <div class="card-body">
+            
             <div class="card-body text-left">
               <p class="lead">Interactive, <b>self grading</b> questions for students</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="card mb-3" style="max-width: 100%;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <a href="sql/" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">
-              <h1 class="display-4">SQL Basics</h1>
-            </a>
-          </div>
-          <div class="col-md-8">
-            <div class="card-body text-left">
-              <p class="lead">Interactive, <b>self grading</b> questions for students</p>
-          </div>
-        </div>
       </div>
-
-      <div class="card mb-3" style="max-width: 100%;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <a href="pcep/" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">
-              <h1 class="display-4">PCEP</h1>
-            </a>
-          </div>
-          <div class="col-md-8">
-            <div class="card-body text-left">
-              <p class="lead">Interactive, <b>self grading</b> questions for students</p>
-          </div>
-        </div>
-      </div>
-
     </div>
+  </div>
 
-  </section>
+  
 
 </main>
+
+<script>
+  //$("div.menu-grid").fadeIn('slow');
+  $("#main").fadeIn(200);
+  $("#one").fadeIn(500);
+  $("#two").fadeIn(1000);
+  $("#three").fadeIn(1500);
+
+</script>
 
 {% endblock %}
